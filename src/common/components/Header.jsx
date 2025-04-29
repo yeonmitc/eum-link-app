@@ -7,6 +7,7 @@ export default function Header() {
       <Link to="/" className="text-xl font-bold text-indigo-600">
         🐾 EUM Link
       </Link>
+
       <nav className="flex gap-4 text-sm font-medium">
         <NavLink
           to="/missing"
@@ -16,6 +17,7 @@ export default function Header() {
         >
           실종
         </NavLink>
+
         <NavLink
           to="/reports"
           className={({ isActive }) =>

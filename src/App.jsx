@@ -9,16 +9,16 @@ import LoginPage from './features/auth/LoginPage';
 import RegisterPage from './features/auth/RegisterPage';
 import NotFoundPage from './features/common/NotFoundPage';
 import HomePage from './features/home/HomePage';
-import ProfilePage from './features/profile/ProfilePage';
 
 import MissingDetailPage from './features/missing/MissingDetailPage';
 import MissingListPage from './features/missing/MissingListPage';
 import RegisterMissingPage from './features/missing/RegisterMissingPage';
 
+import MapPage from './features/map/MapPage';
+import MyPage from './features/Mypage/MyPage';
 import ReportFormPage from './features/reports/ReportFormPage';
 import ReportListPage from './features/reports/ReportListPage';
 
-import MapPage from './features/map/MapPage';
 export default function App() {
   return (
     <Routes>
@@ -36,7 +36,7 @@ export default function App() {
           <Route index element={<ReportListPage />} />
           <Route path="new" element={<ReportFormPage />} />
         </Route>
-        <Route path="profile" element={<ProfilePage />} />
+        <Route path="myPage" element={<MyPage />} />
         <Route path="map" element={<MapPage />} />
       </Route>
 
