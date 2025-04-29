@@ -35,7 +35,7 @@ export default function Header() {
           지도
         </NavLink>
         <NavLink
-          to="/profile"
+          to="/myPage"
           className={({ isActive }) =>
             isActive ? 'text-indigo-600 underline' : 'text-gray-600 hover:text-indigo-500'
           }
