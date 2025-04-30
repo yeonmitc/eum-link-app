@@ -7,10 +7,12 @@
     { "id": 5, "name": "시바 이누", "refKind": 1 },
     { "id": 6, "name": "리트리버", "refKind": 1 },
     { "id": 7, "name": "푸들", "refKind": 1 },
-    { "id": 8, "name": "스코티시 폴드", "refKind": 2 },
-    { "id": 9, "name": "러시안 블루", "refKind": 2 },
-    { "id": 10, "name": "페르시안", "refKind": 2 },
-    { "id": 11, "name": "푸들", "refKind": 2 },
-    { "id": 12, "name": "먼치킨", "refKind": 2 }
+    { "id": 8, "name": "기타", "refKind": 1 },
+    { "id": 9, "name": "스코티시 폴드", "refKind": 2 },
+    { "id": 10, "name": "러시안 블루", "refKind": 2 },
+    { "id": 11, "name": "페르시안", "refKind": 2 },
+    { "id": 12, "name": "푸들", "refKind": 2 },
+    { "id": 13, "name": "먼치킨", "refKind": 2 },
+    { "id": 14, "name": "기타", "refKind": 2 }
   ]
 }
