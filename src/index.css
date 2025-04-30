@@ -12,6 +12,44 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } */
+ /* KBO */
+@font-face {
+  font-family: 'KBO_light'; 
+  src: url('./assets/font/KBO\ Dia\ Gothic_light.ttf') format('truetype');
+  font-weight: lighter; /* 폰트 두께 */
+}
+@font-face {
+  font-family: 'KBO_medium';
+  src: url('./assets/font/KBO\ Dia\ Gothic_medium.ttf') format('truetype');
+  font-weight: normal; /* 폰트 두께 */
+}
+@font-face {
+  font-family: 'KBO_bold';
+  src: url('./assets/font/KBO\ Dia\ Gothic_bold.ttf') format('truetype'); 
+  font-weight: bold; /* 폰트 두께 */
+}
+/* 잘난체 */
+@font-face {
+  font-family: 'Jalnan2TTF';
+  src: url('./assets/font/Jalnan2TTF.ttf') format('truetype'); 
+  font-weight: bold; /* 폰트 두께 */
+}
+ /* 지마켓산스 */
+ @font-face {
+  font-family: 'Gmarket_light'; 
+  src: url('./assets/font/GmarketSansTTFLight.ttf') format('truetype');
+  font-weight: lighter; /* 폰트 두께 */
+}
+@font-face {
+  font-family: 'Gmarket_medium';
+  src: url('./assets/font/GmarketSansTTFMedium.ttf') format('truetype');
+  font-weight: normal; /* 폰트 두께 */
+}
+@font-face {
+  font-family: 'Gmarket_bold';
+  src: url('./assets/font/GmarketSansTTFBold.ttf') format('truetype'); 
+  font-weight: bold; /* 폰트 두께 */
+}
 
 #root {
   width: 100%;
