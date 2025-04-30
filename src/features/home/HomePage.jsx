@@ -1,7 +1,7 @@
 import './HomePage.style.css';
 
 const HomePage = () => {
-  return <div className="container">HomePage</div>;
+  return <div className="bg-bg w-full max-w-5xl px-4">HomePage</div>;
 };
 
 export default HomePage;

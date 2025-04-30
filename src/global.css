@@ -1,30 +1,9 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-
-/* Custom dark variant */
-@custom-variant dark (&:is(.dark *));
-
-/* Tailwind custom properties and system tokens */
-@theme inline {
-  --color-bg: var(--bg);
-  --color-fg: var(--fg);
-  --color-primary: var(--primary);
-  --color-primary-fg: var(--primary-fg);
-  --color-secondary: var(--secondary);
-  --color-secondary-fg: var(--secondary-fg);
-  --color-point: var(--point);
-  --color-point-fg: var(--point-fg);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-}
-
+@tailwind utilities;
 :root {
   --radius: 0.625rem;
 
-  --bg: #f5eedd; /* 기본 바탕 색상 */
-  --fg: #222; /* 기본 본문 색상 */
+  --bg: #f5eedd;
+  --fg: #222;
 
   --primary: #436850;
   --primary-fg: #ffffff;
@@ -59,11 +38,16 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-
-  body {
-    @apply bg-bg text-fg;
+  * {
+    box-sizing: border-box;
   }
 }
