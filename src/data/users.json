@@ -1,0 +1,74 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "kim.minho@gmail.com",
+      "password": "password123",
+      "username": "민호맘",
+      "createdAt": "2023-12-01T09:00:00Z"
+    },
+    {
+      "id": 2,
+      "email": "park.jiyeon@naver.com",
+      "password": "secure456",
+      "username": "지연이네집사",
+      "createdAt": "2023-12-15T14:30:00Z"
+    },
+    {
+      "id": 3,
+      "email": "lee.sunwoo@gmail.com",
+      "password": "petlover789",
+      "username": "선우아빠",
+      "createdAt": "2024-01-02T11:20:00Z"
+    },
+    {
+      "id": 4,
+      "email": "choi.yuna@kakao.com",
+      "password": "dogcat123",
+      "username": "유나네동물농장",
+      "createdAt": "2024-01-10T16:45:00Z"
+    },
+    {
+      "id": 5,
+      "email": "jung.hyemin@gmail.com",
+      "password": "lovepets22",
+      "username": "혜민이엄마",
+      "createdAt": "2024-01-20T08:15:00Z"
+    },
+    {
+      "id": 6,
+      "email": "kang.dohyun@naver.com",
+      "password": "findmypet34",
+      "username": "도현이네",
+      "createdAt": "2024-02-01T13:10:00Z"
+    },
+    {
+      "id": 7,
+      "email": "song.minji@gmail.com",
+      "password": "catdog567",
+      "username": "민지네멍냥이",
+      "createdAt": "2024-02-15T10:25:00Z"
+    },
+    {
+      "id": 8,
+      "email": "han.seojun@kakao.com",
+      "password": "petfriend89",
+      "username": "서준이아빠",
+      "createdAt": "2024-02-28T15:40:00Z"
+    },
+    {
+      "id": 9,
+      "email": "yoon.ara@naver.com",
+      "password": "loveanimals11",
+      "username": "아라네집사",
+      "createdAt": "2024-03-05T09:50:00Z"
+    },
+    {
+      "id": 10,
+      "email": "shin.woojin@gmail.com",
+      "password": "petparent99",
+      "username": "우진이네강아지",
+      "createdAt": "2024-03-10T12:30:00Z"
+    }
+  ]
+}
