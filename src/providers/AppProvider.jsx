@@ -10,7 +10,7 @@ export default function AppProvider({ children }) {
       <BrowserRouter>
         {children}
         <Toaster position="top-center" />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
       </BrowserRouter>
     </QueryClientProvider>
   );

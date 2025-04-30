@@ -11,7 +11,7 @@ const FixedBtn = () => {
 
   return (
     <div
-      className="absolute right-[1rem] bottom-[4rem] z-10 flex aspect-square w-fit cursor-pointer justify-center rounded-full bg-(--point) p-3 align-middle"
+      className="absolute right-[1rem] bottom-[2rem] z-10 flex aspect-square w-fit cursor-pointer justify-center rounded-full bg-(--point) p-3 align-middle"
       onClick={() => setShowModal((prev) => !prev)}
     >
       <Plus className="text-white" />
