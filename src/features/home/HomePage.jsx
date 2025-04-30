@@ -1,5 +1,7 @@
+import './HomePage.style.css';
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return <div className="container">HomePage</div>;
 };
 
 export default HomePage;

@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 /* Custom dark variant */
 @custom-variant dark (&:is(.dark *));
@@ -23,16 +23,16 @@
 :root {
   --radius: 0.625rem;
 
-  --bg: #F5EEDD;   /* 기본 바탕 색상 */
+  --bg: #f5eedd; /* 기본 바탕 색상 */
   --fg: #222; /* 기본 본문 색상 */
 
   --primary: #436850;
   --primary-fg: #ffffff;
 
-  --secondary: #5D9471;
+  --secondary: #5d9471;
   --secondary-fg: #ffffff;
 
-  --point: #FD9B71;
+  --point: #fd9b71;
   --point-fg: #ffffff;
 
   --border: #ddd;
@@ -44,18 +44,18 @@
   --bg: #1e1e1e;
   --fg: #f5f5f5;
 
-  --primary: #5D9471;
-  --primary-fg: #F5EEDD;
+  --primary: #5d9471;
+  --primary-fg: #f5eedd;
 
   --secondary: #436850;
-  --secondary-fg: #F5EEDD;
+  --secondary-fg: #f5eedd;
 
-  --point: #FD9B71;
+  --point: #fd9b71;
   --point-fg: #1e1e1e;
 
   --border: #333;
   --input: #2b2b2b;
-  --ring: #5D947133;
+  --ring: #5d947133;
 }
 
 @layer base {
