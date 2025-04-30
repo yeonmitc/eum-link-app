@@ -1,6 +1,7 @@
 import React, { Suspense, useState, useRef, useEffect } from 'react';
 import { useSpecies } from '@/hooks/useSpecies';
 import './RegisterMissingPage.css';
+import Modaltest from '@/common/components/modaltest';
 
 const RegisterMissingPage = () => {
   const [refKind, setRefKind] = useState('');
@@ -34,38 +35,42 @@ const RegisterMissingPage = () => {
   }, [setSubKind]);
 
   return (
-    <div className="h-90 border border-red-500 p-3">
+    <div className="flex w-[50%] flex-[0.8] flex-col gap-y-3 border border-red-500 p-3">
       <div>
         <label htmlFor="petName">반려동물 이름 : </label>
-        <input type="text" id="petName" name="petName" />
+        <input type="text" id="petName" name="petName" className="border-b-1" />
       </div>
 
-      <div>
+      <div className="flex gap-x-5">
         {/* 대분류 */}
-        <label htmlFor="petSpecies">종류 : </label>
-        <select
-          name="petSpecies"
-          id="petSpecies"
-          value={refKind}
-          onChange={(e) => setRefKind(e.target.value)}
-        >
-          <option value="">선택</option>
-          {petSpecies.current?.map((item) => (
-            <option value={item.id} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
+        <div>
+          <label htmlFor="petSpecies">종류 : </label>
+          <select
+            name="petSpecies"
+            id="petSpecies"
+            value={refKind}
+            onChange={(e) => setRefKind(e.target.value)}
+            className="border border-1"
+          >
+            <option value="">선택</option>
+            {petSpecies.current?.map((item) => (
+              <option value={item.id} key={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {/* 상세 품종 */}
         {subKindList && refKind != 3 && (
-          <>
+          <div>
             <label htmlFor="subSpecies">품종 : </label>
             <select
               name="subSpecies"
               id="subSpecies"
               value={subKind}
               onChange={(e) => setSubKind(e.target.value)}
+              className="border border-1"
             >
               {subKindList?.map((item) => (
                 <option value={item.id} key={item.id}>
@@ -73,24 +78,28 @@ const RegisterMissingPage = () => {
                 </option>
               ))}
             </select>
-          </>
+          </div>
         )}
       </div>
 
-      <div>
-        {/* 대분류 */}
-        <label htmlFor="petAge">나이 : </label>
-        <input type="number" step="0.1" name="petAge" id="petAge" />
+      <div className="flex gap-x-5">
+        <div className="w-[30%]">
+          <label htmlFor="petAge">나이 : </label>
+          <input type="number" step="0.1" name="petAge" id="petAge" className="w-[60%] border-b" />
+        </div>
 
-        {/* 상세 품종 */}
-        <label htmlFor="subSpecies">성별 : </label>
+        <div>
+          <label htmlFor="subSpecies">성별 : </label>
 
-        <input type="radio" value="m" name="petGender" id="petMale" />
-        <label htmlFor="petMale">남</label>
+          <input type="radio" value="m" name="petGender" id="petMale" />
+          <label htmlFor="petMale">남</label>
 
-        <input type="radio" value="f" name="petGender" id="petFemale" />
-        <label htmlFor="petFemale">여</label>
+          <input type="radio" value="f" name="petGender" id="petFemale" />
+          <label htmlFor="petFemale">여</label>
+        </div>
       </div>
+
+      <Modaltest show={true} />
     </div>
   );
 };
