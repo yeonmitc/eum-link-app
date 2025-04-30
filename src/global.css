@@ -1,0 +1,69 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Custom dark variant */
+@custom-variant dark (&:is(.dark *));
+
+/* Tailwind custom properties and system tokens */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-secondary: var(--secondary);
+  --color-secondary-fg: var(--secondary-fg);
+  --color-point: var(--point);
+  --color-point-fg: var(--point-fg);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  --bg: #F5EEDD;   /* 기본 바탕 색상 */
+  --fg: #222; /* 기본 본문 색상 */
+
+  --primary: #436850;
+  --primary-fg: #ffffff;
+
+  --secondary: #5D9471;
+  --secondary-fg: #ffffff;
+
+  --point: #FD9B71;
+  --point-fg: #ffffff;
+
+  --border: #ddd;
+  --input: #f0f0f0;
+  --ring: #43685033;
+}
+
+.dark {
+  --bg: #1e1e1e;
+  --fg: #f5f5f5;
+
+  --primary: #5D9471;
+  --primary-fg: #F5EEDD;
+
+  --secondary: #436850;
+  --secondary-fg: #F5EEDD;
+
+  --point: #FD9B71;
+  --point-fg: #1e1e1e;
+
+  --border: #333;
+  --input: #2b2b2b;
+  --ring: #5D947133;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-bg text-fg;
+  }
+}
