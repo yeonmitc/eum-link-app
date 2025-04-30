@@ -15,7 +15,7 @@ import MissingListPage from './features/missing/MissingListPage';
 import RegisterMissingPage from './features/missing/RegisterMissingPage';
 
 import MapPage from './features/map/MapPage';
-import MyPage from './features/Mypage/MyPage';
+import MyPage from './features/myPage/MyPage';
 import ReportFormPage from './features/reports/ReportFormPage';
 import ReportListPage from './features/reports/ReportListPage';
 

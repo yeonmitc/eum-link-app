@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+@layer components {
+  .container {
+    @apply h-screen w-screen;
+
+    background-color: var(--color-bg);
+  }
+}

@@ -1,0 +1,53 @@
+@tailwind utilities;
+:root {
+  --radius: 0.625rem;
+
+  --bg: #f5eedd;
+  --fg: #222;
+
+  --primary: #436850;
+  --primary-fg: #ffffff;
+
+  --secondary: #5d9471;
+  --secondary-fg: #ffffff;
+
+  --point: #fd9b71;
+  --point-fg: #ffffff;
+
+  --border: #ddd;
+  --input: #f0f0f0;
+  --ring: #43685033;
+}
+
+.dark {
+  --bg: #1e1e1e;
+  --fg: #f5f5f5;
+
+  --primary: #5d9471;
+  --primary-fg: #f5eedd;
+
+  --secondary: #436850;
+  --secondary-fg: #f5eedd;
+
+  --point: #fd9b71;
+  --point-fg: #1e1e1e;
+
+  --border: #333;
+  --input: #2b2b2b;
+  --ring: #5d947133;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  * {
+    box-sizing: border-box;
+  }
+}
