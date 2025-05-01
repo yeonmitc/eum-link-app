@@ -1,8 +1,9 @@
 import React from 'react'
 import './ReportDetailPage.css'
 import { Grid ,Box, Card ,InputBase} from '@mui/material';
-import { EllipsisVertical } from 'lucide-react';
+import { EllipsisVertical ,MapPin } from 'lucide-react';
 import PostComment from '@/common/components/PostComment';
+import PostMap from '@/common/components/PostMap';
 
 
 const ReportDetailPage = () => {
@@ -33,7 +34,13 @@ const ReportDetailPage = () => {
               </Grid>
               {/* 지도 */}
               <Grid size={4}>
-              <Box sx={{ width: '27vw' ,height: '30vh', background:' #fff',borderRadius:'20px'}}></Box>
+                  <Box sx={{ width: '27vw' ,height: '30vh', background:' #fff',borderRadius:'20px'}}>
+                    <PostMap/>
+                    <Box  display={'flex'} alignItems={'center'} mt={1} marginLeft={'10px'}>
+                      <MapPin strokeWidth={2.75} color='#436850'  />
+                      <h3  style={{ marginLeft: '8px' }} >실종 당시 위치 {}</h3>
+                      </Box>
+                  </Box>
               </Grid>
           </Grid>
           {/* 댓글 */}
@@ -44,7 +51,7 @@ const ReportDetailPage = () => {
         </Box>
       </Grid>
       {/* 하단 버튼 */}
-      <Grid size={12}sx={{ marginTop:'2vh', display:'flex' ,color:"#fff"}}>
+      <Grid size={12}sx={{ marginTop:'1vh', display:'flex' ,color:"#fff"}}>
         <Box sx={{width:'92vw',height: '6vh',background:' #436850',textAlign:'center' , lineHeight:'6vh',borderRadius:'20px'}}>
           
         </Box>

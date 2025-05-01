@@ -1,12 +1,13 @@
 import React from 'react'
 import './MissingDetailPage.css'
 import { Grid ,Box, Card ,InputBase} from '@mui/material';
-import { EllipsisVertical } from 'lucide-react';
+import { EllipsisVertical ,MapPin } from 'lucide-react';
 import PostComment from '@/common/components/PostComment';
+import PostMap from '@/common/components/PostMap';
 
 const MissingDetailPage = () => {
   return (
-    <Grid  container spacing={0} sx={{padding:'0vh 5vw', fontFamily:'Gmarket_light'}}>
+    <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
       <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'Jalnan2TTF'}}>
         <Box id='postnav' sx={{background:' #436850'}} >실종 신고</Box>
         <Box id='postnav' sx={{background:' #5D9471'}}>이름 | 상세종</Box>
@@ -33,7 +34,13 @@ const MissingDetailPage = () => {
               </Grid>
               {/* 지도 */}
               <Grid size={4}>
-              <Box sx={{ width: '27vw' ,height: '30vh', background:' #fff',borderRadius:'20px'}}></Box>
+                  <Box sx={{ width: '27vw' ,height: '30vh', background:' #fff',borderRadius:'20px'}}>
+                    <PostMap/>
+                    <Box  display={'flex'} alignItems={'center'} mt={1} marginLeft={'10px'}>
+                      <MapPin strokeWidth={2.75} color='#436850'  />
+                      <h3  style={{ marginLeft: '8px' }} >실종 당시 위치 {}</h3>
+                      </Box>
+                  </Box>
               </Grid>
           </Grid>
           {/* 댓글 */}
@@ -44,7 +51,7 @@ const MissingDetailPage = () => {
         </Box>
       </Grid>
       {/* 하단 버튼 */}
-      <Grid size={12}sx={{ marginTop:'2vh', display:'flex' ,color:"#fff"}}>
+      <Grid size={12}sx={{ marginTop:'1vh', display:'flex' ,color:"#fff"}}>
         <Box sx={{width:'92vw',height: '6vh',background:' #436850',textAlign:'center' , lineHeight:'6vh',borderRadius:'20px'}}>
           
         </Box>
