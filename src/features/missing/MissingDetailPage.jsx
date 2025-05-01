@@ -19,12 +19,12 @@ const MissingDetailPage = () => {
           <Grid size={12}  sx={{width:'82vw',height: '34vh', display:'flex'}} >
               {/* 사진 */}
               <Grid size={4}>
-                <Card sx={{ maxWidth: '24vw' ,maxHeight: '18vw'}}>
+                <Card sx={{ maxWidth: '24vw' ,height: '30vh'}}>
                   <img src="https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*"/>
                 </Card>
               </Grid>
               {/* 정보상세 */}
-              <Grid size={4} container  spacing={1} sx={{ maxWidth: '30vw' ,maxHeight: '14vw', fontFamily: 'Gmarket_medium', color:'gray'}} >
+              <Grid size={4} container  spacing={1} sx={{ maxWidth: '30vw' ,maxHeight: '30vh', fontFamily: 'Gmarket_medium', color:'gray'}} >
                 <Grid container size={12} spacing={0} >이름</Grid>
                 <Grid container size={12} spacing={0} >종   믹스</Grid>
                 <Grid container size={12} spacing={0} >성별 아이콘</Grid>
@@ -33,7 +33,7 @@ const MissingDetailPage = () => {
               </Grid>
               {/* 지도 */}
               <Grid size={4}>
-              <Box sx={{ width: '27vw' ,height: '18vw', background:' #fff',borderRadius:'20px'}}></Box>
+              <Box sx={{ width: '27vw' ,height: '30vh', background:' #fff',borderRadius:'20px'}}></Box>
               </Grid>
           </Grid>
           {/* 댓글 */}
