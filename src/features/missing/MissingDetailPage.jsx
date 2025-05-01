@@ -1,20 +1,20 @@
 import React from 'react'
+import './MissingDetailPage.css'
 import { Grid ,Box, Card ,InputBase} from '@mui/material';
+import { EllipsisVertical } from 'lucide-react';
+import PostComment from '@/common/components/PostComment';
 
 const MissingDetailPage = () => {
   return (
     <Grid  container spacing={0} sx={{padding:'0vh 5vw', fontFamily:'Gmarket_light'}}>
       <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'Jalnan2TTF'}}>
-        <Box sx={{padding:'0vh 2vw',height: '7vh',background:' #436850',textAlign:'center' , lineHeight:'7vh',
-          borderRadius:'20px 20px 0 0'
-        }}>실종 신고</Box>
-        <Box sx={{padding:'0vh 2vw',height: '7vh',background:' #5D9471',textAlign:'center', lineHeight:'7vh',
-          borderRadius:'20px 20px 0 0'
-          }}>이름 | 상세종</Box>
+        <Box id='postnav' sx={{background:' #436850'}} >실종 신고</Box>
+        <Box id='postnav' sx={{background:' #5D9471'}}>이름 | 상세종</Box>
       </Grid>
 
       <Grid container size={12} >
-        <Box sx={{width:'92vw',height: '72vh',background:' #F5EEDD',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
+      <Box id='post' sx={{width:'92vw',height: '72vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
+      <EllipsisVertical id='postmenu'/>
           {/* 정보카드 */}
           <Grid size={12}  sx={{width:'82vw',height: '34vh', display:'flex'}} >
               {/* 사진 */}
@@ -38,16 +38,7 @@ const MissingDetailPage = () => {
           </Grid>
           {/* 댓글 */}
           <Grid size={12}  sx={{width:'82vw',height: '32vh', background:' #fff',borderRadius:'20px',}}>
-              <Grid size={12} height={'5vh'} lineHeight={'5vh'} display={'flex'} justifyContent={'flex-start'} padding={'1vh 2vw'} color={'gray'} >댓글()</Grid>
-              <Grid size={12}height={'20vh'}></Grid>
-              <Grid size={12} height={'5vh'} display={'flex'} padding={'0 10px'}>
-                <InputBase
-                  sx={{ flex: 1, background:'rgb(228, 228, 228)', paddingLeft: 2, borderRadius:'10px' , marginRight:'1vw'}}
-                  placeholder="댓글을 입력하세요."
-                  inputProps={{ 'aria-label': '' }}
-                />
-                <Box sx={{ width:'5vh',height:'5vh', background:'#FD9B71', borderRadius:'10px'}}></Box>
-              </Grid>
+            <PostComment/>
           </Grid>
 
         </Box>

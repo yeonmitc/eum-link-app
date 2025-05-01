@@ -18,6 +18,7 @@ import MapPage from './features/map/MapPage';
 import MyPage from './features/myPage/MyPage';
 import ReportFormPage from './features/reports/ReportFormPage';
 import ReportListPage from './features/reports/ReportListPage';
+import ReportDetailPage from './features/reports/ReportDetailPage';
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="reports">
           <Route index element={<ReportListPage />} />
           <Route path="new" element={<ReportFormPage />} />
+          <Route path=":id" element={<ReportDetailPage />} />
         </Route>
         <Route path="myPage" element={<MyPage />} />
         <Route path="map" element={<MapPage />} />
