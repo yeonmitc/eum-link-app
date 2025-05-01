@@ -1,6 +1,7 @@
 import { useSpecies } from '@/hooks/useSpecies';
 import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
+import { useAddMissing } from '@/hooks/useAddMissing';
 
 const MissingModal = ({ showModal, setShowModal }) => {
   const [refKind, setRefKind] = useState('');
@@ -10,6 +11,9 @@ const MissingModal = ({ showModal, setShowModal }) => {
   const [isNeuter, setIsNeuter] = useState(false);
   const { data: petSpeciesData, isLoading, isError, error } = useSpecies({ ref: refKind });
   const petSpecies = useRef(petSpeciesData);
+
+  // 실종 추가 hook
+  const { mutateAsync: addMissingPet } = useAddMissing();
 
   if (petSpecies) {
     if (refKind == '' && petSpecies.current == null) {
@@ -24,7 +28,7 @@ const MissingModal = ({ showModal, setShowModal }) => {
       const filteredData = petSpeciesData.filter((item) => item.refKind != null);
       console.log('filteredData : ', filteredData);
       setSubKindList(filteredData);
-      console.log('filteredData[0].id : ', filteredData[0].id);
+      console.log('filteredData[0].id : ', filteredData[0]?.id);
       setSubKind(filteredData.length > 0 ? filteredData[0].id : null);
     } else if (refKind === '') {
       setSubKindList(null);
@@ -40,6 +44,51 @@ const MissingModal = ({ showModal, setShowModal }) => {
     setShowModal(false);
   }
 
+  async function sendData(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    const sendData = {
+      userId: 3,
+      petName: formData.get('petName'),
+      refSpecies: Number(formData.get('petSpecies')),
+      subSpecies:
+        formData.get('subSpecies') != null
+          ? Number(formData.get('subSpecies'))
+          : formData.get('subSpecies'),
+      age: parseFloat(formData.get('petAge')),
+      isNeuter,
+      petGender,
+      description: formData.get('description'),
+      imageUrl: '',
+      lostDate: formData.get('lostDate'),
+      lostTime: formData.get('lostTime'),
+      lostLocation: {
+        road_address: '',
+        number_address: '',
+        lat: null,
+        lng: null,
+      },
+      createdAt: new Date().toISOString(),
+      isMissing: true,
+    };
+
+    try {
+      await addMissingPet({ data: sendData });
+      // 모달 닫기
+      setShowModal(false);
+      // 폼 초기화
+      e.target.reset();
+      setRefKind('');
+      setSubKind(null);
+      setPetGender('m');
+      setIsNeuter(false);
+    } catch (err) {
+      console.error('등록 중 에러 발생:', err);
+    }
+  }
+
   return (
     <div
       className={`fixed inset-0 z-50 grid place-content-center bg-black/30 p-4 ${
@@ -50,7 +99,7 @@ const MissingModal = ({ showModal, setShowModal }) => {
       aria-labelledby="modalTitle"
     >
       <div
-        className={`flex min-h-[80vh] w-150 max-w-xl flex-col gap-y-[10px] rounded-[15px] bg-white shadow-lg transition-all duration-400 ease-out ${
+        className={`flex min-h-[80vh] w-150 max-w-xl flex-col gap-y-[10px] rounded-[15px] bg-white shadow-lg transition-all duration-400 ease-out max-md:max-w-xs ${
           !showModal
             ? 'pointer-events-none -translate-y-10 opacity-0'
             : 'pointer-events-auto translate-y-0 opacity-100'
@@ -65,27 +114,30 @@ const MissingModal = ({ showModal, setShowModal }) => {
           <X className="absolute top-[20%] right-[10px]" onClick={closeModal} />
         </div>
 
-        <form className="flex flex-1 flex-col gap-y-[10px] px-4 pb-4">
-          <div className="flex w-full gap-x-[25px]">
-            <div className="aspect-square w-[45%] bg-gray-300">
+        <form
+          onSubmit={sendData}
+          className="flex w-full flex-1 flex-col gap-y-[10px] px-2 pb-2 text-xs md:px-4 md:pb-4 md:text-base"
+        >
+          <div className="flex w-full gap-x-2 md:gap-x-4">
+            <div className="aspect-square w-[40%] bg-gray-300">
               {/* <input type="file" className="w-full border" /> */}
             </div>
 
-            <div className="10px flex flex-col gap-y-[15px]">
-              <div className="flex flex-col gap-y-[5px]">
+            <div className="flex flex-1 flex-col justify-between gap-y-1 md:gap-y-6">
+              <div className="flex w-full flex-col md:gap-y-[5px]">
                 <label htmlFor="petName">반려동물 이름</label>
                 <input
                   type="text"
                   id="petName"
                   name="petName"
-                  className="rounded-[5px] border p-1 px-2"
+                  className="box-border w-full rounded-[5px] border px-2 py-1"
                   placeholder="이름"
                 />
               </div>
 
-              <div className="flex gap-x-5">
+              <div className="flex w-full justify-between">
                 {/* 대분류 */}
-                <div className="flex max-w-[calc(50%-10px)] flex-1/2 flex-col gap-y-[5px]">
+                <div className="flex w-[48.5%] flex-col md:gap-y-[5px]">
                   <label htmlFor="petSpecies">종류</label>
                   <select
                     name="petSpecies"
@@ -105,7 +157,7 @@ const MissingModal = ({ showModal, setShowModal }) => {
 
                 {/* 상세 품종 */}
                 {subKindList && refKind != 3 && (
-                  <div className="flex flex-1/2 flex-col gap-y-[5px]">
+                  <div className="flex w-[48.5%] flex-col md:gap-y-[5px]">
                     <label htmlFor="subSpecies">품종</label>
                     <select
                       name="subSpecies"
@@ -124,8 +176,8 @@ const MissingModal = ({ showModal, setShowModal }) => {
                 )}
               </div>
 
-              <div className="flex gap-x-5">
-                <div className="flex w-1/3 flex-col gap-y-[5px]">
+              <div className="flex w-full gap-x-2 md:gap-x-5">
+                <div className="flex w-1/3 flex-col md:gap-y-[5px]">
                   <label htmlFor="petAge">나이</label>
                   <div className="flex items-center rounded-[5px] border px-[5px]">
                     <input
@@ -141,11 +193,11 @@ const MissingModal = ({ showModal, setShowModal }) => {
                   </div>
                 </div>
 
-                <div className="flex w-1/3 flex-col gap-y-[5px]">
+                <div className="flex w-1/3 flex-col md:gap-y-[5px]">
                   <label htmlFor="subSpecies">성별</label>
 
                   <div className="flex h-full gap-y-[5px]">
-                    <div className="flex h-full flex-1 items-center gap-x-[5px]">
+                    <div className="gap-x-0.3 flex h-full flex-1 items-center md:gap-x-[5px]">
                       <input
                         type="radio"
                         checked={petGender === 'm'}
@@ -157,7 +209,7 @@ const MissingModal = ({ showModal, setShowModal }) => {
                       <label htmlFor="petMale">남</label>
                     </div>
 
-                    <div className="flex h-full items-center gap-x-[5px]">
+                    <div className="gap-x-0.3 flex h-full items-center md:gap-x-[5px]">
                       <input
                         type="radio"
                         checked={petGender === 'f'}
@@ -171,7 +223,7 @@ const MissingModal = ({ showModal, setShowModal }) => {
                   </div>
                 </div>
 
-                <div className="flex w-1/3 flex-col gap-y-[5px]">
+                <div className="flex w-1/3 flex-col md:gap-y-[5px]">
                   <label htmlFor="isNeuter" className="text-center">
                     중성화
                   </label>
@@ -182,7 +234,7 @@ const MissingModal = ({ showModal, setShowModal }) => {
                       onChange={() => setIsNeuter((prev) => !prev)}
                       name="isNeuter"
                       id="isNeuter"
-                      className="aspect-square w-[20px]"
+                      className="aspect-square w-4 md:w-6"
                     />
                   </div>
                 </div>
@@ -194,13 +246,14 @@ const MissingModal = ({ showModal, setShowModal }) => {
           <div className="flex gap-x-[10px]">
             <div className="flex w-1/2 flex-col gap-y-[5px]">
               <div>실종 날짜</div>
-              <input type="date" className="w-full rounded-[5px] border p-1 px-2" />
+              <input type="date" name="lostDate" className="w-full rounded-[5px] border p-1 px-2" />
             </div>
 
             <div className="flex w-1/2 flex-col gap-y-[5px]">
               <div>실종 시간</div>
               <input
                 type="time"
+                name="lostTime"
                 className="w-full items-center rounded-[5px] border px-2 py-1 align-middle"
               />
             </div>
@@ -210,7 +263,7 @@ const MissingModal = ({ showModal, setShowModal }) => {
           <div className="flex h-[30%] flex-col">
             <div className="flex items-end gap-x-[5px]">
               <div>실종 위치</div>
-              <div className="text-[0.85rem] text-[#797979]">서울 중구 을지로 1가</div>
+              <div className="text-[0.75rem] text-[#797979]">서울 중구 을지로 1가</div>
             </div>
 
             <div className="h-[30%] w-full flex-1 border"></div>
@@ -228,9 +281,8 @@ const MissingModal = ({ showModal, setShowModal }) => {
           </div>
 
           <button
-            type="button"
+            type="submit"
             className="cursor-pointer rounded bg-(--secondary) px-4 py-2 font-bold text-white transition-colors hover:bg-blue-700"
-            onClick={closeModal}
           >
             등록하기
           </button>
