@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: share idea
 title: ''
 labels: enhancement
 assignees: ''
@@ -11,9 +11,9 @@ assignees: ''
 - 
 
 ## Todo
-- [ ] 
-- [ ] 
-- [ ] 
+ [ ] 
+ [ ] 
+ [ ] 
 ## See also
 - #
 
