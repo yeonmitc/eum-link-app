@@ -8,7 +8,7 @@ import PostMap from '@/common/components/PostMap';
 
 const ReportDetailPage = () => {
   return (
-<Grid  container spacing={0} sx={{padding:'0vh 5vw', fontFamily:'Gmarket_light'}}>
+<Grid  container spacing={0} sx={{padding:'0vh 4%', fontFamily:'Gmarket_light'}}>
       <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'Jalnan2TTF'}}>
          <Box id='postnav' sx={{background:' #436850'}}>목격 제보</Box>
         <Box  id='postnav' sx={{background:' #5D9471'}}>특징일곱글자까지 ...</Box>
