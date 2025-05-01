@@ -8,7 +8,7 @@ import PostMap from '@/common/components/PostMap';
 const MissingDetailPage = () => {
   return (
     <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
-      <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'Jalnan2TTF'}}>
+      <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_bold'}}>
         <Box id='postnav' sx={{background:' #436850'}} >실종 신고</Box>
         <Box id='postnav' sx={{background:' #5D9471'}}>이름 | 상세종</Box>
       </Grid>
