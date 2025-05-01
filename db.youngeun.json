@@ -81,7 +81,7 @@
       "age": 1.0,
       "isNeuter": false,
       "petGender": "m",
-      "description": "테스트용 멍멍이입니다.",
+      "description": "테스트용 멍멍이입니다.테스트용 멍멍이입니다.테스트용 멍멍이입니다.테스트용 멍멍이입니다.테스트용 멍멍이입니다.",
       "imageUrl": "https://placekitten.com/300/200",
       "lostDate": "2024-05-01",
       "lostTime": "10:00",
