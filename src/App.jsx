@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 // 레이아웃
 import AuthLayout from './common/layout/AuthLayout';
@@ -14,8 +14,8 @@ import MissingDetailPage from './features/missing/MissingDetailPage';
 import MissingListPage from './features/missing/MissingListPage';
 import RegisterMissingPage from './features/missing/RegisterMissingPage';
 
-import MapPage from './features/map/MapPage';
 import MyPage from './features/myPage/MyPage';
+import PetListMap from './features/petListMap/PetListMap';
 import ReportFormPage from './features/reports/ReportFormPage';
 import ReportListPage from './features/reports/ReportListPage';
 
@@ -37,7 +37,12 @@ export default function App() {
           <Route path="new" element={<ReportFormPage />} />
         </Route>
         <Route path="myPage" element={<MyPage />} />
-        <Route path="map" element={<MapPage />} />
+        {/* 목록, 지도 */}
+        <Route path="pets">
+          <Route index element={<Navigate to="missing" replace />} />
+          <Route path="missing" element={<PetListMap type="missing" />} />
+          <Route path="reports" element={<PetListMap type="reports" />} />
+        </Route>
       </Route>
 
       {/* Auth 레이아웃 라우트 */}

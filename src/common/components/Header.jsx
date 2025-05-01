@@ -17,7 +17,7 @@ export default function Header() {
         {[
           { to: '/missing', label: '실종' },
           { to: '/reports', label: '제보' },
-          { to: '/map', label: '지도' },
+          { to: '/pets', label: '전체 현황' },
           { to: '/myPage', label: '내 정보' },
         ].map(({ to, label }) => (
           <NavLink key={to} to={to} className={linkClass}>
