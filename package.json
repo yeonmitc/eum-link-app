@@ -10,7 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@material-tailwind/react": "^2.1.10",
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
+    "@mui/styled-engine-sc": "^7.0.2",
     "@tanstack/query-sync-storage-persister": "^5.74.4",
     "@tanstack/react-query": "^5.74.4",
     "@tanstack/react-query-devtools": "^5.74.4",
@@ -29,11 +34,13 @@
     "react-paginate": "^8.3.0",
     "react-router-dom": "^7.5.1",
     "rehype-raw": "^7.0.0",
+    "styled-components": "^6.1.17",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@tailwindcss/vite": "^4.1.4",
+    "@types/node": "^22.15.3",
     "@vitejs/plugin-react": "^4.4.0",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.2",
