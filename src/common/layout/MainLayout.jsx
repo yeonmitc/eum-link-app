@@ -7,7 +7,7 @@ export default function MainLayout() {
     <div className="flex min-h-screen w-full flex-col">
       <Header />
       <FixedBtn />
-      <main className="flex w-full flex-1 flex-col items-center justify-center">
+      <main className="flex w-full flex-1">
         <Outlet />
       </main>
       <footer className="">&copy; {new Date().getFullYear()} EUM Link. All rights reserved.</footer>

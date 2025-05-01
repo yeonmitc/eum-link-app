@@ -24,7 +24,7 @@ const ConfirmModal = ({ show, onClose, onConfirm }) => {
             <button
               type="button"
               onClick={onClose}
-              className="rounded bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
+              className="cursor-pointer rounded bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
             >
               아니요
             </button>
@@ -32,7 +32,7 @@ const ConfirmModal = ({ show, onClose, onConfirm }) => {
             <button
               type="button"
               onClick={onConfirm}
-              className="rounded bg-[#FD9B71] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#e6865f]"
+              className="cursor-pointer rounded bg-[#FD9B71] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#e6865f]"
             >
               예, 돌아왔어요
             </button>

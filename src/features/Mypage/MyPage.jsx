@@ -77,7 +77,7 @@ const MyPage = () => {
   };
 
   return (
-    <div className="mx-auto w-full max-w-screen-xl px-4">
+    <div className="mx-auto w-full max-w-screen-2xl px-4 pt-20">
       <div className="flex w-full gap-6 md:flex-row">
         {/* 좌측 프로필 */}
         <aside className="min-w-[200px] rounded-lg bg-white p-6 md:w-1/4">
