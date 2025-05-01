@@ -24,7 +24,7 @@ const MissingDetailPage = () => {
                 </Card>
               </Grid>
               {/* 정보상세 */}
-              <Grid size={4} container  spacing={1} sx={{ maxWidth: '20vw' ,maxHeight: '14vw', fontFamily: 'Gmarket_medium', color:'gray'}} >
+              <Grid size={4} container  spacing={1} sx={{ maxWidth: '30vw' ,maxHeight: '14vw', fontFamily: 'Gmarket_medium', color:'gray'}} >
                 <Grid container size={12} spacing={0} >이름</Grid>
                 <Grid container size={12} spacing={0} >종   믹스</Grid>
                 <Grid container size={12} spacing={0} >성별 아이콘</Grid>
@@ -33,7 +33,7 @@ const MissingDetailPage = () => {
               </Grid>
               {/* 지도 */}
               <Grid size={4}>
-              <Card sx={{ maxWidth: '20vw' ,maxHeight: '17vw'}}></Card>
+              <Box sx={{ width: '27vw' ,height: '18vw', background:' #fff',borderRadius:'20px'}}></Box>
               </Grid>
           </Grid>
           {/* 댓글 */}
