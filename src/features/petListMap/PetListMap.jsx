@@ -1,5 +1,7 @@
 import { usePetListQuery } from '@/hooks/usePetList';
 import { useSearchParams } from 'react-router-dom';
+import ListView from './components/List/ListView';
+import MapView from './components/Map/MapView';
 
 const PetListMap = ({type}) => {
   // url : /pets/missing,report?map=true
@@ -11,7 +13,7 @@ const PetListMap = ({type}) => {
     isLoading: isPetListLoading, 
     isError: isPetListError, 
     error: petError
-  } = usePetListQuery();
+  } = usePetListQuery({ type });
 
   console.log('petList', petList);
 
@@ -27,9 +29,9 @@ const PetListMap = ({type}) => {
       <div>
         <div>필터</div>
         <div>{isMapView ? (
-          <div> 지도 뷰 </div>
+          <MapView />
         ) : (
-          <div>리스트 뷰</div>
+          <ListView pets={petList} />
         )}</div>
       </div>
     </div>
