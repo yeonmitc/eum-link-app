@@ -75,24 +75,45 @@
     {
       "id": "11dd",
       "userId": 3,
-      "petName": "ffffsd",
+      "petName": "펫이름",
       "refSpecies": 0,
       "subSpecies": null,
-      "age": 0,
+      "age": 1,
       "isNeuter": false,
       "petGender": "m",
-      "description": "fsdfsdfsdf",
-      "imageUrl": "",
-      "lostDate": "",
-      "lostTime": "",
+      "description": "특징 입니다. 특징 입니다2.",
+      "imageUrl": "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*",
+      "lostDate": "2025-04-30",
+      "lostTime": "18:13:46.149Z",
       "lostLocation": {
-        "road_address": "",
-        "number_address": "",
-        "lat": null,
-        "lng": null
-      },
+          "road_address": "서울특별시 중구 세종대로 124",
+          "number_address": "서울 중구 태평로1가 25",
+          "lat": 37.499447,
+          "lng": 127.036127
+        },
       "createdAt": "2025-04-30T18:13:46.149Z",
-      "isMissing": true
+      "isMissing": true,
+      "comments": [
+        {
+          "commentId": "1",
+          "userId": "user123",
+          "userName": "홍길동",
+          "content": "이 강아지를 봤어요!",
+          "timestamp": "2025-04-30T12:00:00Z"
+        },
+        {
+          "commentId": "2",
+          "userId": "user123",
+          "userName": "홍길동",
+          "content": "이 강아지를 봤어요!",
+          "timestamp": "2025-04-30T12:00:00Z"
+        }
+      ]
+    }
+  ],
+  "reportPets":[
+    {
+     
     }
   ]
 }
