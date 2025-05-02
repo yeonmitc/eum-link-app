@@ -12,10 +12,12 @@ import HomePage from './features/home/HomePage';
 
 import MissingDetailPage from './features/missing/MissingDetailPage';
 
+import AboutPage from './features/common/AboutPage';
 import MyPage from './features/myPage/MyPage';
 import PetListMap from './features/petListMap/PetListMap';
 import ReportDetailPage from './features/reports/ReportDetailPage';
 import ReportFormPage from './features/reports/ReportFormPage';
+
 
 export default function App() {
   return (
@@ -23,6 +25,7 @@ export default function App() {
       {/* Main 레이아웃 기반 라우트 */}
       <Route element={<MainLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
         {/* 실종 관련 */}
         <Route path="missing">
           <Route index element={<PetListMap type="missing" />} />
