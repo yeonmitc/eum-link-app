@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 export default function PostMap( { lostLocation }) {
 
-  console.log("lostLocation",lostLocation.lat,lostLocation.lng );
+  // console.log("lostLocation",lostLocation.lat,lostLocation.lng );
 
   useEffect(() => {
     // 카카오 지도 API가 로드되었는지 확인
