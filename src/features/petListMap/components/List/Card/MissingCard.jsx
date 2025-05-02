@@ -4,7 +4,7 @@ const MissingCard = ({ pet, speciesList }) => {
   const species = speciesList?.find(item => item.id === pet.refSpecies);
   
   return (
-    <div className="rounded-lg shadow-xl h-[350px] md:h-[330px]">
+    <div className="rounded-lg shadow-xl h-[350px] md:h-[330px] overflow-hidden">
       <div 
         className="rounded-lg h-[60%]"
         style={{
@@ -19,9 +19,9 @@ const MissingCard = ({ pet, speciesList }) => {
           : pet?.refSpecies === 2 ? <Cat className="w-5 h-5" />
           : <PawPrint className="w-5 h-5" />
           }
-          <p>{species?.name || "기타"}</p>
+          <span className="text-sm truncate">{species?.name || "기타"}</span>
         </div>
-        <div className="text-md font-semibold text-black">{pet?.petName || "미상"}</div>
+        <div className="text-sm font-semibold text-black truncate">{pet?.petName || "미상"}</div>
       </div>
       <div className="mx-2 mb-4">
         <div className="mt-2 flex justify-start items-center gap-2">
