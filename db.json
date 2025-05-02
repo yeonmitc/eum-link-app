@@ -73,25 +73,25 @@
   ],
   "missingPets": [
     {
-      "id": "11dd",
+      "id": "5cf0",
       "userId": 3,
-      "petName": "ffffsd",
-      "refSpecies": 0,
-      "subSpecies": null,
-      "age": 0,
-      "isNeuter": false,
-      "petGender": "m",
-      "description": "fsdfsdfsdf",
+      "petName": "나요",
+      "refSpecies": 1,
+      "subSpecies": 5,
+      "age": 0.4,
+      "isNeuter": true,
+      "petGender": "f",
+      "description": "머리에 삔을 달고있어요",
       "imageUrl": "",
-      "lostDate": "",
-      "lostTime": "",
+      "lostDate": "2025-04-15",
+      "lostTime": "13:38",
       "lostLocation": {
         "road_address": "",
         "number_address": "",
         "lat": null,
         "lng": null
       },
-      "createdAt": "2025-04-30T18:13:46.149Z",
+      "createdAt": "2025-05-01T12:26:24.666Z",
       "isMissing": true
     }
   ]

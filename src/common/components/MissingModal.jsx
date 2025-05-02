@@ -2,6 +2,7 @@ import { useSpecies } from '@/hooks/useSpecies';
 import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import { useAddMissing } from '@/hooks/useAddMissing';
+import { Plus } from 'lucide-react';
 
 const MissingModal = ({ showModal, setShowModal }) => {
   const [refKind, setRefKind] = useState('');
@@ -9,46 +10,45 @@ const MissingModal = ({ showModal, setShowModal }) => {
   const [subKind, setSubKind] = useState(null);
   const [petGender, setPetGender] = useState('m');
   const [isNeuter, setIsNeuter] = useState(false);
-  const { data: petSpeciesData, isLoading, isError, error } = useSpecies({ ref: refKind });
+  const { data: petSpeciesData } = useSpecies({ ref: refKind });
   const petSpecies = useRef(petSpeciesData);
+
+  const [imgFile, setImgFile] = useState('');
+  const imgRef = useRef();
 
   // 실종 추가 hook
   const { mutateAsync: addMissingPet } = useAddMissing();
 
+  // 상위 분류 추가
   if (petSpecies) {
     if (refKind == '' && petSpecies.current == null) {
       petSpecies.current = petSpeciesData;
     }
   }
 
+  // 상세 품종 세팅
   useEffect(() => {
-    console.log('petSpeciesData : ', petSpeciesData);
-
     if (refKind && petSpeciesData) {
       const filteredData = petSpeciesData.filter((item) => item.refKind != null);
-      console.log('filteredData : ', filteredData);
       setSubKindList(filteredData);
-      console.log('filteredData[0].id : ', filteredData[0]?.id);
       setSubKind(filteredData.length > 0 ? filteredData[0].id : null);
     } else if (refKind === '') {
       setSubKindList(null);
     }
   }, [refKind, petSpeciesData]);
 
-  useEffect(() => {
-    console.log('~~~~~~~~~~~~~~~~~~~~setSubKind : ', subKind);
-  }, [setSubKind]);
-
+  // 모달 닫기 (추후 이벤트 추가 예정)
   function closeModal() {
-    console.log('닫기 실행');
     setShowModal(false);
   }
 
+  // post 데이터 등록을 위한 준비
   async function sendData(e) {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
 
+    // 보낼 데이터 형태 준비
     const sendData = {
       userId: 3,
       petName: formData.get('petName'),
@@ -89,6 +89,22 @@ const MissingModal = ({ showModal, setShowModal }) => {
     }
   }
 
+  useEffect(() => {
+    if (imgFile) {
+      console.log('미리본기 파일 있음');
+    }
+  }, [imgFile]);
+
+  //업로드 이미지 미리보기
+  function saveImgFile() {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+    };
+  }
+
   return (
     <div
       className={`fixed inset-0 z-50 grid place-content-center bg-black/30 p-4 ${
@@ -119,8 +135,26 @@ const MissingModal = ({ showModal, setShowModal }) => {
           className="flex w-full flex-1 flex-col gap-y-[10px] px-2 pb-2 text-xs md:px-4 md:pb-4 md:text-base"
         >
           <div className="flex w-full gap-x-2 md:gap-x-4">
-            <div className="aspect-square w-[40%] bg-gray-300">
-              {/* <input type="file" className="w-full border" /> */}
+            <div className="aspect-square w-[40%]">
+              {/* 이미지 png, jpg, jpeg만 허용 */}
+              <label
+                htmlFor="missingImg"
+                className={`flex h-full w-full cursor-pointer items-center justify-center bg-gray-300`}
+              >
+                {imgFile ? (
+                  <img src={imgFile} alt="" className="h-full w-full" />
+                ) : (
+                  <Plus className="h-[30%] w-[30%]" />
+                )}
+              </label>
+              <input
+                id="missingImg"
+                type="file"
+                onChange={saveImgFile}
+                ref={imgRef}
+                className="hidden"
+                accept=".png, .jpeg, .jpg"
+              />
             </div>
 
             <div className="flex flex-1 flex-col justify-between gap-y-1 md:gap-y-6">

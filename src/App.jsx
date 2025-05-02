@@ -12,7 +12,6 @@ import HomePage from './features/home/HomePage';
 
 import MissingDetailPage from './features/missing/MissingDetailPage';
 import MissingListPage from './features/missing/MissingListPage';
-import RegisterMissingPage from './features/missing/RegisterMissingPage';
 
 import MyPage from './features/myPage/MyPage';
 import PetListMap from './features/petListMap/PetListMap';
@@ -29,7 +28,6 @@ export default function App() {
         {/* 실종 관련 */}
         <Route path="missing">
           <Route index element={<MissingListPage />} />
-          <Route path="new" element={<RegisterMissingPage />} />
           <Route path=":id" element={<MissingDetailPage />} />
         </Route>
         {/* 제보 관련 */}
