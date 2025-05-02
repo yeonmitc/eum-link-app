@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 // 레이아웃
 import AuthLayout from './common/layout/AuthLayout';
@@ -11,13 +11,11 @@ import NotFoundPage from './features/common/NotFoundPage';
 import HomePage from './features/home/HomePage';
 
 import MissingDetailPage from './features/missing/MissingDetailPage';
-import MissingListPage from './features/missing/MissingListPage';
 
 import MyPage from './features/myPage/MyPage';
 import PetListMap from './features/petListMap/PetListMap';
-import ReportFormPage from './features/reports/ReportFormPage';
-import ReportListPage from './features/reports/ReportListPage';
 import ReportDetailPage from './features/reports/ReportDetailPage';
+import ReportFormPage from './features/reports/ReportFormPage';
 
 export default function App() {
   return (
@@ -27,22 +25,16 @@ export default function App() {
         <Route index element={<HomePage />} />
         {/* 실종 관련 */}
         <Route path="missing">
-          <Route index element={<MissingListPage />} />
+          <Route index element={<PetListMap type="missing" />} />
           <Route path=":id" element={<MissingDetailPage />} />
         </Route>
         {/* 제보 관련 */}
         <Route path="reports">
-          <Route index element={<ReportListPage />} />
+          <Route index element={<PetListMap type="reports" />} />
           <Route path="new" element={<ReportFormPage />} />
           <Route path=":id" element={<ReportDetailPage />} />
         </Route>
         <Route path="myPage" element={<MyPage />} />
-        {/* 목록, 지도 */}
-        <Route path="pets">
-          <Route index element={<Navigate to="missing" replace />} />
-          <Route path="missing" element={<PetListMap type="missing" />} />
-          <Route path="reports" element={<PetListMap type="reports" />} />
-        </Route>
       </Route>
 
       {/* Auth 레이아웃 라우트 */}
