@@ -1,8 +1,9 @@
 ---
-name: [feat]
+name: 기능 요청
 about: 새로운 기능 추가
 title: "[Feature] "
 labels: ["feature"]
+assignees: []
 ---
 
 ## Background
