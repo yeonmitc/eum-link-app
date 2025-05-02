@@ -22,13 +22,13 @@ const MissingModal = ({ showModal, setShowModal }) => {
   }
 
   useEffect(() => {
-    console.log('petSpeciesData : ', petSpeciesData);
+    // console.log('petSpeciesData : ', petSpeciesData);
 
     if (refKind && petSpeciesData) {
       const filteredData = petSpeciesData.filter((item) => item.refKind != null);
-      console.log('filteredData : ', filteredData);
+      // console.log('filteredData : ', filteredData);
       setSubKindList(filteredData);
-      console.log('filteredData[0].id : ', filteredData[0]?.id);
+      // console.log('filteredData[0].id : ', filteredData[0]?.id);
       setSubKind(filteredData.length > 0 ? filteredData[0].id : null);
     } else if (refKind === '') {
       setSubKindList(null);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import './MissingDetailPage.css'
 import { useParams } from "react-router-dom"
 
@@ -8,12 +8,16 @@ import { EllipsisVertical ,MapPin ,Mars,Venus ,UserRoundSearch,HeartHandshake } 
 import PostComment from '@/common/components/PostComment';
 import PostMap from '@/common/components/PostMap';
 import { useMissingPets } from '@/hooks/useMissingPets';
+import { usePetSpecies } from '@/hooks/usePetSpecies';
 
 const MissingDetailPage = () => {
   const { id } = useParams();
   // console.log("pm id :",id);
 
   const { data, isLoading } = useMissingPets();
+  const { data: species } = usePetSpecies();
+
+  // console.log("species",species );
 
   if (isLoading) {
     return <div>Loading...</div>; 
@@ -23,7 +27,8 @@ const MissingDetailPage = () => {
   }
   const pet = data[id];
 
-  
+  // const matchedSpecies = species.find(s => s.id === pet.refSpecies);
+  const matchedSubSpecies = species.find(s => s.id === pet.subSpecies); 
 
   return (
     <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
@@ -54,7 +59,7 @@ const MissingDetailPage = () => {
                   <h3 style={{ marginLeft: 'auto'}}>{pet?.lostDate}</h3>
                   </Grid>
                 <Grid container size={12} >
-                  <h3>종</h3>   {pet?.petGender}</Grid>
+                  <h3>종</h3>   {matchedSubSpecies?.name}</Grid>
                 <Grid container size={12}>
                   <h3>성별</h3> {pet?.petGender === "m" 
                   ? ( <div id='jender'><Mars strokeWidth={2} color='blue'/> <Venus strokeWidth={2.75} color='gray'/></div>)
