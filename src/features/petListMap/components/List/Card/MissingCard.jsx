@@ -1,7 +1,7 @@
 import { Cat, Dog, PawPrint } from 'lucide-react';
 
 const MissingCard = ({ pet, speciesList }) => {
-  const species = speciesList?.find(item => item.id === pet.refSpecies);
+  const species = speciesList?.find(item => item.id === pet.refSpecies.toString());
   
   return (
     <div className="rounded-lg shadow-xl h-[350px] md:h-[330px] overflow-hidden">
@@ -14,7 +14,7 @@ const MissingCard = ({ pet, speciesList }) => {
         }}
         ></div>
       <div className="my-2 ml-2 gap-2 flex items-center">
-        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#5d9471] text-white text-md">
+        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-(--secondary) text-white text-md">
           {pet?.refSpecies === 1 ? <Dog className="w-5 h-5" />
           : pet?.refSpecies === 2 ? <Cat className="w-5 h-5" />
           : <PawPrint className="w-5 h-5" />

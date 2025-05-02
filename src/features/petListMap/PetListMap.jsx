@@ -6,7 +6,7 @@ import DesktopFilter from './components/TabAndFilter/DesktopFilter';
 import TabMenu from './components/TabAndFilter/TabMenu';
 
 const PetListMap = ({type}) => {
-  // url : /pets/missing,report?map=true
+  // url : /missing,report?map=true
   const [searchParams, setSearchParams] = useSearchParams();
   const isMapView = searchParams.get('map') === true; // 기본값은 false
 
@@ -23,7 +23,7 @@ const PetListMap = ({type}) => {
   if(isPetListError) return <div>Error: {petError.message}</div>
 
   return (
-    <div className="flex flex-col md:!flex-row">
+    <div className="w-full flex flex-col md:!flex-row">
       <div className="w-full md:basis-1/4">
         <TabMenu />
       </div>
