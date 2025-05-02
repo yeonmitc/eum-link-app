@@ -5,6 +5,7 @@ import { useAddMissing } from '@/hooks/useAddMissing';
 import { Plus } from 'lucide-react';
 import { useUploadImg } from '@/hooks/useUploadImg';
 import SimplyModal from './SimplyModal';
+import MapView from './MapView';
 
 const MissingModal = ({ showModal, setShowModal }) => {
   const [refKind, setRefKind] = useState('');
@@ -14,6 +15,10 @@ const MissingModal = ({ showModal, setShowModal }) => {
   const [isNeuter, setIsNeuter] = useState(false);
   const { data: petSpeciesData } = useSpecies({ ref: refKind });
   const petSpecies = useRef(petSpeciesData);
+  const [numberAddress, setNumberAddress] = useState('제주 제주시 영평동 2181');
+  const [loadAddress, setLoadAddress] = useState('제주 제주시 첨단로 242');
+  const [lat, setLat] = useState(33.450701);
+  const [lon, setLon] = useState(126.570667);
 
   const [imgFile, setImgFile] = useState('');
   const imgRef = useRef();
@@ -101,10 +106,10 @@ const MissingModal = ({ showModal, setShowModal }) => {
         lostDate: formData.get('lostDate'),
         lostTime: formData.get('lostTime'),
         lostLocation: {
-          road_address: '',
-          number_address: '',
-          lat: null,
-          lng: null,
+          road_address: loadAddress,
+          number_address: numberAddress,
+          lat: lat,
+          lon: lon,
         },
         createdAt: new Date().toISOString(),
         isMissing: true,
@@ -117,13 +122,13 @@ const MissingModal = ({ showModal, setShowModal }) => {
         await addMissingPet({ data: sendData });
 
         // 폼 초기화
-        e.target.reset();
-        setRefKind('');
-        setSubKind(null);
-        setPetGender('m');
-        setIsNeuter(false);
+        // e.target.reset();
+        // setRefKind('');
+        // setSubKind(null);
+        // setPetGender('m');
+        // setIsNeuter(false);
 
-        // setSubModal(true);
+        setSubModal(true);
       } catch (err) {
         console.error('등록 중 에러 발생:', err);
       }
@@ -340,10 +345,19 @@ const MissingModal = ({ showModal, setShowModal }) => {
             <div className="flex h-[30%] flex-col">
               <div className="flex items-end gap-x-[5px]">
                 <div>실종 위치</div>
-                <div className="text-[0.75rem] text-[#797979]">서울 중구 을지로 1가</div>
+                <div className="text-[0.75rem] text-[#797979]">{numberAddress}</div>
               </div>
 
-              <div className="h-[30%] min-h-[120px] w-full flex-1 border"></div>
+              <div className="h-[30%] min-h-[120px] w-full flex-1 md:!min-h-[170px]">
+                <MapView
+                  setNumberAddress={setNumberAddress}
+                  setLoadAddress={setLoadAddress}
+                  lat={lat}
+                  setLat={setLat}
+                  lon={lon}
+                  setLon={setLon}
+                />
+              </div>
             </div>
 
             {/* 특이사항 */}
