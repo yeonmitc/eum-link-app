@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const MyMissingPetList = ({ pets, onOpenModal }) => {
+const MyMissingPetList = ({ pets, onOpenModal, onEdit }) => {
   if (pets === null) {
     return (
       <div className="flex flex-col items-center gap-4 py-10 text-center">
@@ -66,6 +66,7 @@ const MyMissingPetList = ({ pets, onOpenModal }) => {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
+                    onEdit(pet);
                   }}
                 >
                   수정
