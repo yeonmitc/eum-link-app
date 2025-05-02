@@ -1,97 +1,201 @@
 {
   "species": [
     {
-      "id": 1,
+      "id": "1",
       "name": "강아지",
       "refKind": null
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "고양이",
       "refKind": null
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "기타",
       "refKind": null
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "말티즈",
       "refKind": 1
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "시바 이누",
       "refKind": 1
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "리트리버",
       "refKind": 1
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "푸들",
       "refKind": 1
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "기타",
       "refKind": 1
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "스코티시 폴드",
       "refKind": 2
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "러시안 블루",
       "refKind": 2
     },
     {
-      "id": 11,
+      "id": "11",
       "name": "페르시안",
       "refKind": 2
     },
     {
-      "id": 12,
+      "id": "12",
       "name": "푸들",
       "refKind": 2
     },
     {
-      "id": 13,
+      "id": "13",
       "name": "먼치킨",
       "refKind": 2
     },
     {
-      "id": 14,
+      "id": "14",
       "name": "기타",
       "refKind": 2
     }
   ],
   "missingPets": [
     {
-      "id": "5cf0",
+      "id": "c2e6",
       "userId": 3,
-      "petName": "나요",
-      "refSpecies": 1,
-      "subSpecies": 5,
-      "age": 0.4,
-      "isNeuter": true,
-      "petGender": "f",
-      "description": "머리에 삔을 달고있어요",
-      "imageUrl": "",
-      "lostDate": "2025-04-15",
-      "lostTime": "13:38",
+      "petName": "",
+      "refSpecies": 0,
+      "subSpecies": null,
+      "age": 0,
+      "isNeuter": false,
+      "petGender": "m",
+      "description": "",
+      "lostDate": "",
+      "lostTime": "",
       "lostLocation": {
         "road_address": "",
         "number_address": "",
         "lat": null,
         "lng": null
       },
-      "createdAt": "2025-05-01T12:26:24.666Z",
+      "createdAt": "2025-05-02T08:37:55.116Z",
+      "isMissing": true
+    },
+    {
+      "id": "9c49",
+      "userId": 3,
+      "petName": "",
+      "refSpecies": 0,
+      "subSpecies": null,
+      "age": 0,
+      "isNeuter": false,
+      "petGender": "m",
+      "description": "",
+      "lostDate": "",
+      "lostTime": "",
+      "lostLocation": {
+        "road_address": "",
+        "number_address": "",
+        "lat": null,
+        "lng": null
+      },
+      "createdAt": "2025-05-02T08:38:55.762Z",
+      "isMissing": true
+    },
+    {
+      "id": "6c47",
+      "userId": 3,
+      "petName": "",
+      "refSpecies": 2,
+      "subSpecies": 9,
+      "age": 0,
+      "isNeuter": false,
+      "petGender": "m",
+      "description": "",
+      "lostDate": "",
+      "lostTime": "",
+      "lostLocation": {
+        "road_address": "",
+        "number_address": "",
+        "lat": null,
+        "lng": null
+      },
+      "createdAt": "2025-05-02T08:40:08.522Z",
+      "isMissing": true
+    },
+    {
+      "id": "1044",
+      "userId": 3,
+      "petName": "",
+      "refSpecies": 0,
+      "subSpecies": null,
+      "age": 0,
+      "isNeuter": false,
+      "petGender": "m",
+      "description": "",
+      "lostDate": "",
+      "lostTime": "",
+      "lostLocation": {
+        "road_address": "",
+        "number_address": "",
+        "lat": null,
+        "lng": null
+      },
+      "createdAt": "2025-05-02T08:45:06.994Z",
+      "isMissing": true
+    },
+    {
+      "id": "4833",
+      "userId": 3,
+      "petName": "",
+      "refSpecies": 0,
+      "subSpecies": null,
+      "age": 0,
+      "isNeuter": false,
+      "petGender": "m",
+      "description": "",
+      "lostDate": "",
+      "lostTime": "",
+      "lostLocation": {
+        "road_address": "",
+        "number_address": "",
+        "lat": null,
+        "lng": null
+      },
+      "createdAt": "2025-05-02T08:45:52.184Z",
+      "isMissing": true
+    },
+    {
+      "id": "e589",
+      "userId": 3,
+      "petName": "",
+      "refSpecies": 0,
+      "subSpecies": null,
+      "age": 0,
+      "isNeuter": false,
+      "petGender": "m",
+      "description": "",
+      "lostDate": "",
+      "lostTime": "",
+      "lostLocation": {
+        "road_address": "",
+        "number_address": "",
+        "lat": null,
+        "lng": null
+      },
+      "createdAt": "2025-05-02T08:51:45.822Z",
       "isMissing": true
     }
   ]
