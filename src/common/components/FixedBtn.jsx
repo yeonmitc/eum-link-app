@@ -11,12 +11,12 @@ const FixedBtn = () => {
 
   return (
     <div
-      className="absolute right-[1rem] bottom-[2rem] z-10 flex aspect-square w-fit cursor-pointer justify-center rounded-full bg-(--point) p-3 align-middle"
+      className="absolute right-[1rem] bottom-[2rem] z-10 flex aspect-square w-fit cursor-pointer justify-center rounded-full bg-[var(--point)] p-3 align-middle"
       onClick={() => setShowModal((prev) => !prev)}
     >
       <Plus className="text-white" />
 
-      <MissingModal showModal={showModal} setShowModal={setShowModal} />
+      {showModal && <MissingModal showModal={showModal} setShowModal={setShowModal} />}
     </div>
   );
 };

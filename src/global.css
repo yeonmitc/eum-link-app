@@ -1,8 +1,12 @@
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
+
+/* 🎨 전역 변수 정의 */
 :root {
   --radius: 0.625rem;
 
-  --bg: #f5eedd;
+  --bg: #ffffff;
   --fg: #222;
 
   --primary: #436850;
@@ -60,14 +64,20 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: var(--font-kbo-light);
+    font-family: KBO_light, 'Noto Sans KR', sans-serif;
+    background-color: var(--bg);
+    color: var(--fg);
   }
+
   * {
     box-sizing: border-box;
   }
+  button, a{
+    cursor: pointer;
+  }
 }
+
 @layer utilities {
-  /* 기본 스크롤바 스타일 */
   .scrollbar {
     -ms-overflow-style: auto;
     scrollbar-width: auto;
@@ -87,7 +97,10 @@
     border-radius: 4px;
   }
 
-  /* 스크롤바 숨김 변형 */
+  .dark .scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--secondary);
+  }
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -96,22 +109,42 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+  .font-kbo-light {
+    font-family: 'KBO_light', 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+  }
+
+  .font-kbo-medium {
+    font-family: 'KBO_medium', 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+  }
+
+  .font-kbo-bold {
+    font-family: 'KBO_bold', 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+  }
 }
-/* 🧵 웹폰트 선언 */
+
+/* 🧵 웹폰트 정의 (공백 제거한 경로 사용) */
 @font-face {
   font-family: 'KBO_light';
-  src: url('./assets/font/KBO Dia Gothic_light.ttf') format('truetype');
-  font-weight: lighter;
+  src: url('./assets/font/KBO_Dia_Gothic_light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
 }
+
 @font-face {
   font-family: 'KBO_medium';
-  src: url('./assets/font/KBO Dia Gothic_medium.ttf') format('truetype');
-  font-weight: normal;
+  src: url('./assets/font/KBO_Dia_Gothic_medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
 }
+
 @font-face {
   font-family: 'KBO_bold';
-  src: url('./assets/font/KBO Dia Gothic_bold.ttf') format('truetype');
-  font-weight: bold;
+  src: url('./assets/font/KBO_Dia_Gothic_bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }
 
 @font-face {
@@ -119,11 +152,13 @@
   src: url('./assets/font/GmarketSansTTFLight.ttf') format('truetype');
   font-weight: lighter;
 }
+
 @font-face {
   font-family: 'Gmarket_medium';
   src: url('./assets/font/GmarketSansTTFMedium.ttf') format('truetype');
   font-weight: normal;
 }
+
 @font-face {
   font-family: 'Gmarket_bold';
   src: url('./assets/font/GmarketSansTTFBold.ttf') format('truetype');

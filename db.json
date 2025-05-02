@@ -365,7 +365,7 @@
       "isMissing": true
     }
   ],
-  "reportsPets": [
+  "reportPets": [
     {
       "id": "report1",
       "species": 1,

@@ -1,0 +1,41 @@
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        'kbo-light': ['KBO_light'],
+        'kbo-medium': ['KBO_medium'],
+        'kbo-bold': ['KBO_bold'],
+      },
+    },
+  },
+  safelist: [
+    'font-kbo-light',
+    'font-kbo-medium',
+    'font-kbo-bold',
+    'hover:font-kbo-medium',
+    'bg-[var(--primary)]',
+    'bg-[var(--secondary)]',
+    'bg-[var(--third)]',
+    'bg-[var(--point)]',
+    'text-[var(--primary)]',
+    'text-[var(--secondary)]',
+    'text-[var(--third)]',
+    'text-[var(--point)]',
+    'bg-[var(--primary-fg)]',
+    'bg-[var(--secondary-fg)]',
+    'bg-[var(--third-fg)]',
+    'bg-[var(--point-fg)]',
+    'hidden',
+    'md:flex',
+    'md:hidden',
+    'lg:flex',
+    'lg:hidden',
+    'xl:flex',
+    'xl:hidden',
+  ],
+  plugins: [],
+}; 
