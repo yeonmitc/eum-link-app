@@ -35,8 +35,8 @@ const MyMissingPetList = ({ pets, onOpenModal, onEdit }) => {
             <div className="flex-1">
               <p className="pb-1 font-bold">{pet.petName}</p>
               <p className="w-[300px] truncate pb-1 font-bold">{pet.description}</p>
-              <p>{pet.createdAt}</p>
               <p className="text-sm text-gray-600">{pet.lostLocation.road_address}</p>
+              <p>{pet.createdAt}</p>
             </div>
             <div className="flex flex-col items-end justify-start gap-2">
               <div className="flex gap-2 font-bold">

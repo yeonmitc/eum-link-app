@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 
-export const useMissingPetStore = create((set) => ({
+export const useMyMissingPetStore = create((set) => ({
   missingPets: [],
+
+  // 전체 실종 불러오기기
   fetchMissingPets: async () => {
     const res = await fetch('http://localhost:3001/missingPets');
     const data = await res.json();

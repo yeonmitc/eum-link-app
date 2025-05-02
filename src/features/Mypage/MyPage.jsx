@@ -1,15 +1,17 @@
 import MissingModal from '@/common/components/MissingModal';
 import MyMissingPetList from '@/common/components/MyMissingPetList';
+import MyReportList from '@/common/components/MyReportList';
+import { useMyReportsStore } from '@/store/useMyReportsStore';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StatusChangeModal from '../../common/components/StatusChangeModal';
-import { useMissingPetStore } from '../../store/missingPetStore';
 import { useMyPageStore } from '../../store/myPageStore';
+import { useMyMissingPetStore } from '../../store/useMyMissingPetStore';
 
 const MyPage = () => {
   const navigate = useNavigate();
   const { user, isLoggedIn, login } = useMyPageStore();
-  const { missingPets, fetchMissingPets, updateMissingStatus } = useMissingPetStore();
+  const { missingPets, fetchMissingPets, updateMissingStatus } = useMyMissingPetStore();
   const [selectedPetId, setSelectedPetId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [myMissingPets, setMyMissingPets] = useState(null); // null: 로딩 중
@@ -28,7 +30,7 @@ const MyPage = () => {
   // 실종글 fetch 후 필터링해서 따로 저장
   const loadMissingPets = async () => {
     await fetchMissingPets();
-    const myPets = useMissingPetStore
+    const myPets = useMyMissingPetStore
       .getState()
       .missingPets.filter((pet) => pet.userId === user?.id);
     setMyMissingPets(myPets);
@@ -88,6 +90,14 @@ const MyPage = () => {
     setIsEditModalOpen(true);
   };
 
+  const { reports, fetchReports } = useMyReportsStore();
+
+  useEffect(() => {
+    fetchReports();
+  }, []);
+
+  const myReports = reports.filter((r) => r.userId === user?.id);
+
   return (
     <div className="mx-auto w-full max-w-screen-2xl px-4 pt-20">
       <div className="flex w-full gap-6 md:flex-row">
@@ -98,11 +108,13 @@ const MyPage = () => {
 
         {/* 우측 콘텐츠 */}
         <section className="flex-1 rounded-lg bg-white">
-          <h2 className="mb-4 text-lg font-bold">
-            🐾 회원님이 남긴 실종/제보 기록을 확인할 수 있어요.
-          </h2>
+          <h2 className="mb-4 text-lg font-bold">🐾 회원님이 남긴 실종 기록을 확인할 수 있어요.</h2>
 
           <MyMissingPetList pets={myMissingPets} onOpenModal={openModal} onEdit={handleEdit} />
+          <h2 className="mt-10 mb-4 text-lg font-bold">
+            🐾 회원님이 남긴 제보 기록을 확인할 수 있어요.
+          </h2>
+          <MyReportList reports={myReports} onOpenModal={openModal} onEdit={handleEdit} />
         </section>
         <StatusChangeModal show={isModalOpen} onClose={closeModal} onConfirm={handleConfirm} />
         <MissingModal
