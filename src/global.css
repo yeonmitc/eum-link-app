@@ -11,6 +11,9 @@
   --secondary: #5d9471;
   --secondary-fg: #ffffff;
 
+  --third: #77b48d;
+  --third-fg: #ffffff;
+
   --point: #fd9b71;
   --point-fg: #ffffff;
 
@@ -57,9 +60,41 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-kbo-light);
   }
   * {
     box-sizing: border-box;
+  }
+}
+@layer utilities {
+  /* 기본 스크롤바 스타일 */
+  .scrollbar {
+    -ms-overflow-style: auto;
+    scrollbar-width: auto;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 8px;
+    display: block;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 4px;
+  }
+
+  /* 스크롤바 숨김 변형 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 /* 🧵 웹폰트 선언 */
