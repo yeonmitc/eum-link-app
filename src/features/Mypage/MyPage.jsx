@@ -1,3 +1,4 @@
+import MissingModal from '@/common/components/MissingModal';
 import MyMissingPetList from '@/common/components/MyMissingPetList';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -77,6 +78,16 @@ const MyPage = () => {
     closeModal();
   };
 
+  // 수정 - 상태 추가
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editPet, setEditPet] = useState(null);
+
+  // 수정 버튼 눌렀을 때 실행
+  const handleEdit = (pet) => {
+    setEditPet(pet);
+    setIsEditModalOpen(true);
+  };
+
   return (
     <div className="mx-auto w-full max-w-screen-2xl px-4 pt-20">
       <div className="flex w-full gap-6 md:flex-row">
@@ -91,9 +102,14 @@ const MyPage = () => {
             🐾 회원님이 남긴 실종/제보 기록을 확인할 수 있어요.
           </h2>
 
-          <MyMissingPetList pets={myMissingPets} onOpenModal={openModal} />
+          <MyMissingPetList pets={myMissingPets} onOpenModal={openModal} onEdit={handleEdit} />
         </section>
         <StatusChangeModal show={isModalOpen} onClose={closeModal} onConfirm={handleConfirm} />
+        <MissingModal
+          showModal={isEditModalOpen}
+          setShowModal={setIsEditModalOpen}
+          initialValues={editPet}
+        />
       </div>
     </div>
   );
