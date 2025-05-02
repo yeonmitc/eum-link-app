@@ -9,6 +9,7 @@ import PostComment from '@/common/components/PostComment';
 import PostMap from '@/common/components/PostMap';
 import { useMissingPets } from '@/hooks/useMissingPets';
 import { usePetSpecies } from '@/hooks/usePetSpecies';
+import { useComments } from '@/hooks/useComment';
 
 const MissingDetailPage = () => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const MissingDetailPage = () => {
 
   const { data, isLoading } = useMissingPets();
   const { data: species } = usePetSpecies();
+  const { data: comments } = useComments('missing', id);
 
   // console.log("species",species );
 
@@ -47,7 +49,7 @@ const MissingDetailPage = () => {
               {/* 사진 */}
               <Grid size={4}>
                 <Card sx={{ maxWidth: '24vw' ,height: '34vh',borderRadius:'20px'}}>
-                  <img src={pet?.imageUrl}/>
+                  <img style={{ width: '100%', height: '100%', objectFit: 'cover'}} src={pet?.imageUrl}/>
                 </Card>
               </Grid>
               {/* 정보상세 */}
@@ -84,7 +86,7 @@ const MissingDetailPage = () => {
           </Grid>
           {/* 댓글 */}
           <Grid size={12}  sx={{width:'82vw',height: '32vh', background:' #fff',borderRadius:'20px',}}>
-            <PostComment comments={pet.comments || {}}/>
+            <PostComment comments={comments || {}}/>
           </Grid>
 
         </Box>
