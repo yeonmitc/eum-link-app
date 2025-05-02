@@ -156,6 +156,7 @@ const MissingModal = ({ showModal, setShowModal }) => {
         role="dialog"
         aria-modal="true"
         aria-labelledby="modalTitle"
+        onClick={closeModal}
       >
         <div
           className={`flex min-h-[80vh] w-150 max-w-xl flex-col gap-y-[10px] rounded-[15px] bg-white shadow-lg transition-all duration-400 ease-out max-md:max-w-xs ${
@@ -361,7 +362,6 @@ const MissingModal = ({ showModal, setShowModal }) => {
             </div>
 
             {/* 특이사항 */}
-
             <div className="flex flex-1 flex-col">
               <div>특이사항</div>
               <textarea
