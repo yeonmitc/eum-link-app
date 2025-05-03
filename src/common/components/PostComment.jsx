@@ -5,7 +5,6 @@ import { Send,EllipsisVertical } from 'lucide-react';
 const PostComment = ({ comments,postId,postType  }) => {
   // console.log("comments",comments);
   const [newComment, setNewComment] = useState('');
-  const userId = comments.userId;
 
   useEffect(() => {
     console.log('새 댓글 입력 값 변경됨:', newComment);
