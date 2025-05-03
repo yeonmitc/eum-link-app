@@ -5,12 +5,14 @@ import { useSearchParams } from 'react-router-dom';
 import ListView from './components/List/ListView';
 import MapView from './components/Map/MapView';
 import DesktopFilter from './components/TabAndFilter/DesktopFilter';
+import MobileFilterModal from './components/TabAndFilter/MobileFilterModal';
 import TabMenu from './components/TabAndFilter/TabMenu';
 
 const PetListMap = ({type}) => {
   // url : /missing,report?map=true
   const [searchParams, setSearchParams] = useSearchParams();
   const [isHovered, setIsHovered] = useState(false);
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const isMapView = searchParams.get('map') === "true"; // 기본값은 false
 
   const [filters, setFilters] = useState({
@@ -65,13 +67,16 @@ const PetListMap = ({type}) => {
     setSearchParams(newParams);
   }
 
+  const openFilterModal = () => setIsFilterModalOpen(true);
+  const closeFilterModal = () => setIsFilterModalOpen(false);
+
   if(isPetListLoading) return <div>Loading...</div>
   if(isPetListError) return <div>Error: {petError.message}</div>
 
   return (
     <div className="w-full flex flex-col md:!flex-row">
       <div className="w-full md:basis-1/4">
-        <TabMenu />
+        <TabMenu openFilterModal={openFilterModal} />
       </div>
       <div className="w-full md:basis-3/4">
         <div className="hidden md:!block">
@@ -105,6 +110,18 @@ const PetListMap = ({type}) => {
           }
         </div>
       </div>
+
+      {/* 모바일 필터 모달 */}
+      {isFilterModalOpen && (
+        <MobileFilterModal
+          type={type}
+          filters={filters}
+          handleFilterChange={handleFilterChange}
+          handleSearch={handleSearch}
+          closeFilterModal={closeFilterModal}
+        />
+      )}
+
     </div>
   )
 }

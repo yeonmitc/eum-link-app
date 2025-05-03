@@ -3,7 +3,7 @@ import { Search } from 'lucide-react';
 import React from 'react';
 
 const DesktopFilter = ({ type, filters, handleFilterChange, handleSearch }) => {
-  const {data: speciesList} = useSpeciesListQuery();
+  const {data: speciesList = []} = useSpeciesListQuery();
 
   const speciesFilter = speciesList.filter(item => item.refKind == null);
   const handleSubmit = (event) => {
