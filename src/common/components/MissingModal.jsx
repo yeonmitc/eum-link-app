@@ -6,6 +6,7 @@ import { Plus } from 'lucide-react';
 import { useUploadImg } from '@/hooks/useUploadImg';
 import SimplyModal from './SimplyModal';
 import MapView from './MapView';
+import useUserStore from '@/store/userStore';
 
 const MissingModal = ({ showModal, setShowModal }) => {
   const [refKind, setRefKind] = useState('');
@@ -22,6 +23,13 @@ const MissingModal = ({ showModal, setShowModal }) => {
 
   const [imgFile, setImgFile] = useState('');
   const imgRef = useRef();
+
+  // 로그인한 user 정보
+  const { user } = useUserStore();
+
+  useEffect(() => {
+    console.log('로그인한 유저 정보 : ', user);
+  }, [user]);
 
   // 서브 모달
   const [subModal, setSubModal] = useState(false);
@@ -95,7 +103,7 @@ const MissingModal = ({ showModal, setShowModal }) => {
 
       // 보낼 데이터 형태 준비
       const sendData = {
-        userId: 3,
+        userId: user.id,
         petName: formData.get('petName'),
         refSpecies: Number(formData.get('petSpecies')),
         subSpecies:
@@ -359,14 +367,16 @@ const MissingModal = ({ showModal, setShowModal }) => {
               </div>
 
               <div className="h-[30%] min-h-[120px] w-full flex-1 md:!min-h-[170px]">
-                <MapView
-                  setNumberAddress={setNumberAddress}
-                  setLoadAddress={setLoadAddress}
-                  lat={lat}
-                  setLat={setLat}
-                  lon={lon}
-                  setLon={setLon}
-                />
+                {showModal && (
+                  <MapView
+                    setNumberAddress={setNumberAddress}
+                    setLoadAddress={setLoadAddress}
+                    lat={lat}
+                    setLat={setLat}
+                    lon={lon}
+                    setLon={setLon}
+                  />
+                )}
               </div>
             </div>
 
