@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const fetchPetList = ({ type }) => {
   if (type === 'missing') return api.get(`/missingPets?isMissing=true&_sort=-lostDate`);
-  else return [];
+  else return api.get(`/reportPets`);
 }
 
 export const usePetListQuery = ({ type }) => {
