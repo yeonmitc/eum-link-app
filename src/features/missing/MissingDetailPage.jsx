@@ -60,10 +60,7 @@ const MissingDetailPage = () => {
   const reportBtn = ()=>{
     setReportModal(true);
   };
-  const myPageBtn = () => {
-    navigate('/mypage');
-  };
-  const reportBtn = () => {};
+
   // 게시글 삭제
   async function deletepost() {
     handleClose();
