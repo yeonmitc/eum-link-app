@@ -2,12 +2,44 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import { Plus } from 'lucide-react';
 import { useSpecies } from '@/hooks/useSpecies';
+import useUserStore from '@/store/userStore';
+import { useReportsPets } from '@/hooks/useReportsPets';
+import { useAddReport } from '@/hooks/useAddReport';
+import { useUploadImg } from '@/hooks/useUploadImg';
+import MapView from './MapView';
 
 const ReportModal = ({ showModal, setShowModal,missingId}) => {
   const [refKind, setRefKind] = useState('');
   const { data: petSpeciesData } = useSpecies({ ref: refKind });
   const petSpecies = useRef(petSpeciesData);
-  console.log("missingId",missingId)
+  const { user } = useUserStore();
+
+  const [imgFile, setImgFile] = useState('');
+  const imgRef = useRef();
+
+  // 지도
+  const [numberAddress, setNumberAddress] = useState('제주 제주시 영평동 2181');
+  const [loadAddress, setLoadAddress] = useState('제주 제주시 첨단로 242');
+  const [lat, setLat] = useState(33.450701);
+  const [lon, setLon] = useState(126.570667);
+
+  // 이미지 업로드 hook
+  const {
+    mutateAsync: uploadImgFn,
+    isSuccess: uploadSuccess,
+    isPending: uploadLoading,
+    isError: isUploadError,
+    error: uploadError,
+  } = useUploadImg();
+
+  // 제보 추가
+  const {
+    mutateAsync: addReportPet,
+    isSuccess: addSuccess,
+    isPending: addLoading,
+    isError: isAddError,
+    error: addError,
+  } = useAddReport();
 
   // 모달 닫기 (추후 이벤트 추가 예정)
   function closeModal() {
@@ -21,7 +53,87 @@ const ReportModal = ({ showModal, setShowModal,missingId}) => {
     }
   }
 
-  function sendReport() {}
+  async function sendReport(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+
+    const btn = document.querySelector('#addReportBtn');
+    btn.textContent = '등록 중...';
+    btn.disabled = true;
+
+    const uploadImg = formData.get('sightImg');
+
+    if (!uploadImg) {
+      console.log('이미지 추가 필수');
+      btn.textContent = '등록하기';
+      btn.disabled = false;
+      return;
+    }
+
+    try {
+      const img_result = await uploadImgFn(uploadImg);
+      console.log('이미지 업로드 결과 : ', img_result);
+
+      // 보낼 데이터 형태 준비
+      const sendData = {
+        refSpecies: Number(formData.get('petSpecies')),
+        missingId: 'null', // 상세 연결 하면서 바꾸기
+        description: formData.get('description'),
+        imageUrl: img_result.secure_url,
+        imageId: img_result.public_id,
+        sightedDate: formData.get('sightDate'),
+        sightedTime: formData.get('sightTime'),
+        sightedLocation: {
+          road_address: loadAddress,
+          number_address: numberAddress,
+          lat: lat,
+          lon: lon,
+        },
+        createdAt: new Date().toISOString(),
+        userId: user != null ? user.id : 'null',
+      };
+
+      try {
+        // 모달 닫기
+        // setShowModal(false);
+
+        await addReportPet({ data: sendData });
+
+        // 성공 후 폼 초기화 및 버튼 복구
+        btn.textContent = '등록하기';
+        btn.disabled = false;
+
+        // 폼 초기화
+        // e.target.reset();
+        // setRefKind('');
+        // setSubKind(null);
+        // setPetGender('m');
+        // setIsNeuter(false);
+
+        // setSubModal(true);
+      } catch (err) {
+        console.error('등록 중 에러 발생:', err);
+      }
+    } catch (err) {
+      console.error('이미지 업로드 중 에러 발생:');
+    }
+  }
+
+  //업로드 이미지 미리보기
+  function saveImgFile() {
+    console.log('호출');
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+    };
+  }
 
   return (
     <div>
@@ -60,25 +172,24 @@ const ReportModal = ({ showModal, setShowModal,missingId}) => {
               <div className="aspect-square w-[40%]">
                 {/* 이미지 png, jpg, jpeg만 허용 */}
                 <label
-                  htmlFor="missingImg"
+                  htmlFor="sightImg"
                   className={`flex h-full w-full cursor-pointer items-center justify-center bg-gray-300`}
                 >
-                  {/* {imgFile ? (
+                  {imgFile ? (
                     <img src={imgFile} alt="" className="max-h-full max-w-full" />
                   ) : (
                     <Plus className="h-[30%] w-[30%]" />
-                  )} */}
-                  <Plus className="h-[30%] w-[30%]" />
+                  )}
                 </label>
-                {/* <input
-                  id="missingImg"
-                  name="missingImg"
+                <input
+                  id="sightImg"
+                  name="sightImg"
                   type="file"
                   onChange={saveImgFile}
                   ref={imgRef}
                   className="hidden"
                   accept=".png, .jpeg, .jpg"
-                /> */}
+                />
               </div>
             </div>
 
@@ -88,7 +199,7 @@ const ReportModal = ({ showModal, setShowModal,missingId}) => {
                 <div>실종 날짜</div>
                 <input
                   type="date"
-                  name="lostDate"
+                  name="sightDate"
                   className="w-full flex-1 rounded-[5px] border p-1 px-1"
                 />
               </div>
@@ -97,7 +208,7 @@ const ReportModal = ({ showModal, setShowModal,missingId}) => {
                 <div>실종 시간</div>
                 <input
                   type="time"
-                  name="lostTime"
+                  name="sightTime"
                   className="w-full items-center rounded-[5px] border px-1 py-1 align-middle"
                 />
               </div>
@@ -125,18 +236,20 @@ const ReportModal = ({ showModal, setShowModal,missingId}) => {
             <div className="flex h-[30%] flex-col">
               <div className="flex items-end gap-x-[5px]">
                 <div>실종 위치</div>
-                <div className="text-[0.75rem] text-[#797979]">위치</div>
+                <div className="text-[0.75rem] text-[#797979]">{numberAddress}</div>
               </div>
 
-              <div className="h-[30%] min-h-[120px] w-full flex-1 border md:!min-h-[170px]">
-                {/* <MapView
-                  setNumberAddress={setNumberAddress}
-                  setLoadAddress={setLoadAddress}
-                  lat={lat}
-                  setLat={setLat}
-                  lon={lon}
-                  setLon={setLon}
-                /> */}
+              <div className="h-[30%] min-h-[120px] w-full flex-1 md:!min-h-[170px]">
+                {showModal && (
+                  <MapView
+                    setNumberAddress={setNumberAddress}
+                    setLoadAddress={setLoadAddress}
+                    lat={lat}
+                    setLat={setLat}
+                    lon={lon}
+                    setLon={setLon}
+                  />
+                )}
               </div>
             </div>
 
@@ -151,9 +264,9 @@ const ReportModal = ({ showModal, setShowModal,missingId}) => {
             </div>
 
             <button
-              type="button"
-              className="cursor-pointer rounded bg-(--secondary) px-4 py-2 font-bold text-white transition-colors hover:bg-blue-700"
-              onClick={closeModal}
+              type="submit"
+              id="addReportBtn"
+              className="cursor-pointer rounded bg-[var(--secondary)] px-4 py-2 font-bold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:!bg-gray-300"
             >
               등록하기
             </button>
