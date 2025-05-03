@@ -79,9 +79,9 @@ const ReportDetailPage = () => {
         </Box>
       </Grid>
 {/* 하단 버튼 */}
-      <Grid size={12}sx={{ marginTop:'1vh', display:'flex' ,color:"#fff"}}>
+      <Grid id='bottombtn' size={12}sx={{ marginTop:'1vh', display:'flex' ,color:"#fff"}}>
         <Box sx={{width:'92vw',height: '4vh',background:' #436850',textAlign:'center' , lineHeight:'6vh',borderRadius:'20px'}}>
-          
+          공유 하기
         </Box>
       </Grid>
     </Grid> 
