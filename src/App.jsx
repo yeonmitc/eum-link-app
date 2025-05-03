@@ -7,6 +7,7 @@ import NotFoundPage from './features/common/NotFoundPage';
 import HomePage from './features/home/HomePage';
 import MissingDetailPage from './features/missing/MissingDetailPage';
 import PetListMap from './features/petListMap/PetListMap';
+import ReportDetailPage from './features/reports/ReportDetailPage';
 import ReportFormPage from './features/reports/ReportFormPage';
 
 export default function App() {
