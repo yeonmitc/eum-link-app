@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const MyMissingPetCard = ({ pet, reports }) => {
   if (!reports || reports.length === 0) {
     return (

@@ -1,3 +1,4 @@
+import api from '@/utils/api';
 import { create } from 'zustand';
 
 export const useMyMissingPetStore = create((set) => ({
@@ -5,9 +6,8 @@ export const useMyMissingPetStore = create((set) => ({
 
   // 전체 실종 불러오기
   fetchMissingPets: async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/missingPets`);
-    const data = await res.json();
-    set({ missingPets: data });
+    const res = await api.get('/missingPets');
+    set({ missingPets: res.data });
   },
 
   updateMissingStatus: async (petId, newStatus) => {
