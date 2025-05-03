@@ -78,7 +78,7 @@
       "petName": "테스트멍멍이",
       "refSpecies": 1,
       "subSpecies": 1,
-      "age": 1.0,
+      "age": 1,
       "isNeuter": false,
       "petGender": "m",
       "description": "테스트용 멍멍이입니다.테스트용 멍멍이입니다.테스트용 멍멍이입니다.테스트용 멍멍이입니다.테스트용 멍멍이입니다.",
@@ -89,7 +89,7 @@
         "road_address": "서울시 강남구 강남대로",
         "number_address": "서울 강남구",
         "lat": 37.5,
-        "lng": 127.0
+        "lng": 127
       },
       "createdAt": "2024-05-01T10:00:00Z",
       "isMissing": true
@@ -118,7 +118,7 @@
     },
     {
       "id": 2,
-      "userId": 5,
+      "userId": 1,
       "petName": "나비",
       "refSpecies": 2,
       "subSpecies": 10,
@@ -144,7 +144,7 @@
       "petName": "몽이",
       "refSpecies": 1,
       "subSpecies": 5,
-      "age": 3.0,
+      "age": 3,
       "isNeuter": false,
       "petGender": "f",
       "description": "흰색 말티즈, 앞니 하나 빠짐. 분홍색 하네스 착용",
@@ -206,13 +206,13 @@
     },
     {
       "id": 6,
-      "userId": 1,
+      "userId": 2,
       "petName": "까미",
       "refSpecies": 2,
       "subSpecies": 14,
       "isNeuter": true,
       "petGender": "m",
-      "age": 2.0,
+      "age": 2,
       "description": "검은 고양이, 노란 눈. 빨간색 방울 목걸이 착용",
       "imageUrl": "https://images.unsplash.com/photo-1557246565-8a3d3ab5d7f6",
       "lostDate": "2024-03-11",
@@ -276,7 +276,7 @@
       "petName": "콩이",
       "refSpecies": 1,
       "subSpecies": 6,
-      "age": 5.0,
+      "age": 5,
       "isNeuter": true,
       "petGender": "m",
       "description": "흰색과 갈색 비글, 꼬리가 짧음. 주황색 목줄 착용",
@@ -313,6 +313,59 @@
       },
       "createdAt": "2024-03-16T10:00:00Z",
       "isMissing": true
+    }
+  ],
+  "reports": [
+    {
+      "id": 1,
+      "userId": 2,
+      "petMissingId": 1,
+      "species": 1,
+      "subSpecies": 4,
+      "description": "비슷한 푸들을 역삼역 부근에서 봤어요. 빨간 목줄이었어요!",
+      "imageUrl": "https://example.com/report1.jpg",
+      "sightedAt": "2024-05-01T14:00:00Z",
+      "sightedLocation": {
+        "road_address": "서울 강남구 역삼로 114",
+        "number_address": "서울 강남구 역삼동 737",
+        "lat": 37.501,
+        "lng": 127.036
+      },
+      "createdAt": "2024-05-01T14:30:00Z"
+    },
+    {
+      "id": 2,
+      "userId": 3,
+      "petMissingId": 2,
+      "species": 2,
+      "subSpecies": 10,
+      "description": "비슷한 회색 고양이를 상수역 근처에서 봤어요.",
+      "imageUrl": "https://example.com/report2.jpg",
+      "sightedAt": "2024-04-30T18:00:00Z",
+      "sightedLocation": {
+        "road_address": "서울 마포구 와우산로 84",
+        "number_address": "서울 마포구 상수동 74-2",
+        "lat": 37.5482,
+        "lng": 126.9239
+      },
+      "createdAt": "2024-04-30T18:30:00Z"
+    },
+    {
+      "id": 3,
+      "userId": 5,
+      "petMissingId": 3,
+      "species": 1,
+      "subSpecies": 5,
+      "description": "몽이랑 비슷한 강아지를 분당 중앙공원에서 봤어요.",
+      "imageUrl": "https://example.com/report3.jpg",
+      "sightedAt": "2024-04-28T16:00:00Z",
+      "sightedLocation": {
+        "road_address": "경기도 성남시 분당구 중앙공원로 151",
+        "number_address": "경기 성남시 분당구 정자동 188",
+        "lat": 37.3645,
+        "lng": 127.1082
+      },
+      "createdAt": "2024-04-28T16:30:00Z"
     }
   ]
 }
