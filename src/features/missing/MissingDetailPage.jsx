@@ -18,11 +18,13 @@ const MissingDetailPage = () => {
   const { id } = useParams();
   const user = useUserStore((state) => state.user);
 
+  // console.log("id",id)
 
-
-  const { data, isLoading } = useMissingPets();
+  const { data : pet, isLoading } = useMissingPets(id);
   const { data: species } = usePetSpecies();
   const { data: comments } = useComments('missing', id);
+
+  // console.log("pet",pet)
 
   const { toggleStatus, isLoading: isUpdatingStatus, error: updateError, successData: updatedPetDataFromServer } = useToggleMissingStatus();
 
@@ -32,9 +34,8 @@ const MissingDetailPage = () => {
   const handleClick = (event) => {    setAnchorEl(event.currentTarget);  };
   const handleClose = () => {    setAnchorEl(null);  };
   if (isLoading) {    return <div>Loading...</div>;   }
-  if (!data[id] || data[id].length === 0) {    return <div>Not Found</div>;  }
+  if (!pet || pet.length === 0) {    return <div>Not Found</div>;  }
 
-  const pet = data[id];
   const matchedSubSpecies = species[( pet.subSpecies)-1];
 
   const missingBtn = ()=>{    navigate("/missing");  };

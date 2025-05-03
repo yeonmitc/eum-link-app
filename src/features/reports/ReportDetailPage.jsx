@@ -16,17 +16,15 @@ const ReportDetailPage = () => {
     // console.log("pm id :",id);
 
   
-    const { data, isLoading } = useReportsPets();
+  const { data : pet, isLoading } = useReportsPets(id);
     const { data: species } = usePetSpecies();
     const { data: comments } = useComments('report', id); 
   
     if (isLoading) {
       return <div>Loading...</div>; 
     }
-    if (!data[id] || data[id].length === 0) {
-      return <div>Not Found</div>;
-    }
-    const pet = data[id];
+    if (!pet || pet.length === 0) {    return <div>Not Found</div>;  }
+
     const matchedSpecies = species[( pet.refSpecies)-1] ;
     const repTitle = pet?.description.length > 15 ? `${pet?.description.slice(0,15)}...`: pet?.description;
   
