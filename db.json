@@ -559,5 +559,25 @@
       "missingId": null,
       "userId": null
     }
+  ],
+  "comments": [
+    {
+      "commentId": "1",
+      "postId": 0,
+      "postType": "missing",
+      "userId": "user123",
+      "userName": "홍길동",
+      "content": "이 강아지를 봤어요!",
+      "timestamp": "2025-04-30T12:00:00Z"
+    },
+    {
+      "commentId": "2",
+      "postId": 0,
+      "postType": "report",
+      "userId": "user456",
+      "userName": "김철수",
+      "content": "어디서 봤는지 알려주세요!",
+      "timestamp": "2025-04-30T12:05:00Z"
+    }
   ]
 }
