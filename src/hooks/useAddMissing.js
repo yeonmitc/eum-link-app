@@ -26,6 +26,6 @@ export const useAddMissing = () => {
     gcTime: 0,
     retry: false,
     // 쿼리 무효화 비활성화
-    invalidateQueries: false
+    invalidateQueries: false,
   });
 };

@@ -1,6 +1,9 @@
+import currentLocation from '@/store/currentLocation';
 import React, { useState, useEffect } from 'react';
 
 const MapView = ({ setLoadAddress, setNumberAddress, lat, setLat, lon, setLon }) => {
+  const { lat: testLat, lon: testLon, setLocation } = currentLocation();
+
   function getCurrentLocation() {
     const geocoder = new window.kakao.maps.services.Geocoder();
 
@@ -10,6 +13,9 @@ const MapView = ({ setLoadAddress, setNumberAddress, lat, setLat, lon, setLon })
         const lo = position.coords.longitude;
         setLat(la);
         setLon(lo);
+
+        const data = { lat: la, lon: lo };
+        setLocation(data);
 
         geocoder.coord2Address(lo, la, (result, status) => {
           if (status === window.kakao.maps.services.Status.OK) {

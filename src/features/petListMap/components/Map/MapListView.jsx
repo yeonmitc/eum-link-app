@@ -14,9 +14,9 @@ const MapListView = ({ pets, type }) => {
             type === 'missing'
               ? new window.kakao.maps.LatLng(pets[0].lostLocation.lat, pets[0].lostLocation.lng)
               : new window.kakao.maps.LatLng(
-                  pets[0].sightedLocation.lat,
-                  pets[0].sightedLocation.lng
-                );
+                pets[0].sightedLocation.lat,
+                pets[0].sightedLocation.lng
+              );
         } else {
           center = new window.kakao.maps.LatLng(37.5662952, 126.9779451);
         }
@@ -72,7 +72,7 @@ const MapListView = ({ pets, type }) => {
   }, []);
 
   return (
-    <div className="w-[90%] flex-col items-center justify-center">
+    <div className="w-full flex-col items-center justify-center">
       <div className="mb-2 px-4 py-2">
         <p className="text-gray-700">
           총 <span className="font-medium">{pets?.length}</span>개의{' '}
@@ -83,7 +83,7 @@ const MapListView = ({ pets, type }) => {
         ref={mapRef}
         style={{
           width: '100%',
-          height: '400px',
+          minHeight: '400px',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',

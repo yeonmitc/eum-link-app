@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Plus } from 'lucide-react';
 import MissingModal from './MissingModal';
 import ReportModal from './ReportModal';
+import useUserStore from '@/store/userStore';
+import { toast } from 'react-hot-toast';
 
 const FixedBtn = () => {
   // 실종 모달
@@ -12,6 +14,9 @@ const FixedBtn = () => {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const buttonRef = useRef(null);
+
+  // 로그인한 user 정보
+  const { user } = useUserStore();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -28,7 +33,11 @@ const FixedBtn = () => {
 
   const handleButtonClick = (type) => {
     if (type === 'missing') {
-      setShowModal(true);
+      if (user != null) {
+        setShowModal(true);
+      } else {
+        return toast.error('로그인이 필요한 서비스 입니다.', { id: 'login-invalid' });
+      }
     } else if (type === 'report') {
       setReportModal(true);
     }
