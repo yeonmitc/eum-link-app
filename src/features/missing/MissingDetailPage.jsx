@@ -28,7 +28,6 @@ const MissingDetailPage = () => {
   // 목격 모달
   const [reportModal, setReportModal] = useState(false);
 
-
   const { data: pet, isLoading } = useMissingPets(id);
   const { data: species } = usePetSpecies();
   const { data: comments } = useComments('missing', id);
@@ -54,10 +53,14 @@ const MissingDetailPage = () => {
 
   const matchedSubSpecies = species[pet.subSpecies - 1];
 
-  const missingBtn = ()=>{    navigate("/missing");  };
-  const myPageBtn = ()=>{    navigate("/mypage"); };
+  const missingBtn = () => {
+    navigate('/missing');
+  };
+  const myPageBtn = () => {
+    navigate('/mypage');
+  };
   // 제보하기 버튼
-  const reportBtn = ()=>{
+  const reportBtn = () => {
     setReportModal(true);
   };
 
@@ -82,10 +85,9 @@ const MissingDetailPage = () => {
     }
   }
 
-
-  const IsMissingSwitch = async () => { 
+  const IsMissingSwitch = async () => {
     handleClose();
-    const result = await toggleStatus(pet); 
+    const result = await toggleStatus(pet);
     if (result) {
       console.log('상태 변경 성공 및 서버 데이터 수신:', result);
       alert('상태가 성공적으로 변경되었습니다! ✨');
@@ -94,7 +96,6 @@ const MissingDetailPage = () => {
       alert(`상태 변경 실패: ${updateError}`);
     }
   };
-
 
   return (
     <Grid container spacing={0} sx={{ padding: '0 4%', fontFamily: 'Gmarket_light' }}>
@@ -255,8 +256,8 @@ const MissingDetailPage = () => {
 
       {/* 제보하기 모달 */}
       <ReportModal showModal={reportModal} setShowModal={setReportModal} missingId={pet?.id} />
-    </Grid> 
-  )
-}
+    </Grid>
+  );
+};
 
 export default MissingDetailPage;

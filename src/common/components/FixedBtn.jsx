@@ -44,10 +44,6 @@ const FixedBtn = () => {
     setIsExpanded(false);
   };
 
-  useEffect(() => {
-    console.log('로그인한 유저 정보 : ', user);
-  }, [user]);
-
   return (
     <div ref={buttonRef} className="fixed right-[1rem] bottom-[2rem] z-10">
       <div className="relative">

@@ -8,10 +8,11 @@ import { useNavigate } from 'react-router-dom';
 import ConfirmModal from '../../common/components/StatusChangeModal';
 import { useMyPageStore } from '../../store/myPageStore';
 import { useMyMissingPetStore } from '../../store/useMyMissingPetStore';
+import useUserStore from '@/store/userStore';
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const { user, isLoggedIn, login } = useMyPageStore();
+  const { user, isLoggedIn, login } = useUserStore();
   const { missingPets, fetchMissingPets, updateMissingStatus } = useMyMissingPetStore();
   const [selectedPetId, setSelectedPetId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,11 +32,16 @@ const MyPage = () => {
   // 실종글 fetch 후 필터링해서 따로 저장
   const loadMissingPets = async () => {
     await fetchMissingPets();
-    const myPets = useMyMissingPetStore
-      .getState()
-      .missingPets.filter((pet) => pet.userId === user?.id);
-    setMyMissingPets(myPets);
   };
+
+  useEffect(() => {
+    console.log('missingPets : ', missingPets);
+    if (missingPets?.length > 0) {
+      const myPets = missingPets?.filter((pet) => pet.userId === user?.id);
+      console.log('myPets : ', myPets);
+      setMyMissingPets(myPets);
+    }
+  }, [missingPets]);
 
   useEffect(() => {
     if (isLoggedIn && user) {
