@@ -2,8 +2,7 @@ import { Cat, Dog, PawPrint } from 'lucide-react';
 
 const ReportCard = ({ pet, speciesList }) => {
 
-  const species = speciesList?.find(item => item.id === pet.refSpecies);
-  const petBreed = speciesList?.find(item => item.id === parseInt(pet?.subSpecies));
+  const species = speciesList?.find(item => item.id === pet.refSpecies.toString());
 
   return (
     <div className="rounded-lg shadow-xl h-[350px] md:h-[330px] overflow-hidden">
@@ -16,14 +15,14 @@ const ReportCard = ({ pet, speciesList }) => {
         }}
         ></div>
       <div className="my-2 ml-2 gap-2 flex items-center">
-        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#5d9471] text-gray-100 text-md">
+        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-(--secondary) text-gray-100 text-md">
           {pet?.refSpecies === 1 ? <Dog className="w-5 h-5" />
           : pet?.refSpecies === 2 ? <Cat className="w-5 h-5" />
           : <PawPrint className="w-5 h-5" />
           }
           <span className="text-sm truncate">{species?.name || "기타"}</span>
         </div>
-        <div className="text-sm font-semibold text-black truncate">{petBreed ? petBreed.name : "기타"}</div>
+        <div className="text-sm font-semibold text-black truncate"></div>
       </div>
       <div className="mx-2 mb-4">
         <div className="mt-2 flex justify-start items-center gap-2">

@@ -1,29 +1,15 @@
 import React,{useState,useEffect} from 'react'
-import { Grid ,Box,InputBase, Avatar,Modal } from '@mui/material';
+import { Grid ,Box,InputBase, Avatar, } from '@mui/material';
 import { Send,EllipsisVertical } from 'lucide-react';
-import CommentModal from './CommentModal';
 import useUserStore from '@/store/userStore';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-const PostComment = ({ comments,postId,postType  }) => {
+const CommentModal = ({ comments,postId,postType  }) => {
   // console.log("comments",comments);
   const [newComment, setNewComment] = useState('');
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
-
+  
 
   useEffect(() => {
-    // console.log('새 댓글 입력 값 변경됨:', newComment);
   }, [newComment]);  
 
   const formatDate = (timestamp) => {
@@ -75,17 +61,12 @@ const PostComment = ({ comments,postId,postType  }) => {
     }
   };
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  useEffect
 
   return (
     <>
-      <Grid size={12} onClick={handleOpen}
-       height={'5vh'} lineHeight={'5vh'} display={'flex'} justifyContent={'flex-start'} padding={'1vh 2vw'} color={'gray'} 
-       
-       >댓글 ({comments?.length === "0" ? comments?.length : "0"})</Grid>
-         <Grid id='comments' size={12}height={'20vh'} display={{ xs: 'none', sm: 'block' }}>
+      <Grid size={12} height={'5vh'} lineHeight={'5vh'} display={'flex'} justifyContent={'flex-start'} padding={'1vh 2vw'} color={'gray'} >댓글 ({comments?.length === "0" ? comments?.length : "0"})</Grid>
+         <Grid id='comments' size={12}height={'20vh'} >
          {comments?.map((data) => (
           <div id='comment' key={data.commentid} >
             <Avatar variant="rounded">{data.userId}</Avatar>
@@ -98,43 +79,32 @@ const PostComment = ({ comments,postId,postType  }) => {
 
          </Grid>
             <Grid size={12} height={'5vh'} display={'flex'} padding={'0 10px'}>
-            {isLoggedIn ? (
-              <InputBase
-                  sx={{ flex: 1, background:'rgb(228, 228, 228)', paddingLeft: 2, borderRadius:'10px' , marginRight:'1vw'}}
-                  placeholder="댓글을 입력하세요."
-                  inputProps={{ 'aria-label': '' }}
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-              /> 
-             ):(
-              <InputBase
-                  disabled
-                  sx={{ flex: 1, background:'rgb(228, 228, 228)', paddingLeft: 2, borderRadius:'10px' , marginRight:'1vw'}}
-                  placeholder="로그인이 필요한 기능 입니다."
-                  inputProps={{ 'aria-label': '' }}
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-              />
-              )}
+               {isLoggedIn ? (
+                            <InputBase
+                                sx={{ flex: 1, background:'rgb(228, 228, 228)', paddingLeft: 2, borderRadius:'10px' , marginRight:'1vw'}}
+                                placeholder="댓글을 입력하세요."
+                                inputProps={{ 'aria-label': '' }}
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                            /> 
+                           ):(
+                            <InputBase
+                                disabled
+                                sx={{ flex: 1, background:'rgb(228, 228, 228)', paddingLeft: 2, borderRadius:'10px' , marginRight:'1vw'}}
+                                placeholder="로그인이 필요한 기능 입니다."
+                                inputProps={{ 'aria-label': '' }}
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                            />
+                            )}
               <Box 
               sx={{ width:'5vh',height:'5vh', background:'#FD9B71', borderRadius:'10px',
               display:'flex',justifyContent:'center',alignItems:'center'}}
               onClick={handleCommentSubmit}>
                 <Send color='#fff'/>
               </Box>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                   <CommentModal comments={comments || {}} postId={postId} postType={postType}/>
-                </Box>
-              </Modal>
-
       </Grid>
     </>
   )
 }
-export default PostComment
+export default CommentModal

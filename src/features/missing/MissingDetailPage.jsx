@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import './MissingDetailPage.css'
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import { Grid ,Box, Card ,InputBase} from '@mui/material';
 import { EllipsisVertical ,MapPin ,Mars,Venus ,UserRoundSearch,HeartHandshake } from 'lucide-react';
@@ -10,9 +10,13 @@ import PostMap from '@/common/components/PostMap';
 import { useMissingPets } from '@/hooks/useMissingPets';
 import { usePetSpecies } from '@/hooks/usePetSpecies';
 import { useComments } from '@/hooks/useComment';
+import useUserStore from '@/store/userStore';
 
 const MissingDetailPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+
   // console.log("pm id :",id);
 
   const { data, isLoading } = useMissingPets();
@@ -29,31 +33,38 @@ const MissingDetailPage = () => {
   }
   const pet = data[id];
 
-  // const matchedSpecies = species.find(s => s.id === pet.refSpecies);
-  const matchedSubSpecies = species.find(s => s.id === pet.subSpecies); 
+  // const matchedSpecies = species.find(s => s.id === pet?.refSpecies);
+  const matchedSubSpecies = species[( pet.subSpecies)-1];
+
+
+  const missingBtn = ()=>{
+    navigate("/missing");
+  };
 
   return (
     <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
-      <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_medium'}}>
-        <Box id='postnav' sx={{background:' #436850'}} >실종 신고</Box>
+      <Grid size={12} sx={{ width:'100%', maxHeight:'76vh', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_medium'}}>
+        <Box id='postnav' sx={{background:' #436850'}} onClick={missingBtn} >실종 신고</Box>
         <Box id='postnav' sx={{background:' #5D9471'}}>
           {pet?.petName} {pet?.isMissing === true? ( <UserRoundSearch  strokeWidth={2} />) 
           : ( <HeartHandshake  strokeWidth={2}/>) } </Box>
       </Grid>
 
       <Grid container size={12} >
-        <Box id='post' sx={{width:'92vw',height: '76vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
+        <Box id='post' sx={{width:'100%',height: '75vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
       <EllipsisVertical id='postmenu'/>
           {/* 정보카드 */}
-          <Grid size={12}  sx={{width:'82vw',height: '37vh', display:'flex'}} >
+          <Grid container size={12}  sx={{width:'100%',height:{xs:'85%',sm:'37vh'} , display:'flex'}} >
               {/* 사진 */}
-              <Grid size={4}>
-                <Card sx={{ maxWidth: '24vw' ,height: '34vh',borderRadius:'20px'}}>
+              <Grid size={{ xs: 12, sm: 4}}>
+                <Card sx={{ maxWidth:{xs:'200px',sm:'90%'}  ,height:{xs:'17vh',sm:'34vh'},borderRadius:'20px'}}>
                   <img style={{ width: '100%', height: '100%', objectFit: 'cover'}} src={pet?.imageUrl}/>
                 </Card>
               </Grid>
               {/* 정보상세 */}
-              <Grid size={4} id='d-text' container  spacing={0} sx={{ maxWidth: '30vw' ,maxHeight: '34vh'}} >
+              <Grid container size={{ xs: 12, sm: 4}} id='d-text' 
+              fontSize={{xs:'smaller',md:'medium'}}
+              sx={{ maxWidth: '95%' ,maxHeight:{xs:'auto',sm:'34vh'}}} >
                 <Grid container size={12} >
                   <h2>{pet?.petName} </h2> 
                   {pet?.isMissing === true 
@@ -74,8 +85,8 @@ const MissingDetailPage = () => {
                   <h3>특징</h3> {pet?.description}</Grid>
               </Grid>
               {/* 지도 */}
-              <Grid size={4}>
-                  <Card sx={{ width: '27vw' ,height: '34vh', background:' #fff',borderRadius:'20px',boxShadow:'3px 3px 3px rgb(177, 177, 177)'}}>
+              <Grid size={{ xs: 12, sm: 4}}>
+                  <Card sx={{ width: '100%' ,height:{xs:'15vh',sm:'34vh'}, background:' #fff',borderRadius:'20px',boxShadow:'3px 3px 3px rgb(177, 177, 177)'}}>
                     <PostMap lostLocation={pet?.lostLocation || {}}/>
                     <Box id='loc' sx={{display:'flex', alignItems:'center',mt:1,marginLeft:'10px'}}>
                       <MapPin  strokeWidth={2.75} color='#436850'  />
@@ -85,16 +96,16 @@ const MissingDetailPage = () => {
               </Grid>
           </Grid>
           {/* 댓글 */}
-          <Grid size={12}  sx={{width:'82vw',height: '32vh', background:' #fff',borderRadius:'20px',}}>
-            <PostComment comments={comments || {}}/>
+          <Grid size={12}  sx={{width:'82vw',height:{sx:'',md:'32vh'},paddingBottom:'10px', background:' #fff',borderRadius:'20px',}}>
+            <PostComment comments={comments || {}} postId={id} postType={'missing'}/>
           </Grid>
 
         </Box>
       </Grid>
 {/* 하단 버튼 */}
-      <Grid size={12}sx={{ marginTop:'1vh', display:'flex' ,color:"#fff"}}>
-        <Box sx={{width:'92vw',height: '4vh',background:' #436850',textAlign:'center' , lineHeight:'6vh',borderRadius:'20px'}}>
-          
+      <Grid id='bottombtn' size={12}sx={{ marginTop:'1vh', display:'flex'}}>
+        <Box sx={{maxHeight:'4vh'}}>
+          제보하기
         </Box>
       </Grid>
     </Grid> 

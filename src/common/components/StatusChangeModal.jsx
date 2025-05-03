@@ -1,4 +1,11 @@
-const ConfirmModal = ({ show, onClose, onConfirm }) => {
+const ConfirmModal = ({
+  show,
+  onClose,
+  onConfirm,
+  title = '확인',
+  message = '이 작업을 진행하시겠습니까?',
+  confirmText = '확인',
+}) => {
   return (
     <div>
       <div
@@ -11,13 +18,11 @@ const ConfirmModal = ({ show, onClose, onConfirm }) => {
       >
         <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
           <h2 id="modalTitle" className="text-center text-xl font-bold text-gray-900 sm:text-2xl">
-            반려동물을 찾으셨나요?
+            {title}
           </h2>
 
           <div className="mt-4 text-center">
-            <p className="text-sm text-gray-700">
-              상태를 <strong className="text-[#FD9B71]">'돌아왔어요'</strong>로 변경하시겠습니까?
-            </p>
+            <p className="text-sm text-gray-700">{message}</p>
           </div>
 
           <footer className="mt-6 flex justify-end gap-2">
@@ -34,7 +39,7 @@ const ConfirmModal = ({ show, onClose, onConfirm }) => {
               onClick={onConfirm}
               className="cursor-pointer rounded bg-[#FD9B71] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#e6865f]"
             >
-              예, 돌아왔어요
+              {confirmText}
             </button>
           </footer>
         </div>

@@ -552,7 +552,6 @@
     {
       "id": "report8",
       "refSpecies": 2,
-      "subSpecies": 14,
       "description": "고양이를 봤어요. 목줄 O",
       "imageUrl": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13",
       "sightedAt": "2024-03-17T14:25:00Z",
@@ -569,7 +568,6 @@
     {
       "id": "report9",
       "refSpecies": 1,
-      "subSpecies": 8,
       "description": "강아지를 봤어요. 가만히 있음",
       "imageUrl": "https://images.unsplash.com/photo-1534351450181-ea9f78427fe8",
       "sightedAt": "2024-03-17T11:50:00Z",
