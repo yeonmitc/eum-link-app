@@ -11,6 +11,7 @@ import { useMissingPets } from '@/hooks/useMissingPets';
 import { usePetSpecies } from '@/hooks/usePetSpecies';
 import { useComments } from '@/hooks/useComment';
 import useUserStore from '@/store/userStore';
+import useToggleMissingStatus from '@/hooks/useToggleMissingStatus';
 
 const MissingDetailPage = () => {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ const MissingDetailPage = () => {
   const { data, isLoading } = useMissingPets();
   const { data: species } = usePetSpecies();
   const { data: comments } = useComments('missing', id);
+
+  const { toggleStatus, isLoading: isUpdatingStatus, error: updateError, successData: updatedPetDataFromServer } = useToggleMissingStatus();
 
   // 게시글 메뉴
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -40,7 +43,7 @@ const MissingDetailPage = () => {
   };
   // 게시글 삭제
   async function deletepost() {
-    console.log("id",pet?.id);
+    handleClose();
     const url = `http://localhost:5000/missingPets/${pet?.id}`; 
     try {
       const response = await fetch(url, {
@@ -59,36 +62,21 @@ const MissingDetailPage = () => {
     }
     
   }
-  const isMissingSwitch = async (pet) => {
-    if (pet && typeof pet.isMissing === 'boolean') {
-      const newIsMissingStatus = !pet.isMissing;
-      console.log(`isMissing 상태를 ${pet.isMissing}에서 ${newIsMissingStatus}로 변경 시도...`);
-      const url = `http://localhost:5000/missingPets/${pet?.id}`;
-      try {
-        const response = await fetch(url, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            isMissing: newIsMissingStatus
-          })
-        });
-        if (!response.ok) {
-          console.error(`서버 업데이트 실패 ㅠㅠ 상태 코드: ${response.status} - ${response.statusText}`);
-          alert('상태 변경에 실패했습니다. 다시 시도해주세요.');
-          return;
-        }
-        console.log(`게시물 ID ${pet.id}의 isMissing 상태를 ${newIsMissingStatus}로 서버 업데이트 성공!`);
-        alert('상태가 성공적으로 변경되었습니다! ✨');
-      } catch (error) {
-        console.error('서버 업데이트 요청 중 에러 발생:', error);
-        alert('상태 변경 중 예상치 못한 문제가 발생했어요!! 😭 네트워크 상태를 확인해보세요.');
-      }
+  const IsMissingSwitch = async () => { // 훅 사용을 위한 새로운 함수
+    handleClose();
+
+    const result = await toggleStatus(pet); 
+
+    if (result) {
+      console.log("상태 변경 성공 및 서버 데이터 수신:", result);
+      alert('상태가 성공적으로 변경되었습니다! ✨');
+
+    } else if (updateError) {
+       console.error("상태 변경 중 에러 발생:", updateError);
+       alert(`상태 변경 실패: ${updateError}`);
     }
   };
-  
-  
+
   return (
     <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
       <Grid size={12} sx={{ width:'100%', maxHeight:'76vh', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_medium'}}>
@@ -100,6 +88,7 @@ const MissingDetailPage = () => {
 
       <Grid container size={12} >
         <Box id='post' sx={{width:'100%',height: '75vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
+        
         <EllipsisVertical id='postmenu' onClick={handleClick} style={{ cursor: 'pointer' }} /> {/* 클릭 시 메뉴 열기 */}
           <Menu
             anchorEl={anchorEl} // 메뉴의 앵커 엘리먼트
@@ -107,7 +96,7 @@ const MissingDetailPage = () => {
             onClose={handleClose} // 메뉴 닫기
           >
             <MenuItem onClick={deletepost}>게시글 삭제 하기</MenuItem>
-            <MenuItem onClick={isMissingSwitch}>실종 상태 변경</MenuItem>
+            <MenuItem onClick={IsMissingSwitch}>실종 상태 변경</MenuItem>
           </Menu>
           {/* 정보카드 */}
           <Grid container size={12}  sx={{width:'100%',height:{xs:'85%',sm:'37vh'} , display:'flex'}} >
