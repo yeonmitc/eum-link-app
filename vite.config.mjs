@@ -20,5 +20,4 @@ export default defineConfig({
     open: true,
     historyApiFallback: true,
   },
-  appType: 'spa',
 });
