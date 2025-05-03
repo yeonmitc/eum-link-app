@@ -2,8 +2,8 @@
   "users": [
     {
       "id": "user1",
-      "email": "kim.minho@gmail.com",
-      "password": "password123",
+      "email": "test@test.com",
+      "password": "1234",
       "username": "민호맘",
       "createdAt": "2023-12-01T09:00:00Z"
     },
@@ -71,7 +71,7 @@
       "createdAt": "2024-03-10T12:30:00Z"
     }
   ],
-  "species": [
+  "refSpecies": [
     {
       "id": "1",
       "name": "강아지",
@@ -194,7 +194,7 @@
       "petName": "몽이",
       "refSpecies": 1,
       "subSpecies": 5,
-      "age": 3.0,
+      "age": 3,
       "isNeuter": false,
       "petGender": "f",
       "description": "흰색 말티즈, 앞니 하나 빠짐. 분홍색 하네스 착용",
@@ -260,7 +260,7 @@
       "petName": "까미",
       "refSpecies": 2,
       "subSpecies": 14,
-      "age": 2.0,
+      "age": 2,
       "isNeuter": true,
       "petGender": "m",
       "description": "검은 고양이, 노란 눈. 빨간색 방울 목걸이 착용",
@@ -326,7 +326,7 @@
       "petName": "콩이",
       "refSpecies": 1,
       "subSpecies": 6,
-      "age": 5.0,
+      "age": 5,
       "isNeuter": true,
       "petGender": "m",
       "description": "흰색과 갈색 비글, 꼬리가 짧음. 주황색 목줄 착용",
@@ -363,12 +363,35 @@
       },
       "createdAt": "2024-03-14T20:15:00Z",
       "isMissing": true
+    },
+    {
+      "id": "f2f1",
+      "userId": 3,
+      "petName": "봄이",
+      "refSpecies": 1,
+      "subSpecies": 5,
+      "age": 1.4,
+      "isNeuter": true,
+      "petGender": "f",
+      "description": "머리에 리본이 달려있어요",
+      "imageUrl": "https://res.cloudinary.com/dor26tdln/image/upload/v1746201396/r2wf5vushdagri2dd5tv.jpg",
+      "imageId": "r2wf5vushdagri2dd5tv",
+      "lostDate": "2025-02-19",
+      "lostTime": "14:57",
+      "lostLocation": {
+        "road_address": "경기도 의정부시 동일로 456",
+        "number_address": "경기 의정부시 신곡동 723-2",
+        "lat": 37.72895787437593,
+        "lon": 127.05976560427484
+      },
+      "createdAt": "2025-05-02T15:56:36.992Z",
+      "isMissing": true
     }
   ],
   "reportsPets": [
     {
       "id": "report1",
-      "species": 1,
+      "refSpecies": 1,
       "petId":"missing1",
       "description": "강아지를 봤어요. 목줄 X",
       "imageUrl": "https://images.unsplash.com/photo-1543466835-00a7907e9de1",
@@ -381,10 +404,11 @@
       },
       "createdAt": "2024-03-19T15:45:00Z",
       "userId": "user4",
+      "missingId": null
     },
     {
       "id": "report2",
-      "species": 2,
+      "refSpecies": 2,
       "petId":"missing3",
       "description": "고양이를 봤어요. 목줄 O",
       "imageUrl": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
@@ -397,10 +421,11 @@
       },
       "createdAt": "2024-03-19T12:30:00Z",
       "userId": "user4",
+      "missingId": "missing2"
     },
     {
       "id": "report3",
-      "species": 1,
+      "refSpecies": 1,
       "petId":"missing4",
       "description": "강아지를 봤어요. 목줄 X",
       "imageUrl": "https://images.unsplash.com/photo-1587300003388-59208cc962cb",
@@ -416,7 +441,7 @@
     },
     {
       "id": "report4",
-      "species": 2,
+      "refSpecies": 2,
       "subSpecies": 11,
       "description": "고양이를 봤어요. 목줄 O",
       "imageUrl": "https://images.unsplash.com/photo-1495360010541-f48722b34f7d",
@@ -429,11 +454,12 @@
       },
       "createdAt": "2024-03-18T16:35:00Z",
       "userId": null,
-      "isMissing": true
+      "isMissing": true,
+      "missingId": null
     },
     {
       "id": "report5",
-      "species": 1,
+      "refSpecies": 1,
       "petId":"missing6",
       "description": "강아지를 봤어요. 목줄 X",
       "imageUrl": "https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48",
@@ -449,7 +475,7 @@
     },
     {
       "id": "report6",
-      "species": 2,
+      "refSpecies": 2,
       "petId":"missing3",
       "description": "고양이를 봤어요. 가만히 있음",
       "imageUrl": "https://images.unsplash.com/photo-1573865526739-10659fec78a5",
@@ -461,11 +487,12 @@
         "lng": 126.976888
       },
       "createdAt": "2024-03-18T10:20:00Z",
+      "missingId": null,
       "userId": null
     },
     {
       "id": "report7",
-      "species": 1,
+      "refSpecies": 1,
       "petId":"missing1",
       "description": "강아지를 봤어요. 가만히 있음",
       "imageUrl": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e",
@@ -477,11 +504,12 @@
         "lng": 126.976888
       },
       "createdAt": "2024-03-17T17:55:00Z",
-      "userId": null
+      "userId": null,
+      "missingId": null
     },
     {
       "id": "report8",
-      "species": 2,
+      "refSpecies": 2,
       "subSpecies": 14,
       "description": "고양이를 봤어요. 목줄 O",
       "imageUrl": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13",
@@ -493,11 +521,12 @@
         "lng": 127.038351
       },
       "createdAt": "2024-03-17T14:40:00Z",
-      "userId": null
+      "userId": null,
+      "missingId": null
     },
     {
       "id": "report9",
-      "species": 1,
+      "refSpecies": 1,
       "subSpecies": 8,
       "description": "강아지를 봤어요. 가만히 있음",
       "imageUrl": "https://images.unsplash.com/photo-1534351450181-ea9f78427fe8",
@@ -509,11 +538,13 @@
         "lng": 126.825314
       },
       "createdAt": "2024-03-17T12:05:00Z",
+      "userId": null,
+      "missingId": "missing1",
       "userId": null
     },
     {
       "id": "report10",
-      "species": 2,
+      "refSpecies": 2,
       "subSpecies": 10,
       "description": "고양이를 봤어요. 목줄 O",
       "imageUrl": "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8",
@@ -525,7 +556,8 @@
         "lng": 127.038351
       },
       "createdAt": "2025-05-02T08:37:55.116Z",
-      "isMissing": true
+      "missingId": null,
+      "userId": null
     }
   ],
   "comments": [
