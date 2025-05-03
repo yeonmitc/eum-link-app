@@ -1,19 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
-
-// 레이아웃
 import MainLayout from './common/layout/MainLayout';
-
-// 페이지
+import MyPage from './features/Mypage/MyPage';
 import RegisterPage from './features/auth/RegisterPage';
+import AboutPage from './features/common/AboutPage';
 import NotFoundPage from './features/common/NotFoundPage';
 import HomePage from './features/home/HomePage';
-
 import MissingDetailPage from './features/missing/MissingDetailPage';
-
-import AboutPage from './features/common/AboutPage';
-import MyPage from './features/myPage/MyPage';
 import PetListMap from './features/petListMap/PetListMap';
-import ReportDetailPage from './features/reports/ReportDetailPage';
 import ReportFormPage from './features/reports/ReportFormPage';
 
 export default function App() {
