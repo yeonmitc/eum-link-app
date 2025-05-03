@@ -32,10 +32,10 @@ const PetListMap = ({type}) => {
   }, [type])
 
   const {
-    data: petList, 
-    isLoading: isPetListLoading, 
-    isError: isPetListError, 
-    error: petError
+    data: petList,
+    isLoading: isPetListLoading,
+    isError: isPetListError,
+    error: petError,
   } = usePetListQuery({ type });
 
   const toggleViewMap = () => {
@@ -70,8 +70,8 @@ const PetListMap = ({type}) => {
   const openFilterModal = () => setIsFilterModalOpen(true);
   const closeFilterModal = () => setIsFilterModalOpen(false);
 
-  if(isPetListLoading) return <div>Loading...</div>
-  if(isPetListError) return <div>Error: {petError.message}</div>
+  if (isPetListLoading) return <div>Loading...</div>;
+  if (isPetListError) return <div>Error: {petError.message}</div>;
 
   return (
     <div className="w-full flex flex-col md:!flex-row">
@@ -80,6 +80,7 @@ const PetListMap = ({type}) => {
       </div>
       <div className="w-full md:basis-3/4">
         <div className="hidden md:!block">
+
           <DesktopFilter
             type={type} 
             filters={filters} 
@@ -109,6 +110,7 @@ const PetListMap = ({type}) => {
           : <ListView pets={petList} type={type} />
           }
         </div>
+        <div>{isMapView ? <MapView /> : <ListView pets={petList} type={type} />}</div>
       </div>
 
       {/* 모바일 필터 모달 */}
@@ -123,7 +125,7 @@ const PetListMap = ({type}) => {
       )}
 
     </div>
-  )
-}
+  );
+};
 
-export default PetListMap
+export default PetListMap;
