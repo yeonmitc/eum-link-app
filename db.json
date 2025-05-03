@@ -145,26 +145,27 @@
   ],
   "missingPets": [
     {
-      "id": "missing1",
       "userId": "user1",
-      "petName": "초코",
+      "petName": "초코몽",
       "refSpecies": 1,
       "subSpecies": 4,
       "age": 2.5,
       "isNeuter": false,
       "petGender": "f",
-      "description": "갈색 푸들, 왼쪽 귀에 작은 흰 반점이 있음. 빨간 목줄 착용",
-      "imageUrl": "https://images.unsplash.com/photo-1546975490-e8b92a360b24",
+      "description": "갈색 푸들, 왼쪽 귀에 작은 흰 반점이 있음. 빨간 목줄 착용중",
+      "imageUrl": "https://res.cloudinary.com/dor26tdln/image/upload/v1746296750/njdmyxpyyrsmsqdapd26.png",
+      "imageId": "njdmyxpyyrsmsqdapd26",
       "lostDate": "2024-03-15",
       "lostTime": "14:30",
       "lostLocation": {
-        "road_address": "서울특별시 강남구 테헤란로 152",
-        "number_address": "서울 강남구 역삼동 737",
-        "lat": 37.499447,
-        "lon": 127.036127
+        "road_address": "경기도 의정부시 동일로 456",
+        "number_address": "경기 의정부시 신곡동 726-1",
+        "lat": 37.728948290725576,
+        "lon": 127.05985216331415
       },
-      "createdAt": "2024-03-15T15:00:00Z",
-      "isMissing": true
+      "createdAt": "2025-05-03T18:26:00.068Z",
+      "isMissing": true,
+      "id": "missing1"
     },
     {
       "id": "missing2",
@@ -366,26 +367,26 @@
     },
     {
       "userId": "user1",
-      "petName": "방방방",
-      "refSpecies": 2,
-      "subSpecies": 10,
-      "age": 0.5,
+      "petName": "초코초코몽몽",
+      "refSpecies": 1,
+      "subSpecies": 7,
+      "age": 0.2,
       "isNeuter": true,
-      "petGender": "f",
-      "description": "임신중이에요!!!",
-      "imageUrl": "https://res.cloudinary.com/dor26tdln/image/upload/v1746283773/qkirhixvohlx9qllgaez.jpg",
-      "imageId": "qkirhixvohlx9qllgaez",
-      "sightedDate": "2025-04-29",
-      "sightedTime": "12:52",
+      "petGender": "m",
+      "description": "까만 하트 털이 등에 있어요!!",
+      "imageUrl": "https://res.cloudinary.com/dor26tdln/image/upload/v1746296877/oky1w0fygsf3vcqsi3ev.jpg",
+      "imageId": "oky1w0fygsf3vcqsi3ev",
+      "lostDate": "2025-04-30",
+      "lostTime": "17:27",
       "lostLocation": {
-        "road_address": "",
-        "number_address": "경기 의정부시 신곡동 727-1",
-        "lat": 37.7347,
-        "lon": 127.0653
+        "road_address": "경기도 의정부시 동일로 456",
+        "number_address": "경기 의정부시 신곡동 726-1",
+        "lat": 37.728948290725576,
+        "lon": 127.05985216331415
       },
-      "createdAt": "2025-05-03T14:49:33.882Z",
+      "createdAt": "2025-05-03T18:27:57.470Z",
       "isMissing": true,
-      "id": "0quaWKp"
+      "id": "XRcrAnS"
     }
   ],
   "reportsPets": [
