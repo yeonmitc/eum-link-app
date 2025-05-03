@@ -194,7 +194,7 @@
       "petName": "몽이",
       "refSpecies": 1,
       "subSpecies": 5,
-      "age": 3.0,
+      "age": 3,
       "isNeuter": false,
       "petGender": "f",
       "description": "흰색 말티즈, 앞니 하나 빠짐. 분홍색 하네스 착용",
@@ -260,7 +260,7 @@
       "petName": "까미",
       "refSpecies": 2,
       "subSpecies": 14,
-      "age": 2.0,
+      "age": 2,
       "isNeuter": true,
       "petGender": "m",
       "description": "검은 고양이, 노란 눈. 빨간색 방울 목걸이 착용",
@@ -326,7 +326,7 @@
       "petName": "콩이",
       "refSpecies": 1,
       "subSpecies": 6,
-      "age": 5.0,
+      "age": 5,
       "isNeuter": true,
       "petGender": "m",
       "description": "흰색과 갈색 비글, 꼬리가 짧음. 주황색 목줄 착용",
@@ -362,6 +362,29 @@
         "lng": 126.923792
       },
       "createdAt": "2024-03-14T20:15:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "f2f1",
+      "userId": 3,
+      "petName": "봄이",
+      "refSpecies": 1,
+      "subSpecies": 5,
+      "age": 1.4,
+      "isNeuter": true,
+      "petGender": "f",
+      "description": "머리에 리본이 달려있어요",
+      "imageUrl": "https://res.cloudinary.com/dor26tdln/image/upload/v1746201396/r2wf5vushdagri2dd5tv.jpg",
+      "imageId": "r2wf5vushdagri2dd5tv",
+      "lostDate": "2025-02-19",
+      "lostTime": "14:57",
+      "lostLocation": {
+        "road_address": "경기도 의정부시 동일로 456",
+        "number_address": "경기 의정부시 신곡동 723-2",
+        "lat": 37.72895787437593,
+        "lon": 127.05976560427484
+      },
+      "createdAt": "2025-05-02T15:56:36.992Z",
       "isMissing": true
     }
   ],
