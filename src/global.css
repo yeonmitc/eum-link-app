@@ -11,12 +11,23 @@
   --secondary: #5d9471;
   --secondary-fg: #ffffff;
 
+  --third: #77b48d;
+  --third-fg: #ffffff;
+
   --point: #fd9b71;
   --point-fg: #ffffff;
 
   --border: #ddd;
   --input: #f0f0f0;
   --ring: #43685033;
+
+  --font-kbo-light: 'KBO_light';
+  --font-kbo-medium: 'KBO_medium';
+  --font-kbo-bold: 'KBO_bold';
+  --font-jalnan: 'Jalnan2TTF';
+  --font-gmarket-light: 'Gmarket_light';
+  --font-gmarket-medium: 'Gmarket_medium';
+  --font-gmarket-bold: 'Gmarket_bold';
 }
 
 .dark {
@@ -45,9 +56,76 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-kbo-light);
   }
   * {
     box-sizing: border-box;
   }
+}
+@layer utilities {
+  /* 기본 스크롤바 스타일 */
+  .scrollbar {
+    -ms-overflow-style: auto;
+    scrollbar-width: auto;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 8px;
+    display: block;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 4px;
+  }
+
+  /* 스크롤바 숨김 변형 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+/* 🧵 웹폰트 선언 */
+@font-face {
+  font-family: 'KBO_light';
+  src: url('./assets/font/KBO Dia Gothic_light.ttf') format('truetype');
+  font-weight: lighter;
+}
+@font-face {
+  font-family: 'KBO_medium';
+  src: url('./assets/font/KBO Dia Gothic_medium.ttf') format('truetype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'KBO_bold';
+  src: url('./assets/font/KBO Dia Gothic_bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Gmarket_light';
+  src: url('./assets/font/GmarketSansTTFLight.ttf') format('truetype');
+  font-weight: lighter;
+}
+@font-face {
+  font-family: 'Gmarket_medium';
+  src: url('./assets/font/GmarketSansTTFMedium.ttf') format('truetype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Gmarket_bold';
+  src: url('./assets/font/GmarketSansTTFBold.ttf') format('truetype');
+  font-weight: bold;
 }

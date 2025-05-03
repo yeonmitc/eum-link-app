@@ -9,8 +9,9 @@ export default function AppProvider({ children }) {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         {children}
+        {/* <ToastManager /> */}
         <Toaster position="top-center" />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
       </BrowserRouter>
     </QueryClientProvider>
   );

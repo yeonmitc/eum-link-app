@@ -1,0 +1,624 @@
+{
+  "users": [
+    {
+      "id": "user1",
+      "email": "test@test.com",
+      "password": "1234",
+      "username": "민호맘",
+      "createdAt": "2023-12-01T09:00:00Z"
+    },
+    {
+      "id": "user2",
+      "email": "park.jiyeon@naver.com",
+      "password": "secure456",
+      "username": "지연이네집사",
+      "createdAt": "2023-12-15T14:30:00Z"
+    },
+    {
+      "id": "user3",
+      "email": "lee.sunwoo@gmail.com",
+      "password": "petlover789",
+      "username": "선우아빠",
+      "createdAt": "2024-01-02T11:20:00Z"
+    },
+    {
+      "id": "user4",
+      "email": "choi.yuna@kakao.com",
+      "password": "dogcat123",
+      "username": "유나네동물농장",
+      "createdAt": "2024-01-10T16:45:00Z"
+    },
+    {
+      "id": "user5",
+      "email": "jung.hyemin@gmail.com",
+      "password": "lovepets22",
+      "username": "혜민이엄마",
+      "createdAt": "2024-01-20T08:15:00Z"
+    },
+    {
+      "id": "user6",
+      "email": "kang.dohyun@naver.com",
+      "password": "findmypet34",
+      "username": "도현이네",
+      "createdAt": "2024-02-01T13:10:00Z"
+    },
+    {
+      "id": "user7",
+      "email": "song.minji@gmail.com",
+      "password": "catdog567",
+      "username": "민지네멍냥이",
+      "createdAt": "2024-02-15T10:25:00Z"
+    },
+    {
+      "id": "user8",
+      "email": "han.seojun@kakao.com",
+      "password": "petfriend89",
+      "username": "서준이아빠",
+      "createdAt": "2024-02-28T15:40:00Z"
+    },
+    {
+      "id": "user9",
+      "email": "yoon.ara@naver.com",
+      "password": "loveanimals11",
+      "username": "아라네집사",
+      "createdAt": "2024-03-05T09:50:00Z"
+    },
+    {
+      "id": "user10",
+      "email": "shin.woojin@gmail.com",
+      "password": "petparent99",
+      "username": "우진이네강아지",
+      "createdAt": "2024-03-10T12:30:00Z"
+    }
+  ],
+  "species": [
+    {
+      "id": "1",
+      "name": "강아지",
+      "refKind": "null"
+    },
+    {
+      "id": "2",
+      "name": "고양이",
+      "refKind": "null"
+    },
+    {
+      "id": "3",
+      "name": "기타",
+      "refKind": "null"
+    },
+    {
+      "id": "4",
+      "name": "말티즈",
+      "refKind": 1
+    },
+    {
+      "id": "5",
+      "name": "시바 이누",
+      "refKind": 1
+    },
+    {
+      "id": "6",
+      "name": "리트리버",
+      "refKind": 1
+    },
+    {
+      "id": "7",
+      "name": "푸들",
+      "refKind": 1
+    },
+    {
+      "id": "8",
+      "name": "기타",
+      "refKind": 1
+    },
+    {
+      "id": "9",
+      "name": "스코티시 폴드",
+      "refKind": 2
+    },
+    {
+      "id": "10",
+      "name": "러시안 블루",
+      "refKind": 2
+    },
+    {
+      "id": "11",
+      "name": "페르시안",
+      "refKind": 2
+    },
+    {
+      "id": "12",
+      "name": "푸들",
+      "refKind": 2
+    },
+    {
+      "id": "13",
+      "name": "먼치킨",
+      "refKind": 2
+    },
+    {
+      "id": "14",
+      "name": "기타",
+      "refKind": 2
+    }
+  ],
+  "missingPets": [
+    {
+      "id": "missing1",
+      "userId": "user1",
+      "petName": "초코",
+      "refSpecies": 1,
+      "subSpecies": 4,
+      "age": 2.5,
+      "isNeuter": false,
+      "petGender": "f",
+      "description": "갈색 푸들, 왼쪽 귀에 작은 흰 반점이 있음. 빨간 목줄 착용",
+      "imageUrl": "https://images.unsplash.com/photo-1546975490-e8b92a360b24",
+      "lostDate": "2024-03-15",
+      "lostTime": "14:30",
+      "lostLocation": {
+        "road_address": "서울특별시 강남구 테헤란로 152",
+        "number_address": "서울 강남구 역삼동 737",
+        "lat": 37.499447,
+        "lng": 127.036127
+      },
+      "createdAt": "2024-03-15T15:00:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "missing2",
+      "userId": "user2",
+      "petName": "나비",
+      "refSpecies": 2,
+      "subSpecies": 10,
+      "age": 1.2,
+      "isNeuter": false,
+      "petGender": "m",
+      "description": "회색 코숏, 흰색 발톱. 파란색 목걸이 착용",
+      "imageUrl": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
+      "lostDate": "2024-03-14",
+      "lostTime": "19:45",
+      "lostLocation": {
+        "road_address": "서울특별시 마포구 와우산로 94",
+        "number_address": "서울 마포구 상수동 72-1",
+        "lat": 37.54891,
+        "lng": 126.923792
+      },
+      "createdAt": "2024-03-14T20:15:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "missing3",
+      "userId": "user7",
+      "petName": "몽이",
+      "refSpecies": 1,
+      "subSpecies": 5,
+      "age": 3,
+      "isNeuter": false,
+      "petGender": "f",
+      "description": "흰색 말티즈, 앞니 하나 빠짐. 분홍색 하네스 착용",
+      "imageUrl": "https://images.unsplash.com/photo-1508532566027-b2032cd8a715",
+      "lostDate": "2024-03-13",
+      "lostTime": "16:20",
+      "lostLocation": {
+        "road_address": "경기도 성남시 분당구 정자일로 239",
+        "number_address": "경기 성남시 분당구 정자동 178-1",
+        "lat": 37.359907,
+        "lng": 127.105743
+      },
+      "createdAt": "2024-03-13T16:45:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "missing4",
+      "userId": "user2",
+      "petName": "루이",
+      "refSpecies": 2,
+      "subSpecies": 13,
+      "age": 0.8,
+      "isNeuter": true,
+      "petGender": "f",
+      "description": "치즈태비 고양이, 꼬리 끝이 검은색. 검정 목걸이 착용",
+      "imageUrl": "https://images.unsplash.com/photo-1573865526739-10659fec78a5",
+      "lostDate": "2024-03-16",
+      "lostTime": "08:15",
+      "lostLocation": {
+        "road_address": "인천광역시 연수구 컨벤시아대로 153",
+        "number_address": "인천 연수구 송도동 24-1",
+        "lat": 37.389939,
+        "lng": 126.639841
+      },
+      "createdAt": "2024-03-16T08:45:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "missing5",
+      "userId": "user9",
+      "petName": "해피",
+      "refSpecies": 1,
+      "subSpecies": 7,
+      "age": 4.5,
+      "isNeuter": true,
+      "petGender": "m",
+      "description": "베이지색 시바견, 왼쪽 눈 위에 흉터. 초록색 목줄 착용",
+      "imageUrl": "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8",
+      "lostDate": "2024-03-12",
+      "lostTime": "11:30",
+      "lostLocation": {
+        "road_address": "서울특별시 송파구 올림픽로 300",
+        "number_address": "서울 송파구 신천동 29",
+        "lat": 37.513858,
+        "lng": 127.099838
+      },
+      "createdAt": "2024-03-12T12:00:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "missing6",
+      "userId": "user1",
+      "petName": "까미",
+      "refSpecies": 2,
+      "subSpecies": 14,
+      "age": 2,
+      "isNeuter": true,
+      "petGender": "m",
+      "description": "검은 고양이, 노란 눈. 빨간색 방울 목걸이 착용",
+      "imageUrl": "https://images.unsplash.com/photo-1557246565-8a3d3ab5d7f6",
+      "lostDate": "2024-03-11",
+      "lostTime": "21:00",
+      "lostLocation": {
+        "road_address": "경기도 고양시 일산동구 중앙로 1271",
+        "number_address": "경기 고양시 일산동구 장항동 868",
+        "lat": 37.65982,
+        "lng": 126.76978
+      },
+      "createdAt": "2024-03-11T21:30:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "missing7",
+      "userId": "user4",
+      "petName": "보리",
+      "refSpecies": 1,
+      "subSpecies": 8,
+      "age": 1.5,
+      "isNeuter": false,
+      "petGender": "f",
+      "description": "크림색 포메라니안, 왼쪽 귀가 접혀있음. 파란색 하네스 착용",
+      "imageUrl": "https://images.unsplash.com/photo-1537151625747-768eb6cf92b2",
+      "lostDate": "2024-03-15",
+      "lostTime": "17:20",
+      "lostLocation": {
+        "road_address": "서울특별시 서초구 강남대로 373",
+        "number_address": "서울 서초구 서초동 1303-22",
+        "lat": 37.495867,
+        "lng": 127.027625
+      },
+      "createdAt": "2024-03-15T17:45:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "missing8",
+      "userId": "user6",
+      "petName": "달이",
+      "refSpecies": 2,
+      "subSpecies": 11,
+      "age": 3.2,
+      "isNeuter": false,
+      "petGender": "m",
+      "description": "삼색이 고양이, 흰색 발톱. 보라색 목걸이 착용",
+      "imageUrl": "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8",
+      "lostDate": "2024-03-10",
+      "lostTime": "13:40",
+      "lostLocation": {
+        "road_address": "경기도 수원시 영통구 월드컵로 206",
+        "number_address": "경기 수원시 영통구 원천동 33",
+        "lat": 37.276932,
+        "lng": 127.043508
+      },
+      "createdAt": "2024-03-10T14:00:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "missing9",
+      "userId": "user8",
+      "petName": "콩이",
+      "refSpecies": 1,
+      "subSpecies": 6,
+      "age": 5,
+      "isNeuter": true,
+      "petGender": "m",
+      "description": "흰색과 갈색 비글, 꼬리가 짧음. 주황색 목줄 착용",
+      "imageUrl": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8",
+      "lostDate": "2024-03-09",
+      "lostTime": "15:50",
+      "lostLocation": {
+        "road_address": "서울특별시 강서구 마곡중앙로 161-8",
+        "number_address": "서울 강서구 마곡동 760-1",
+        "lat": 37.559784,
+        "lng": 126.825314
+      },
+      "createdAt": "2024-03-09T16:15:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "missing10",
+      "userId": "user10",
+      "petName": "망고",
+      "refSpecies": 3,
+      "subSpecies": null,
+      "age": 1.8,
+      "isNeuter": true,
+      "petGender": "f",
+      "description": "노란 페르시안, 긴 털. 민트색 목걸이 착용",
+      "imageUrl": "https://images.unsplash.com/photo-1533738363-b7f9aef128ce",
+      "lostDate": "2024-03-16",
+      "lostTime": "09:30",
+      "lostLocation": {
+        "road_address": "서울특별시 마포구 와우산로 94",
+        "number_address": "서울 마포구 상수동 72-1",
+        "lat": 37.54891,
+        "lng": 126.923792
+      },
+      "createdAt": "2024-03-14T20:15:00Z",
+      "isMissing": true
+    },
+    {
+      "id": "f2f1",
+      "userId": 3,
+      "petName": "봄이",
+      "refSpecies": 1,
+      "subSpecies": 5,
+      "age": 1.4,
+      "isNeuter": true,
+      "petGender": "f",
+      "description": "머리에 리본이 달려있어요",
+      "imageUrl": "https://res.cloudinary.com/dor26tdln/image/upload/v1746201396/r2wf5vushdagri2dd5tv.jpg",
+      "imageId": "r2wf5vushdagri2dd5tv",
+      "lostDate": "2025-02-19",
+      "lostTime": "14:57",
+      "lostLocation": {
+        "road_address": "경기도 의정부시 동일로 456",
+        "number_address": "경기 의정부시 신곡동 723-2",
+        "lat": 37.72895787437593,
+        "lon": 127.05976560427484
+      },
+      "createdAt": "2025-05-02T15:56:36.992Z",
+      "isMissing": true
+    },
+    {
+      "id": "e375",
+      "userId": 3,
+      "petName": "나비",
+      "refSpecies": 2,
+      "subSpecies": 9,
+      "age": 0,
+      "isNeuter": false,
+      "petGender": "m",
+      "description": "ㄴㅇㄻ",
+      "lostDate": "",
+      "lostTime": "",
+      "lostLocation": {
+        "road_address": "경기도 의정부시 동일로 456",
+        "number_address": "경기 의정부시 신곡동 726-1",
+        "lat": 37.728922325015205,
+        "lon": 127.05974867819036
+      },
+      "createdAt": "2025-05-03T12:05:13.317Z",
+      "isMissing": true
+    },
+    {
+      "id": "14fc",
+      "userId": 3,
+      "petName": "강아지!",
+      "refSpecies": 0,
+      "subSpecies": null,
+      "age": 0,
+      "isNeuter": false,
+      "petGender": "m",
+      "description": "",
+      "lostDate": "",
+      "lostTime": "",
+      "lostLocation": {
+        "road_address": "경기도 의정부시 동일로 456",
+        "number_address": "경기 의정부시 신곡동 726-1",
+        "lat": 37.72892216485329,
+        "lon": 127.05974698047406
+      },
+      "createdAt": "2025-05-03T12:05:47.145Z",
+      "isMissing": true
+    }
+  ],
+  "reportsPets": [
+    {
+      "id": "report1",
+      "refSpecies": 1,
+      "petId": "missing1",
+      "description": "강아지를 봤어요. 목줄 X",
+      "imageUrl": "https://images.unsplash.com/photo-1543466835-00a7907e9de1",
+      "sightedAt": "2024-03-19T15:30:00Z",
+      "sightedLocation": {
+        "road_address": "서울특별시 종로구 사직로 161",
+        "number_address": "서울 종로구 세종로 1-68",
+        "lat": 37.576022,
+        "lng": 126.976888
+      },
+      "createdAt": "2024-03-19T15:45:00Z",
+      "userId": "user4",
+      "missingId": null
+    },
+    {
+      "id": "report2",
+      "refSpecies": 2,
+      "petId": "missing3",
+      "description": "고양이를 봤어요. 목줄 O",
+      "imageUrl": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
+      "sightedAt": "2024-03-19T12:15:00Z",
+      "sightedLocation": {
+        "road_address": "서울특별시 송파구 위례성대로 6",
+        "number_address": "서울 송파구 방이동 88-2",
+        "lat": 37.516007,
+        "lng": 127.112407
+      },
+      "createdAt": "2024-03-19T12:30:00Z",
+      "userId": "user4",
+      "missingId": "missing2"
+    },
+    {
+      "id": "report3",
+      "refSpecies": 1,
+      "petId": "missing4",
+      "description": "강아지를 봤어요. 목줄 X",
+      "imageUrl": "https://images.unsplash.com/photo-1587300003388-59208cc962cb",
+      "sightedAt": "2024-03-19T09:45:00Z",
+      "sightedLocation": {
+        "road_address": "서울특별시 종로구 사직로 161",
+        "number_address": "서울 종로구 세종로 1-68",
+        "lat": 37.576022,
+        "lng": 126.976888
+      },
+      "createdAt": "2024-03-19T10:00:00Z",
+      "userId": "user2"
+    },
+    {
+      "id": "report4",
+      "refSpecies": 2,
+      "subSpecies": 11,
+      "description": "고양이를 봤어요. 목줄 O",
+      "imageUrl": "https://images.unsplash.com/photo-1495360010541-f48722b34f7d",
+      "sightedAt": "2024-03-18T16:20:00Z",
+      "sightedLocation": {
+        "road_address": "서울특별시 성동구 왕십리로 222",
+        "number_address": "서울 성동구 행당동 286",
+        "lat": 37.561508,
+        "lng": 127.038351
+      },
+      "createdAt": "2024-03-18T16:35:00Z",
+      "userId": null,
+      "isMissing": true,
+      "missingId": null
+    },
+    {
+      "id": "report5",
+      "refSpecies": 1,
+      "petId": "missing6",
+      "description": "강아지를 봤어요. 목줄 X",
+      "imageUrl": "https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48",
+      "sightedAt": "2024-03-18T13:10:00Z",
+      "sightedLocation": {
+        "road_address": "서울특별시 종로구 사직로 161",
+        "number_address": "서울 종로구 세종로 1-68",
+        "lat": 37.576022,
+        "lng": 126.976888
+      },
+      "createdAt": "2024-03-18T13:25:00Z",
+      "userId": null
+    },
+    {
+      "id": "report6",
+      "refSpecies": 2,
+      "petId": "missing3",
+      "description": "고양이를 봤어요. 가만히 있음",
+      "imageUrl": "https://images.unsplash.com/photo-1573865526739-10659fec78a5",
+      "sightedAt": "2024-03-18T10:05:00Z",
+      "sightedLocation": {
+        "road_address": "서울특별시 종로구 사직로 161",
+        "number_address": "서울 종로구 세종로 1-68",
+        "lat": 37.576022,
+        "lng": 126.976888
+      },
+      "createdAt": "2024-03-18T10:20:00Z",
+      "missingId": null,
+      "userId": null
+    },
+    {
+      "id": "report7",
+      "refSpecies": 1,
+      "petId": "missing1",
+      "description": "강아지를 봤어요. 가만히 있음",
+      "imageUrl": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e",
+      "sightedAt": "2024-03-17T17:40:00Z",
+      "sightedLocation": {
+        "road_address": "서울특별시 종로구 사직로 161",
+        "number_address": "서울 종로구 세종로 1-68",
+        "lat": 37.576022,
+        "lng": 126.976888
+      },
+      "createdAt": "2024-03-17T17:55:00Z",
+      "userId": null,
+      "missingId": null
+    },
+    {
+      "id": "report8",
+      "refSpecies": 2,
+      "description": "고양이를 봤어요. 목줄 O",
+      "imageUrl": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13",
+      "sightedAt": "2024-03-17T14:25:00Z",
+      "sightedLocation": {
+        "road_address": "서울특별시 성동구 왕십리로 222",
+        "number_address": "서울 성동구 행당동 286",
+        "lat": 37.561508,
+        "lng": 127.038351
+      },
+      "createdAt": "2024-03-17T14:40:00Z",
+      "userId": null,
+      "missingId": null
+    },
+    {
+      "id": "report9",
+      "refSpecies": 1,
+      "description": "강아지를 봤어요. 가만히 있음",
+      "imageUrl": "https://images.unsplash.com/photo-1534351450181-ea9f78427fe8",
+      "sightedAt": "2024-03-17T11:50:00Z",
+      "sightedLocation": {
+        "road_address": "서울특별시 강서구 마곡중앙로 161-8",
+        "number_address": "서울 강서구 마곡동 760-1",
+        "lat": 37.559784,
+        "lng": 126.825314
+      },
+      "createdAt": "2024-03-17T12:05:00Z",
+      "userId": null,
+      "missingId": "missing1"
+    },
+    {
+      "id": "report10",
+      "refSpecies": 2,
+      "subSpecies": 10,
+      "description": "고양이를 봤어요. 목줄 O",
+      "imageUrl": "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8",
+      "sightedAt": "2024-03-17T09:30:00Z",
+      "sightedLocation": {
+        "road_address": "서울특별시 성동구 왕십리로 222",
+        "number_address": "서울 성동구 행당동 286",
+        "lat": 37.561508,
+        "lng": 127.038351
+      },
+      "createdAt": "2025-05-02T08:37:55.116Z",
+      "missingId": null,
+      "userId": null
+    }
+  ],
+  "comments": [
+    {
+      "commentId": "1",
+      "postId": 0,
+      "postType": "missing",
+      "userId": "user123",
+      "userName": "홍길동",
+      "content": "이 강아지를 봤어요!",
+      "timestamp": "2025-04-30T12:00:00Z",
+      "id": "62e5"
+    },
+    {
+      "commentId": "2",
+      "postId": 0,
+      "postType": "report",
+      "userId": "user456",
+      "userName": "김철수",
+      "content": "어디서 봤는지 알려주세요!",
+      "timestamp": "2025-04-30T12:05:00Z",
+      "id": "7d82"
+    }
+  ]
+}
