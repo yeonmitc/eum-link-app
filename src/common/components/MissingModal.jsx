@@ -76,11 +76,16 @@ const MissingModal = ({ showModal, setShowModal }) => {
     // for (const [key, value] of formData.entries()) {
     //   console.log(`${key}:`, value);
     // }
+    const btn = document.querySelector('#addMissingBtn');
+    btn.textContent = '등록 중...';
+    btn.disabled = true;
 
     const uploadImg = formData.get('missingImg');
 
     if (!uploadImg) {
       console.log('이미지 추가 필수');
+      btn.textContent = '등록하기';
+      btn.disabled = false;
       return;
     }
 
@@ -121,6 +126,10 @@ const MissingModal = ({ showModal, setShowModal }) => {
 
         await addMissingPet({ data: sendData });
 
+        // 성공 후 폼 초기화 및 버튼 복구
+        btn.textContent = '등록하기';
+        btn.disabled = false;
+
         // 폼 초기화
         // e.target.reset();
         // setRefKind('');
@@ -128,7 +137,7 @@ const MissingModal = ({ showModal, setShowModal }) => {
         // setPetGender('m');
         // setIsNeuter(false);
 
-        setSubModal(true);
+        // setSubModal(true);
       } catch (err) {
         console.error('등록 중 에러 발생:', err);
       }
@@ -373,7 +382,8 @@ const MissingModal = ({ showModal, setShowModal }) => {
 
             <button
               type="submit"
-              className="cursor-pointer rounded bg-(--secondary) px-4 py-2 font-bold text-white transition-colors hover:bg-blue-700"
+              id="addMissingBtn"
+              className="cursor-pointer rounded bg-[var(--secondary)] px-4 py-2 font-bold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:!bg-gray-300"
             >
               등록하기
             </button>
