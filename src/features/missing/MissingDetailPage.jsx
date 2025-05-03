@@ -10,10 +10,13 @@ import PostMap from '@/common/components/PostMap';
 import { useMissingPets } from '@/hooks/useMissingPets';
 import { usePetSpecies } from '@/hooks/usePetSpecies';
 import { useComments } from '@/hooks/useComment';
+import useUserStore from '@/store/userStore';
 
 const MissingDetailPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+
   // console.log("pm id :",id);
 
   const { data, isLoading } = useMissingPets();

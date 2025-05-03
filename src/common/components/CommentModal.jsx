@@ -1,10 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import { Grid ,Box,InputBase, Avatar, } from '@mui/material';
 import { Send,EllipsisVertical } from 'lucide-react';
+import useUserStore from '@/store/userStore';
 
 const CommentModal = ({ comments,postId,postType  }) => {
   // console.log("comments",comments);
   const [newComment, setNewComment] = useState('');
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  
 
   useEffect(() => {
   }, [newComment]);  
@@ -63,7 +66,7 @@ const CommentModal = ({ comments,postId,postType  }) => {
   return (
     <>
       <Grid size={12} height={'5vh'} lineHeight={'5vh'} display={'flex'} justifyContent={'flex-start'} padding={'1vh 2vw'} color={'gray'} >댓글 ({comments?.length === "0" ? comments?.length : "0"})</Grid>
-         <Grid id='comments' size={12}height={'20vh'} display={{ sm: 'none',xs:  'block' }}>
+         <Grid id='comments' size={12}height={'20vh'} >
          {comments?.map((data) => (
           <div id='comment' key={data.commentid} >
             <Avatar variant="rounded">{data.userId}</Avatar>
@@ -76,13 +79,24 @@ const CommentModal = ({ comments,postId,postType  }) => {
 
          </Grid>
             <Grid size={12} height={'5vh'} display={'flex'} padding={'0 10px'}>
-              <InputBase
-                  sx={{ flex: 1, background:'rgb(228, 228, 228)', paddingLeft: 2, borderRadius:'10px' , marginRight:'1vw'}}
-                  placeholder="댓글을 입력하세요."
-                  inputProps={{ 'aria-label': '' }}
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-              />
+               {isLoggedIn ? (
+                            <InputBase
+                                sx={{ flex: 1, background:'rgb(228, 228, 228)', paddingLeft: 2, borderRadius:'10px' , marginRight:'1vw'}}
+                                placeholder="댓글을 입력하세요."
+                                inputProps={{ 'aria-label': '' }}
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                            /> 
+                           ):(
+                            <InputBase
+                                disabled
+                                sx={{ flex: 1, background:'rgb(228, 228, 228)', paddingLeft: 2, borderRadius:'10px' , marginRight:'1vw'}}
+                                placeholder="로그인이 필요한 기능 입니다."
+                                inputProps={{ 'aria-label': '' }}
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                            />
+                            )}
               <Box 
               sx={{ width:'5vh',height:'5vh', background:'#FD9B71', borderRadius:'10px',
               display:'flex',justifyContent:'center',alignItems:'center'}}
