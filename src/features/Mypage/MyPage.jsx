@@ -1,4 +1,5 @@
 import MissingModal from '@/common/components/MissingModal';
+import MyMissingPetCard from '@/common/components/MyMissingPetCard';
 import MyMissingPetList from '@/common/components/MyMissingPetList';
 import MyReportList from '@/common/components/MyReportList';
 import { useMyReportsStore } from '@/store/useMyReportsStore';
@@ -20,7 +21,7 @@ const MyPage = () => {
   useEffect(() => {
     if (!isLoggedIn) {
       login({
-        id: 'user2',
+        id: 'user7',
         username: '테스트',
         // email: 'park.jiyeon@naver.com',
       });
@@ -42,40 +43,26 @@ const MyPage = () => {
     }
   }, [isLoggedIn, user]);
 
-  // 로그인 안 되어있으면 로그인 페이지 이동 (임시)
-  // useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     navigate('/login');
-  //   } else {
-  //     fetchMissingPets();
-  //   }
-  // }, [isLoggedIn]);
-
-  console.log('현재 로그인 유저:', user);
-  console.log('missingPets', missingPets);
-
-  // 이벤트 버블링 막아놓기
   const handleClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
   };
-  // 버튼 클릭 시 모달 열기
+
   const openModal = (petId) => {
     setSelectedPetId(petId);
     setIsModalOpen(true);
   };
-  // 모달 닫기
+
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedPetId(null);
   };
 
-  // 모달 '예' 눌렀을 때 실행
   const handleConfirm = async () => {
     if (selectedPetId !== null) {
-      setMyMissingPets(null); // 깜빡임 방지용: 일시적으로 렌더 중단
+      setMyMissingPets(null);
       await updateMissingStatus(selectedPetId, false);
-      await loadMissingPets(); // 다시 로드 후 렌더
+      await loadMissingPets();
     }
     closeModal();
   };
@@ -83,20 +70,16 @@ const MyPage = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editPet, setEditPet] = useState(null);
 
-  // 수정 버튼 눌렀을 때 실행
   const handleEdit = (pet) => {
     setEditPet(pet);
     setIsEditModalOpen(true);
   };
 
   const { reports, fetchReports, deleteReport } = useMyReportsStore();
-  // console.log('reports:', reports);
 
   useEffect(() => {
     fetchReports();
   }, []);
-
-  const myReports = reports?.filter((r) => r.userId === user?.id) || [];
 
   const { deleteMissingPetWithReports } = useMyMissingPetStore();
 
@@ -112,14 +95,10 @@ const MyPage = () => {
   const handleDeleteConfirm = async () => {
     if (selectedPetId !== null) {
       await deleteMissingPetWithReports(selectedPetId);
-      await loadMissingPets(); // 갱신
+      await loadMissingPets();
     }
     closeDeleteModal();
   };
-  useEffect(() => {
-    console.log('isModalOpen:', isModalOpen);
-    console.log('isDeleteModalOpen:', isDeleteModalOpen);
-  }, [isModalOpen, isDeleteModalOpen]);
 
   const [selectedReportId, setSelectedReportId] = useState(null);
   const [isReportDeleteModalOpen, setIsReportDeleteModalOpen] = useState(false);
@@ -132,9 +111,8 @@ const MyPage = () => {
   const closeReportDeleteModal = () => setIsReportDeleteModalOpen(false);
 
   const handleReportDeleteConfirm = async () => {
-    // console.log('삭제 확인 버튼 눌림:', selectedReportId);
-    await deleteReport(selectedReportId); // store 에서 삭제
-    await fetchReports(); // 새로 갱신
+    await deleteReport(selectedReportId);
+    await fetchReports();
     closeReportDeleteModal();
   };
 
@@ -142,19 +120,39 @@ const MyPage = () => {
 
   useEffect(() => {
     const fetchAndSetReports = async () => {
-      setIsReportLoading(true); // fetch 전에 로딩 시작
+      setIsReportLoading(true);
       await fetchReports();
-      setIsReportLoading(false); // fetch 후 로딩 종료
+      setIsReportLoading(false);
     };
     fetchAndSetReports();
   }, []);
 
+  const groupedReportsByPetId = myMissingPets?.map((pet) => {
+    const relatedReports = reports.filter((r) => r.missingId === pet.id);
+    return { pet, reports: relatedReports };
+  });
+
+  const [myReports, setMyReports] = useState([]);
+
+  useEffect(() => {
+    if (user?.id && reports.length > 0) {
+      const filtered = reports.filter((r) => r.userId === user.id);
+      setMyReports(filtered);
+    }
+  }, [user, reports]);
+
   return (
     <div className="mx-auto w-full max-w-screen-2xl px-4 pt-20">
-      <div className="flex w-full gap-6 md:flex-row">
+      <div className="flex flex-col gap-6 lg:!flex-row">
         {/* 좌측 프로필 */}
-        <aside className="min-w-[200px] rounded-lg bg-white p-6 md:w-1/4">
+        <aside className="rounded-lg bg-white p-6 lg:w-1/4">
           <p className="text-xl font-bold">{user?.username} 님</p>
+          <div className="mt-6">
+            <p className="text-lg font-semibold">나의 계정정보</p>
+            <p className="mt-1 cursor-pointer text-sm text-gray-500 hover:underline">
+              회원정보수정
+            </p>
+          </div>
         </aside>
 
         {/* 우측 콘텐츠 */}
@@ -167,9 +165,11 @@ const MyPage = () => {
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
+
           <h2 className="mt-10 mb-4 text-lg font-bold">
             🐾 회원님이 남긴 제보 기록을 확인할 수 있어요.
           </h2>
+
           <MyReportList
             reports={myReports}
             onOpenModal={openModal}
@@ -177,6 +177,17 @@ const MyPage = () => {
             onDelete={handleReportDelete}
             isLoading={isReportLoading}
           />
+
+          <h2 className="mt-10 mb-4 text-lg font-bold">🐾 소중한 제보 내역을 확인할 수 있어요.</h2>
+          {groupedReportsByPetId?.every((group) => group.reports.length === 0) ? (
+            <p className="text-sm">아직 도착한 제보 내역이 없습니다. 조금만 더 기다려볼까요?</p>
+          ) : (
+            groupedReportsByPetId?.map(({ pet, reports }) => (
+              <div key={pet.id} className="mb-6">
+                <MyMissingPetCard pet={pet} reports={reports} />
+              </div>
+            ))
+          )}
         </section>
 
         <MissingModal
@@ -184,8 +195,9 @@ const MyPage = () => {
           setShowModal={setIsEditModalOpen}
           initialValues={editPet}
         />
+
         <ConfirmModal
-          show={isModalOpen} // 🟢 상태 변경용
+          show={isModalOpen}
           onClose={closeModal}
           onConfirm={handleConfirm}
           title="반려동물을 찾으셨나요?"
@@ -196,16 +208,18 @@ const MyPage = () => {
           }
           confirmText="예, 돌아왔어요"
         />
+
         <ConfirmModal
-          show={isDeleteModalOpen} // 🟢 실종 등록 건 삭제용
+          show={isDeleteModalOpen}
           onClose={closeDeleteModal}
           onConfirm={handleDeleteConfirm}
           title="정말 삭제하시겠습니까?"
           message="해당 실종글과 관련된 제보도 함께 삭제됩니다."
           confirmText="예, 삭제합니다"
         />
+
         <ConfirmModal
-          show={isReportDeleteModalOpen} // 🟢 제보 등록 건 삭제용
+          show={isReportDeleteModalOpen}
           onClose={closeReportDeleteModal}
           onConfirm={handleReportDeleteConfirm}
           title="정말 삭제하시겠습니까?"

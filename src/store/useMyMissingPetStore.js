@@ -5,7 +5,7 @@ export const useMyMissingPetStore = create((set) => ({
 
   // 전체 실종 불러오기
   fetchMissingPets: async () => {
-    const res = await fetch('http://localhost:3003/missingPets');
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/missingPets`);
     const data = await res.json();
     set({ missingPets: data });
   },
@@ -18,7 +18,7 @@ export const useMyMissingPetStore = create((set) => ({
       ),
     }));
     // 서버 반영
-    await fetch(`http://localhost:3003/missingPets/${petId}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/missingPets/${petId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -33,12 +33,12 @@ export const useMyMissingPetStore = create((set) => ({
       console.log('삭제하려는 missingId:', missingId);
 
       // 1. 실종글 삭제
-      await fetch(`http://localhost:3003/missingPets/${missingId}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/missingPets/${missingId}`, {
         method: 'DELETE',
       });
 
       // 2. 전체 제보 목록 가져오기
-      const reportRes = await fetch('http://localhost:3003/reportsPets');
+      const reportRes = await fetch(`${import.meta.env.VITE_API_URL}/reportsPets`);
       const reports = await reportRes.json();
 
       // 3. 관련 제보만 추출 (문자열 비교로 안전하게)
@@ -47,14 +47,14 @@ export const useMyMissingPetStore = create((set) => ({
       // 4. 관련 제보 삭제 (병렬 처리)
       await Promise.all(
         relatedReports.map((r) =>
-          fetch(`http://localhost:3003/reportsPets/${r.id}`, {
+          fetch(`${import.meta.env.VITE_API_URL}/reportsPets/${r.id}`, {
             method: 'DELETE',
           })
         )
       );
 
       // 5. 실종글 상태 최신화
-      const newRes = await fetch('http://localhost:3003/missingPets');
+      const newRes = await fetch(`${import.meta.env.VITE_API_URL}/missingPets`);
       const newData = await newRes.json();
       set({ missingPets: newData });
 
