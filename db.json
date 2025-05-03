@@ -194,7 +194,7 @@
       "petName": "몽이",
       "refSpecies": 1,
       "subSpecies": 5,
-      "age": 3.0,
+      "age": 3,
       "isNeuter": false,
       "petGender": "f",
       "description": "흰색 말티즈, 앞니 하나 빠짐. 분홍색 하네스 착용",
@@ -260,7 +260,7 @@
       "petName": "까미",
       "refSpecies": 2,
       "subSpecies": 14,
-      "age": 2.0,
+      "age": 2,
       "isNeuter": true,
       "petGender": "m",
       "description": "검은 고양이, 노란 눈. 빨간색 방울 목걸이 착용",
@@ -326,7 +326,7 @@
       "petName": "콩이",
       "refSpecies": 1,
       "subSpecies": 6,
-      "age": 5.0,
+      "age": 5,
       "isNeuter": true,
       "petGender": "m",
       "description": "흰색과 갈색 비글, 꼬리가 짧음. 주황색 목줄 착용",
@@ -554,7 +554,15 @@
       "userName": "김철수",
       "content": "어디서 봤는지 알려주세요!",
       "timestamp": "2025-04-30T12:05:00Z"
+    },
+    {
+      "id": "2ed3",
+      "postId": "0",
+      "postType": "missing",
+      "userId": "test1",
+      "userName": "테스트",
+      "content": "댓글 테스트",
+      "timestamp": "2025-05-03T04:08:25.763Z"
     }
   ]
-
 }

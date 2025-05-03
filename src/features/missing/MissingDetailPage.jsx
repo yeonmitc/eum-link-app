@@ -91,7 +91,7 @@ const MissingDetailPage = () => {
           </Grid>
           {/* 댓글 */}
           <Grid size={12}  sx={{width:'82vw',height: '32vh', background:' #fff',borderRadius:'20px',}}>
-            <PostComment comments={comments || {}}/>
+            <PostComment comments={comments || {}} postId={id} postType={'missing'}/>
           </Grid>
 
         </Box>
