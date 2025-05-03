@@ -20,6 +20,11 @@
   justify-content: center;
   align-items: center;
 }
+#postnav:first-child:hover {
+  cursor: pointer;
+  background: #5D9471;
+
+}
 #postnav > svg {
  margin-left: 10px;
 }
@@ -100,4 +105,22 @@ white-space: nowrap;
   height: 20px;
   color: #919191;
   margin-left: auto;
+}
+#bottombtn{
+  color:#fff;
+}
+#bottombtn > div {
+  font-family: 'KBO_medium';
+  width: auto;
+  padding: 0 40px;
+  background-color: #436850;
+  text-align: center;
+  line-height: 4vh;
+  border-radius: 20px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+#bottombtn > div:hover {
+  background-color: #5D9471;
 }

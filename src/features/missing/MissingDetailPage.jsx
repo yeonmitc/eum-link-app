@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import './MissingDetailPage.css'
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import { Grid ,Box, Card ,InputBase} from '@mui/material';
 import { EllipsisVertical ,MapPin ,Mars,Venus ,UserRoundSearch,HeartHandshake } from 'lucide-react';
@@ -12,6 +12,7 @@ import { usePetSpecies } from '@/hooks/usePetSpecies';
 import { useComments } from '@/hooks/useComment';
 
 const MissingDetailPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   // console.log("pm id :",id);
 
@@ -32,17 +33,21 @@ const MissingDetailPage = () => {
   // const matchedSpecies = species.find(s => s.id === pet.refSpecies);
   const matchedSubSpecies = species.find(s => s.id === pet.subSpecies); 
 
+  const missingBtn = ()=>{
+    navigate("/missing");
+  };
+
   return (
     <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
-      <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_medium'}}>
-        <Box id='postnav' sx={{background:' #436850'}} >실종 신고</Box>
+      <Grid size={12} sx={{ width:'100%', maxHeight:'76vh', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_medium'}}>
+        <Box id='postnav' sx={{background:' #436850'}} onClick={missingBtn} >실종 신고</Box>
         <Box id='postnav' sx={{background:' #5D9471'}}>
           {pet?.petName} {pet?.isMissing === true? ( <UserRoundSearch  strokeWidth={2} />) 
           : ( <HeartHandshake  strokeWidth={2}/>) } </Box>
       </Grid>
 
       <Grid container size={12} >
-        <Box id='post' sx={{width:'92vw',height: '76vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
+        <Box id='post' sx={{width:'100%',height: '75vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
       <EllipsisVertical id='postmenu'/>
           {/* 정보카드 */}
           <Grid size={12}  sx={{width:'82vw',height: '37vh', display:'flex'}} >
@@ -92,9 +97,9 @@ const MissingDetailPage = () => {
         </Box>
       </Grid>
 {/* 하단 버튼 */}
-      <Grid size={12}sx={{ marginTop:'1vh', display:'flex' ,color:"#fff"}}>
-        <Box sx={{width:'92vw',height: '4vh',background:' #436850',textAlign:'center' , lineHeight:'6vh',borderRadius:'20px'}}>
-          
+      <Grid id='bottombtn' size={12}sx={{ marginTop:'1vh', display:'flex'}}>
+        <Box sx={{maxHeight:'4vh'}}>
+          제보하기
         </Box>
       </Grid>
     </Grid> 
