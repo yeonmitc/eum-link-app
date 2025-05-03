@@ -77,11 +77,13 @@ export default function Header() {
 
   const handleSearch = () => {
     if (searchValue.trim()) {
-      const base = searchType === '실종' ? '/missing' : '/reports';
-      navigate(`${base}?q=${encodeURIComponent(searchValue.trim())}`);
+      if (searchType === '실종') {
+        navigate(`/missing?address=${encodeURIComponent(searchValue.trim())}&map=true`);
+      } else if (searchType === '목격') {
+        navigate(`/reports?address=${encodeURIComponent(searchValue.trim())}&map=true`);
+      }
     }
   };
-
   return (
     <>
       {/* 상단 헤더 영역 */}

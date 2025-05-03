@@ -19,19 +19,20 @@ import { usePetSpecies } from '@/hooks/usePetSpecies';
 import { useComments } from '@/hooks/useComment';
 import useUserStore from '@/store/userStore';
 import useToggleMissingStatus from '@/hooks/useToggleMissingStatus';
+import ReportModal from '@/common/components/ReportModal';
 
 const MissingDetailPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const user = useUserStore((state) => state.user);
+  // 목격 모달
+  const [reportModal, setReportModal] = useState(false);
 
-  // console.log("id",id)
 
   const { data: pet, isLoading } = useMissingPets(id);
   const { data: species } = usePetSpecies();
   const { data: comments } = useComments('missing', id);
-
-  // console.log("pet",pet)
+  // useEffect(() => { }, []);
 
   const { toggleStatus, error: updateError } = useToggleMissingStatus();
 
@@ -53,8 +54,11 @@ const MissingDetailPage = () => {
 
   const matchedSubSpecies = species[pet.subSpecies - 1];
 
-  const missingBtn = () => {
-    navigate('/missing');
+  const missingBtn = ()=>{    navigate("/missing");  };
+  const myPageBtn = ()=>{    navigate("/mypage"); };
+  // 제보하기 버튼
+  const reportBtn = ()=>{
+    setReportModal(true);
   };
   const myPageBtn = () => {
     navigate('/mypage');
@@ -80,12 +84,11 @@ const MissingDetailPage = () => {
       alert('삭제 중 문제가 발생 !! 😭');
     }
   }
-  const IsMissingSwitch = async () => {
-    // 훅 사용을 위한 새로운 함수
+
+
+  const IsMissingSwitch = async () => { 
     handleClose();
-
-    const result = await toggleStatus(pet);
-
+    const result = await toggleStatus(pet); 
     if (result) {
       console.log('상태 변경 성공 및 서버 데이터 수신:', result);
       alert('상태가 성공적으로 변경되었습니다! ✨');
@@ -94,6 +97,7 @@ const MissingDetailPage = () => {
       alert(`상태 변경 실패: ${updateError}`);
     }
   };
+
 
   return (
     <Grid container spacing={0} sx={{ padding: '0 4%', fontFamily: 'Gmarket_light' }}>
@@ -251,8 +255,11 @@ const MissingDetailPage = () => {
           </Grid>
         </Box>
       </Grid>
-    </Grid>
-  );
-};
+
+      {/* 제보하기 모달 */}
+      <ReportModal showModal={reportModal} setShowModal={setReportModal} missingId={pet?.id} />
+    </Grid> 
+  )
+}
 
 export default MissingDetailPage;

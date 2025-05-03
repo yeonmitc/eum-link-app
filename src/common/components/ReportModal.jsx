@@ -8,7 +8,7 @@ import { useAddReport } from '@/hooks/useAddReport';
 import { useUploadImg } from '@/hooks/useUploadImg';
 import MapView from './MapView';
 
-const ReportModal = ({ showModal, setShowModal }) => {
+const ReportModal = ({ showModal, setShowModal,missingId}) => {
   const [refKind, setRefKind] = useState('');
   const { data: petSpeciesData } = useSpecies({ ref: refKind });
   const petSpecies = useRef(petSpeciesData);
