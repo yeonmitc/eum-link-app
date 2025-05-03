@@ -17,24 +17,24 @@ const ListView = ({ pets, type }) => {
   }
 
   return (
-    <>
+    <div className="flex flex-col">
       <div className="px-4 py-2 mb-2">
         <p className="text-gray-700">
           총 <span className="font-medium">{pets.length}</span>개의 {type === "missing" ? "실종" : "목격"} 정보가 있습니다.
         </p>
       </div>
-    <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 px-4">
-      {pets.map((pet) => {
-        return (
-           <Link 
-            key={pet.id}
-            className="transform-gpu hover:-translate-y-1 transition-transform duration-300 ease-in-out" 
-            to={`/${type === "missing" ? "missing" : "reports"}/${pet.id}`}>
-              {type === "missing" ? <MissingCard pet={pet} speciesList={speciesList} /> : <ReportCard speciesList={speciesList} pet={pet} />}
-            </Link>
-      )})}
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 px-4">
+        {pets.map((pet) => {
+          return (
+            <Link 
+              key={pet.id}
+              className="transform-gpu hover:-translate-y-1 transition-transform duration-300 ease-in-out" 
+              to={`/${type === "missing" ? "missing" : "reports"}/${pet.id}`}>
+                {type === "missing" ? <MissingCard pet={pet} speciesList={speciesList} /> : <ReportCard speciesList={speciesList} pet={pet} />}
+              </Link>
+        )})}
+      </div>
     </div>
-    </>
   )
 }
 

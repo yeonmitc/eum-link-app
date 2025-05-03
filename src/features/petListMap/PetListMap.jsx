@@ -3,7 +3,7 @@ import { LayoutList, Map } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ListView from './components/List/ListView';
-import MapView from './components/Map/MapView';
+import MapListView from './components/Map/MapListView';
 import DesktopFilter from './components/TabAndFilter/DesktopFilter';
 import MobileFilterModal from './components/TabAndFilter/MobileFilterModal';
 import TabMenu from './components/TabAndFilter/TabMenu';
@@ -88,14 +88,16 @@ const PetListMap = ({type}) => {
         </div>
 
         <div
-          className="relative"
+          className="relative mb-4 flex justify-center items-center"
           onMouseEnter={()=>setIsHovered(true)}
           onMouseLeave={()=>setIsHovered(false)}          
         >
           {
             isHovered &&
             <button 
-              className="flex z-2 justify-center items-center absolute bottom-[3rem] right-1/2 rounded-sm bg-(--bg) text-black shadow-lg gap-x-2 p-2 w-[150px] h-[50px] cursor-pointer"
+              className="flex z-2 justify-center items-center 
+                absolute top-[3rem] md:bottom-[3rem] left-1/2 -translate-x-1/2 
+                rounded-sm bg-(--bg) text-black shadow-lg gap-x-2 p-2 w-[150px] h-[50px] cursor-pointer"
               onClick={toggleViewMap}
             >
               {isMapView
@@ -105,7 +107,7 @@ const PetListMap = ({type}) => {
           }
 
           { isMapView 
-          ? <MapView /> 
+          ? <MapListView pets={petList} type={type} /> 
           : <ListView pets={petList} type={type} />
           }
         </div>

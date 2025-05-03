@@ -3,7 +3,6 @@ import { Cat, Dog, PawPrint } from 'lucide-react';
 const ReportCard = ({ pet, speciesList }) => {
 
   const species = speciesList?.find(item => item.id === pet.refSpecies.toString());
-  const petBreed = speciesList?.find(item => item.id === pet?.subSpecies.toString());
 
   return (
     <div className="rounded-lg shadow-xl h-[350px] md:h-[330px] overflow-hidden">
@@ -23,7 +22,7 @@ const ReportCard = ({ pet, speciesList }) => {
           }
           <span className="text-sm truncate">{species?.name || "기타"}</span>
         </div>
-        <div className="text-sm font-semibold text-black truncate">{petBreed ? petBreed.name : "기타"}</div>
+        <div className="text-sm font-semibold text-black truncate"></div>
       </div>
       <div className="mx-2 mb-4">
         <div className="mt-2 flex justify-start items-center gap-2">
