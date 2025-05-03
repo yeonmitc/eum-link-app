@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const MyMissingPetList = ({ pets, onOpenModal, onEdit }) => {
+const MyMissingPetList = ({ pets, onOpenModal, onEdit, onDelete }) => {
   if (pets === null) {
     return (
       <div className="flex flex-col items-center gap-4 py-10 text-center">
@@ -52,13 +52,7 @@ const MyMissingPetList = ({ pets, onOpenModal, onEdit }) => {
                 >
                   {pet.isMissing ? '찾고 있어요' : '돌아왔어요'}
                 </button>
-                <button
-                  className="flex h-8 cursor-pointer items-center rounded-full bg-[#5D9471] px-4 text-sm text-white"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                  }}
-                >
+                <button className="flex h-8 cursor-pointer items-center rounded-full bg-[#5D9471] px-4 text-sm text-white">
                   댓글 0
                 </button>
                 <button
@@ -76,6 +70,7 @@ const MyMissingPetList = ({ pets, onOpenModal, onEdit }) => {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
+                    onDelete(pet.id);
                   }}
                 >
                   삭제
