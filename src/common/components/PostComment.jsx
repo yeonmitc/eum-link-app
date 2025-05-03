@@ -64,7 +64,7 @@ const PostComment = ({ comments,postId,postType  }) => {
   return (
     <>
       <Grid size={12} height={'5vh'} lineHeight={'5vh'} display={'flex'} justifyContent={'flex-start'} padding={'1vh 2vw'} color={'gray'} >댓글 ({comments?.length === "0" ? comments?.length : "0"})</Grid>
-         <Grid id='comments' size={12}height={'20vh'}>
+         <Grid id='comments' size={12}height={'20vh'} display={{ xs: 'none', sm: 'block' }}>
          {comments?.map((data) => (
           <div id='comment' key={data.commentid} >
             <Avatar variant="rounded">{data.userId}</Avatar>
@@ -73,7 +73,7 @@ const PostComment = ({ comments,postId,postType  }) => {
             <div className='c-time'>{formatDate(data.timestamp)}</div>
             <EllipsisVertical/>
           </div>
-        ))}
+          ))}
 
          </Grid>
             <Grid size={12} height={'5vh'} display={'flex'} padding={'0 10px'}>

@@ -124,3 +124,12 @@ white-space: nowrap;
 #bottombtn > div:hover {
   background-color: #5D9471;
 }
+
+
+@media (max-width: 767px) {
+  #postnav {
+    padding: 0vh 5vw;
+    height: 5vh;
+    line-height: 5vh;
+  }
+}

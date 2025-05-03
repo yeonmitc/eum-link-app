@@ -28,26 +28,29 @@ const ReportDetailPage = () => {
     const pet = data[id];
     const matchedSpecies = species.find(s => s.id === pet.species);
     const repTitle = pet?.description.length > 15 ? `${pet?.description.slice(0,15)}...`: pet?.description;
+  
   return (
-  <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
+    <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
       <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_medium'}}>
         <Box id='postnav' sx={{background:' #436850'}} >목격제보</Box>
         <Box id='postnav' sx={{background:' #5D9471'}}>{repTitle}</Box>
       </Grid>
 
       <Grid container size={12} >
-        <Box id='post' sx={{width:'92vw',height: '76vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
+        <Box id='post' sx={{width:'100%',height: '76vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
       <EllipsisVertical id='postmenu'/>
           {/* 정보카드 */}
-          <Grid size={12}  sx={{width:'82vw',height: '37vh', display:'flex'}} >
+          <Grid container size={12}  sx={{width:'100%',height: {xs:'85%',sm:'37vh'}, display:'flex'}} >
               {/* 사진 */}
-              <Grid size={4}>
-                <Card sx={{ maxWidth: '24vw' ,height: '34vh',borderRadius:'20px'}}>
+              <Grid size={{ xs: 12, sm: 4}}>
+              <Card sx={{ maxWidth:{xs:'200px',sm:'90%'}  ,height:{xs:'17vh',sm:'34vh'},borderRadius:'20px'}}>
                 <img style={{ width: '100%', height: '100%', objectFit: 'cover'}} src={pet?.imageUrl}/>
                 </Card>
               </Grid>
               {/* 정보상세 */}
-              <Grid size={4} id='d-text' container  spacing={0} sx={{ maxWidth: '30vw' ,maxHeight: '34vh'}} >
+              <Grid container size={{ xs: 12, sm: 4}} id='d-text' 
+              fontSize={{xs:'smaller',md:'medium'}}
+              sx={{ Width: '95%' ,maxHeight:{xs:'auto',sm:'34vh'}}} >
                 <Grid container size={12} >
                   <h2>{repTitle} </h2> 
                   <h3 style={{ marginLeft: 'auto'}}>{pet?.lostDate}</h3>
@@ -58,8 +61,8 @@ const ReportDetailPage = () => {
                   <h3>특징</h3> {pet?.description}</Grid>
               </Grid>
               {/* 지도 */}
-              <Grid size={4}>
-                  <Card sx={{ width: '27vw' ,height: '34vh', background:' #fff',borderRadius:'20px',boxShadow:'3px 3px 3px rgb(177, 177, 177)'}}>
+              <Grid size={{ xs: 12, sm: 4}}>
+                  <Card sx={{ width: '100%' ,height:{xs:'15vh',sm:'34vh'}, background:' #fff',borderRadius:'20px',boxShadow:'3px 3px 3px rgb(177, 177, 177)'}}>
                     <PostMap lostLocation={pet?.sightedLocation  || {}}/>
                     <Box id='loc' sx={{display:'flex', alignItems:'center',mt:1,marginLeft:'10px'}}>
                       <MapPin  strokeWidth={2.75} color='#436850'  />
@@ -69,7 +72,7 @@ const ReportDetailPage = () => {
               </Grid>
           </Grid>
           {/* 댓글 */}
-          <Grid size={12}  sx={{width:'82vw',height: '32vh', background:' #fff',borderRadius:'20px',}}>
+          <Grid size={12}  sx={{width:'82vw',height:{sx:'',md:'32vh'},paddingBottom:'10px', background:' #fff',borderRadius:'20px',}}>
             <PostComment comments={comments || {}}/>
           </Grid>
 
