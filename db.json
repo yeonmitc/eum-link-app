@@ -71,7 +71,7 @@
       "createdAt": "2024-03-10T12:30:00Z"
     }
   ],
-  "refSpecies": [
+  "species": [
     {
       "id": "1",
       "name": "강아지",
@@ -392,7 +392,7 @@
     {
       "id": "report1",
       "refSpecies": 1,
-      "petId":"missing1",
+      "petId": "missing1",
       "description": "강아지를 봤어요. 목줄 X",
       "imageUrl": "https://images.unsplash.com/photo-1543466835-00a7907e9de1",
       "sightedAt": "2024-03-19T15:30:00Z",
@@ -409,7 +409,7 @@
     {
       "id": "report2",
       "refSpecies": 2,
-      "petId":"missing3",
+      "petId": "missing3",
       "description": "고양이를 봤어요. 목줄 O",
       "imageUrl": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
       "sightedAt": "2024-03-19T12:15:00Z",
@@ -426,7 +426,7 @@
     {
       "id": "report3",
       "refSpecies": 1,
-      "petId":"missing4",
+      "petId": "missing4",
       "description": "강아지를 봤어요. 목줄 X",
       "imageUrl": "https://images.unsplash.com/photo-1587300003388-59208cc962cb",
       "sightedAt": "2024-03-19T09:45:00Z",
@@ -460,7 +460,7 @@
     {
       "id": "report5",
       "refSpecies": 1,
-      "petId":"missing6",
+      "petId": "missing6",
       "description": "강아지를 봤어요. 목줄 X",
       "imageUrl": "https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48",
       "sightedAt": "2024-03-18T13:10:00Z",
@@ -476,7 +476,7 @@
     {
       "id": "report6",
       "refSpecies": 2,
-      "petId":"missing3",
+      "petId": "missing3",
       "description": "고양이를 봤어요. 가만히 있음",
       "imageUrl": "https://images.unsplash.com/photo-1573865526739-10659fec78a5",
       "sightedAt": "2024-03-18T10:05:00Z",
@@ -493,7 +493,7 @@
     {
       "id": "report7",
       "refSpecies": 1,
-      "petId":"missing1",
+      "petId": "missing1",
       "description": "강아지를 봤어요. 가만히 있음",
       "imageUrl": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e",
       "sightedAt": "2024-03-17T17:40:00Z",
