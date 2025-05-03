@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import './MissingDetailPage.css'
 import { useParams, useNavigate } from "react-router-dom"
 
-import { Grid ,Box, Card ,InputBase} from '@mui/material';
+import { Grid ,Box, Card ,Menu ,MenuItem } from '@mui/material';
 import { EllipsisVertical ,MapPin ,Mars,Venus ,UserRoundSearch,HeartHandshake } from 'lucide-react';
 
 import PostComment from '@/common/components/PostComment';
@@ -11,34 +11,71 @@ import { useMissingPets } from '@/hooks/useMissingPets';
 import { usePetSpecies } from '@/hooks/usePetSpecies';
 import { useComments } from '@/hooks/useComment';
 import useUserStore from '@/store/userStore';
+import useToggleMissingStatus from '@/hooks/useToggleMissingStatus';
 
 const MissingDetailPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const user = useUserStore((state) => state.user);
 
-  // console.log("pm id :",id);
+  // console.log("id",id)
 
-  const { data, isLoading } = useMissingPets();
+  const { data : pet, isLoading } = useMissingPets(id);
   const { data: species } = usePetSpecies();
   const { data: comments } = useComments('missing', id);
 
-  // console.log("species",species );
+  // console.log("pet",pet)
 
-  if (isLoading) {
-    return <div>Loading...</div>; 
-  }
-  if (!data[id] || data[id].length === 0) {
-    return <div>Not Found</div>;
-  }
-  const pet = data[id];
+  const { toggleStatus,  error: updateError } = useToggleMissingStatus();
 
-  // const matchedSpecies = species.find(s => s.id === pet?.refSpecies);
+  // 게시글 메뉴
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {    setAnchorEl(event.currentTarget);  };
+  const handleClose = () => {    setAnchorEl(null);  };
+  if (isLoading) {    return <div>Loading...</div>;   }
+  if (!pet || pet.length === 0) {    return <div>Not Found</div>;  }
+
   const matchedSubSpecies = species[( pet.subSpecies)-1];
 
+  const missingBtn = ()=>{    navigate("/missing");  };
+  const myPageBtn = ()=>{    navigate("/mypage"); };
+  const reportBtn = ()=>{
+  };
+  // 게시글 삭제
+  async function deletepost() {
+    handleClose();
+    const url = `http://localhost:5000/missingPets/${pet?.id}`; 
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        console.error(`삭제 실패: ${response.status} - ${response.statusText}`);
+        alert('데이터 삭제에 실패했습니다.');
+        return;
+      }
+      console.log(`댓글 ID ${id} 삭제 성공!`);
+      alert('데이터가 성공적으로 삭제되었습니다.');  
+    } catch (error) {
+      console.error('삭제 중 에러 발생:', error);
+      alert('삭제 중 문제가 발생 !! 😭');
+    }
+    
+  }
+  const IsMissingSwitch = async () => { // 훅 사용을 위한 새로운 함수
+    handleClose();
 
-  const missingBtn = ()=>{
-    navigate("/missing");
+    const result = await toggleStatus(pet); 
+
+    if (result) {
+      console.log("상태 변경 성공 및 서버 데이터 수신:", result);
+      alert('상태가 성공적으로 변경되었습니다! ✨');
+
+    } else if (updateError) {
+       console.error("상태 변경 중 에러 발생:", updateError);
+       alert(`상태 변경 실패: ${updateError}`);
+    }
   };
 
   return (
@@ -48,11 +85,33 @@ const MissingDetailPage = () => {
         <Box id='postnav' sx={{background:' #5D9471'}}>
           {pet?.petName} {pet?.isMissing === true? ( <UserRoundSearch  strokeWidth={2} />) 
           : ( <HeartHandshake  strokeWidth={2}/>) } </Box>
+          {/* 제보 버튼 */}
+          {user?.id === pet.userId ? ( 
+              <Box id='postnav' onClick={myPageBtn} sx={{background:' #5D9471', marginLeft:'auto'}}>
+                실종 제보 보기
+              </Box>
+          ) : (
+              <Box id='postnav' onClick={reportBtn} sx={{background:' #5D9471', marginLeft:'auto'}}>
+                제보하기
+              </Box>
+          )}
       </Grid>
 
       <Grid container size={12} >
-        <Box id='post' sx={{width:'100%',height: '75vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
-      <EllipsisVertical id='postmenu'/>
+        <Box id='post' sx={{width:'100%',height: '75vh',textAlign:'center',borderRadius:'0 0 20px 20px', padding: '4vh 5vw'}}>
+        {user?.id === pet.userId ? ( 
+          <div>
+            <EllipsisVertical id='postmenu' onClick={handleClick} style={{ cursor: 'pointer' }} /> 
+            <Menu
+              anchorEl={anchorEl} // 메뉴의 앵커 엘리먼트
+              open={open} // 앵커가 존재할 때 메뉴 열기
+              onClose={handleClose} // 메뉴 닫기
+            >
+              <MenuItem onClick={deletepost}>게시글 삭제 하기</MenuItem>
+              <MenuItem onClick={IsMissingSwitch}>실종 상태 변경</MenuItem>
+            </Menu>
+          </div>
+          ) : ''}
           {/* 정보카드 */}
           <Grid container size={12}  sx={{width:'100%',height:{xs:'85%',sm:'37vh'} , display:'flex'}} >
               {/* 사진 */}
@@ -100,12 +159,6 @@ const MissingDetailPage = () => {
             <PostComment comments={comments || {}} postId={id} postType={'missing'}/>
           </Grid>
 
-        </Box>
-      </Grid>
-{/* 하단 버튼 */}
-      <Grid id='bottombtn' size={12}sx={{ marginTop:'1vh', display:'flex'}}>
-        <Box sx={{maxHeight:'4vh'}}>
-          제보하기
         </Box>
       </Grid>
     </Grid> 

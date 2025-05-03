@@ -16,32 +16,45 @@ const ReportDetailPage = () => {
     // console.log("pm id :",id);
 
   
-    const { data, isLoading } = useReportsPets();
+  const { data : pet, isLoading } = useReportsPets(id);
     const { data: species } = usePetSpecies();
     const { data: comments } = useComments('report', id); 
   
     if (isLoading) {
       return <div>Loading...</div>; 
     }
-    if (!data[id] || data[id].length === 0) {
-      return <div>Not Found</div>;
-    }
-    const pet = data[id];
+    if (!pet || pet.length === 0) {    return <div>Not Found</div>;  }
+
     const matchedSpecies = species[( pet.refSpecies)-1] ;
     const repTitle = pet?.description.length > 15 ? `${pet?.description.slice(0,15)}...`: pet?.description;
   
-    console.log("refSpecies",species);
+    // console.log("refSpecies",species);
+
+    const shareBtn = async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href); // 현재 URL을 클립보드에 복사
+        alert('현재 주소가 복사되었습니다!'); // 성공 메시지
+      } catch (err) {
+        console.error('주소 복사 실패:', err);
+        alert('주소 복사에 실패했습니다.'); // 실패 메시지
+      }
+    };
 
   return (
     <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
       <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_medium'}}>
         <Box id='postnav' sx={{background:' #436850'}} >목격제보</Box>
         <Box id='postnav' sx={{background:' #5D9471'}}>{repTitle}</Box>
+        <Box id='postnav' sx={{background:' #5D9471', marginLeft:'auto'}}
+         onClick={shareBtn}
+        >
+          공유 하기
+        </Box>
       </Grid>
 
       <Grid container size={12} >
-        <Box id='post' sx={{width:'100%',height: '76vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
-      <EllipsisVertical id='postmenu'/>
+        <Box id='post' sx={{width:'100%',height: '76vh',textAlign:'center',borderRadius:'0 0 20px 20px', padding: '4vh 5vw'}}>
+      {/* <EllipsisVertical id='postmenu'/> */}
           {/* 정보카드 */}
           <Grid container size={12}  sx={{width:'100%',height: {xs:'85%',sm:'37vh'}, display:'flex'}} >
               {/* 사진 */}
@@ -81,12 +94,7 @@ const ReportDetailPage = () => {
 
         </Box>
       </Grid>
-{/* 하단 버튼 */}
-      <Grid id='bottombtn' size={12}sx={{ marginTop:'1vh', display:'flex' ,color:"#fff"}}>
-        <Box sx={{width:'92vw',height: '4vh',background:' #436850',textAlign:'center' , lineHeight:'6vh',borderRadius:'20px'}}>
-          공유 하기
-        </Box>
-      </Grid>
+
     </Grid> 
   )
 }
