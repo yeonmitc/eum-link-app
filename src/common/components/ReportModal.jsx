@@ -3,10 +3,11 @@ import { X } from 'lucide-react';
 import { Plus } from 'lucide-react';
 import { useSpecies } from '@/hooks/useSpecies';
 
-const ReportModal = ({ showModal, setShowModal }) => {
+const ReportModal = ({ showModal, setShowModal,missingId}) => {
   const [refKind, setRefKind] = useState('');
   const { data: petSpeciesData } = useSpecies({ ref: refKind });
   const petSpecies = useRef(petSpeciesData);
+  console.log("missingId",missingId)
 
   // 모달 닫기 (추후 이벤트 추가 예정)
   function closeModal() {
