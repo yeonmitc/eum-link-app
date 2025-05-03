@@ -1,54 +1,34 @@
 import { useSpeciesListQuery } from '@/hooks/useSpeciesList';
 import { Search } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
 
-const DesktopFilter = ({ type }) => {
-  const {data: speciesList = []} = useSpeciesListQuery();
+const DesktopFilter = ({ type, filters, handleFilterChange, handleSearch }) => {
+  const {data: speciesList} = useSpeciesListQuery();
 
-  const [filters, setFilters] = useState({
-    species: "",
-    dateFrom: "",
-    dateTo: "",
-    address: ""
-  });
-
-  const handleFilterChange = (event) => {
-    const { name, value } = event.target;
-    setFilters(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  }
-
-  const handleSearch = (event) => {
+  const speciesFilter = speciesList.filter(item => item.refKind == null);
+  const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('last filter: ', filters);
+    handleSearch();
   }
 
   return (
     <div className="w-full flex justify-center items-center">
     <form
-      onSubmit={handleSearch}
+      onSubmit={handleSubmit}
       className="relative w-full xl:max-w-2/3 flex flex-wrap justify-center items-center gap-x-3 min-h-[100px] bg-white rounded-full shadow-lg my-4 overflow-hidden">
+      
       {/* 동물 종류 선택 */}
       <div className="flex flex-col border-r border-gray-300 px-4">
         <div className="text-sm text-gray-600 mb-1">동물 유형</div>
-        <select id="species"
+        <select id="refSpecies"
           onChange={handleFilterChange}
-          name="species" className="rounded-full p-2">
-          <option value={filters.speciesId}>전체</option>
-            {speciesList && speciesList
-              .filter(item => item.refKind === null)
-              .map(parent => (
-                <React.Fragment key={parent.id}>
-                  <option value={parent.id}>{parent.name}</option>
-                  {speciesList
-                    .filter(child => child.refKind === parseInt(parent.id))
-                    .map(child => (
-                      <option key={child.id} value={child.id}>
-                        &nbsp;&nbsp;{child.name}
-                      </option>
-                    ))}
+          value={filters.refSpecies}
+          name="refSpecies" className="rounded-full p-2">
+          <option value="">전체</option>
+            {speciesFilter && speciesFilter
+              .map(ref => (
+                <React.Fragment key={ref.id}>
+                  <option value={ref.id}>{ref.name}</option>
                 </React.Fragment>
               ))}
         </select>

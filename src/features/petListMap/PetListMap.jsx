@@ -1,6 +1,6 @@
 import { usePetListQuery } from '@/hooks/usePetList';
 import { LayoutList, Map } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ListView from './components/List/ListView';
 import MapView from './components/Map/MapView';
@@ -13,6 +13,22 @@ const PetListMap = ({type}) => {
   const [isHovered, setIsHovered] = useState(false);
   const isMapView = searchParams.get('map') === "true"; // 기본값은 false
 
+  const [filters, setFilters] = useState({
+    refSpecies: searchParams.get('refSpecies') || "",
+    dateFrom: searchParams.get('dateFrom') || "",
+    dateTo: searchParams.get('dateTo') || "",
+    address: searchParams.get('address') || ""
+  });
+
+  useEffect(() => {
+    setFilters({
+      refSpecies: "",
+      dateFrom: "",
+      dateTo: "",
+      address: ""
+    });
+  }, [type])
+
   const {
     data: petList, 
     isLoading: isPetListLoading, 
@@ -20,10 +36,33 @@ const PetListMap = ({type}) => {
     error: petError
   } = usePetListQuery({ type });
 
-  console.log('petList', petList);
-
   const toggleViewMap = () => {
-    setSearchParams({map: isMapView ? "false" : "true"})
+    const newParams = {...Object.fromEntries(searchParams)};
+    newParams.map = isMapView ? "false" : "true";
+    setSearchParams(newParams);
+  }
+
+  const handleFilterChange = (event) => {
+    const { name, value } = event.target;
+    
+    setFilters(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  }
+
+  const handleSearch = () => {
+    const newParams = {};
+
+    if(filters.refSpecies) newParams.refSpecies = filters.refSpecies;
+    if(filters.dateFrom) newParams.dateFrom = filters.dateFrom;
+    if(filters.dateTo) newParams.dateTo = filters.dateTo;
+    if(filters.address) newParams.address = filters.address;
+    
+    if(isMapView) newParams.map = "true";
+    else newParams.map = "false";
+
+    setSearchParams(newParams);
   }
 
   if(isPetListLoading) return <div>Loading...</div>
@@ -35,7 +74,13 @@ const PetListMap = ({type}) => {
         <TabMenu />
       </div>
       <div className="w-full md:basis-3/4">
-        <div className="hidden md:!block"><DesktopFilter /></div>
+        <div className="hidden md:!block">
+          <DesktopFilter
+            type={type} 
+            filters={filters} 
+            handleFilterChange={handleFilterChange} 
+            handleSearch={handleSearch} />
+        </div>
 
         <div
           className="relative"
