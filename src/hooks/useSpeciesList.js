@@ -2,7 +2,7 @@ import api from '@/utils/api';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchSpeciesList = () => {
-  return api.get(`/refSpecies`);
+  return api.get(`/species`);
 }
 
 export const useSpeciesListQuery = () => {
