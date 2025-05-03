@@ -10,6 +10,7 @@ export const usePetListQuery = ({ type }) => {
   return useQuery({
     queryKey: ['petList', type],
     queryFn: () => fetchPetList({ type }),
-    select: (result) => result.data
+    select: (result) => result.data,
+    staleTime: 3000,
   })
 }

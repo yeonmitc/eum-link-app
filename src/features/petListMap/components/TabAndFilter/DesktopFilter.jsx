@@ -1,7 +1,102 @@
+import { useSpeciesListQuery } from '@/hooks/useSpeciesList';
+import { Search } from 'lucide-react';
+import React, { useState } from 'react';
 
-const DesktopFilter = () => {
+const DesktopFilter = ({ type }) => {
+  const {data: speciesList = []} = useSpeciesListQuery();
+
+  const [filters, setFilters] = useState({
+    species: "",
+    dateFrom: "",
+    dateTo: "",
+    address: ""
+  });
+
+  const handleFilterChange = (event) => {
+    const { name, value } = event.target;
+    setFilters(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  }
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    console.log('last filter: ', filters);
+  }
+
   return (
-    <div>DesktopFilter</div>
+    <div className="w-full flex justify-center items-center">
+    <form
+      onSubmit={handleSearch}
+      className="relative w-full xl:max-w-2/3 flex flex-wrap justify-center items-center gap-x-3 min-h-[100px] bg-white rounded-full shadow-lg my-4 overflow-hidden">
+      {/* 동물 종류 선택 */}
+      <div className="flex flex-col border-r border-gray-300 px-4">
+        <div className="text-sm text-gray-600 mb-1">동물 유형</div>
+        <select id="species"
+          onChange={handleFilterChange}
+          name="species" className="rounded-full p-2">
+          <option value={filters.speciesId}>전체</option>
+            {speciesList && speciesList
+              .filter(item => item.refKind === null)
+              .map(parent => (
+                <React.Fragment key={parent.id}>
+                  <option value={parent.id}>{parent.name}</option>
+                  {speciesList
+                    .filter(child => child.refKind === parseInt(parent.id))
+                    .map(child => (
+                      <option key={child.id} value={child.id}>
+                        &nbsp;&nbsp;{child.name}
+                      </option>
+                    ))}
+                </React.Fragment>
+              ))}
+        </select>
+      </div>
+      
+      {/* 날짜 범위 */}
+      <div className="border-r border-gray-300 flex flex-col px-2">
+        <div className="flex gap-x-2">
+          <div className="flex flex-col">
+            <label className="text-gray-600 mb-1">
+              <span className="text-sm mr-1">{type === "missing" ? "실종" : "목격"}날짜</span>
+              <span  className="text-xs text-gray-500">from</span>
+            </label>
+            <input 
+              name="dateFrom"
+              className="rounded-full p-2 text-sm focus:z-1 focus:bg-white" 
+              onChange={handleFilterChange}
+              value={filters.dateFrom} type="date" />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-600 mb-1">
+              <span className="text-sm mr-1"></span>
+              <span  className="text-xs text-gray-500">to</span>
+            </label>
+            <input 
+              name="dateTo"
+              className="rounded-full p-2 text-sm focus:z-1 focus:bg-white" 
+              onChange={handleFilterChange}
+              value={filters.dateTo} type="date" />
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col py-2 pr-16">
+        <label className="text-sm text-gray-600 mb-1" htmlFor="">지역으로 검색</label>
+        <input
+          name="address"
+          placeholder="예: 서울"
+          value={filters.address}
+          onChange={handleFilterChange}
+          className="rounded-full p-2 text-sm focus:z-1 focus:bg-white" type="text" />
+      </div>
+      <button 
+        type="submit"
+        className="absolute right-0 h-full w-[100px] rounded-full bg-(--point) p-4 text-white flex justify-center items-center cursor-pointer active:scale-95 active:bg-[#e88b64] transition-all duration-150">
+        <Search size={20} />
+      </button>
+    </form>
+    </div>
   )
 }
 
