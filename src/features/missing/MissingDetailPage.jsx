@@ -30,8 +30,9 @@ const MissingDetailPage = () => {
   }
   const pet = data[id];
 
-  // const matchedSpecies = species.find(s => s.id === pet.refSpecies);
-  const matchedSubSpecies = species.find(s => s.id === pet.subSpecies); 
+  // const matchedSpecies = species.find(s => s.id === pet?.refSpecies);
+  const matchedSubSpecies = species[( pet.subSpecies)-1];
+
 
   const missingBtn = ()=>{
     navigate("/missing");

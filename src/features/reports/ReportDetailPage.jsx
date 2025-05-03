@@ -14,6 +14,7 @@ import { useReportsPets } from '@/hooks/useReportsPets';
 const ReportDetailPage = () => {
   const { id } = useParams();
     // console.log("pm id :",id);
+
   
     const { data, isLoading } = useReportsPets();
     const { data: species } = usePetSpecies();
@@ -26,9 +27,11 @@ const ReportDetailPage = () => {
       return <div>Not Found</div>;
     }
     const pet = data[id];
-    const matchedSpecies = species.find(s => s.id === pet.species);
+    const matchedSpecies = species[( pet.refSpecies)-1] ;
     const repTitle = pet?.description.length > 15 ? `${pet?.description.slice(0,15)}...`: pet?.description;
   
+    console.log("refSpecies",species);
+
   return (
     <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
       <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_medium'}}>
