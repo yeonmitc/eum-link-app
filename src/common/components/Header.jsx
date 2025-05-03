@@ -41,8 +41,8 @@ export default function Header() {
   const navItems = [
     { to: '/about', label: '소개' },
     { to: '/missing', label: '전체 현황' },
-    { to: '/missing', label: '실종 신고' },
-    { to: '/reports', label: '목격 제보' },
+    { to: '/missing1', label: '실종 신고' },
+    { to: '/reports2', label: '목격 제보' },
   ];
 
   // 모바일 메뉴 열기/닫기 토글 및 스크롤 방지
