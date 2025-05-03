@@ -71,7 +71,7 @@
       "createdAt": "2024-03-10T12:30:00Z"
     }
   ],
-  "species": [
+  "refSpecies": [
     {
       "id": "1",
       "name": "강아지",
@@ -391,7 +391,7 @@
   "reportsPets": [
     {
       "id": "report1",
-      "species": 1,
+      "refSpecies": 1,
       "petId":"missing1",
       "description": "강아지를 봤어요. 목줄 X",
       "imageUrl": "https://images.unsplash.com/photo-1543466835-00a7907e9de1",
@@ -408,7 +408,7 @@
     },
     {
       "id": "report2",
-      "species": 2,
+      "refSpecies": 2,
       "petId":"missing3",
       "description": "고양이를 봤어요. 목줄 O",
       "imageUrl": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
@@ -425,7 +425,7 @@
     },
     {
       "id": "report3",
-      "species": 1,
+      "refSpecies": 1,
       "petId":"missing4",
       "description": "강아지를 봤어요. 목줄 X",
       "imageUrl": "https://images.unsplash.com/photo-1587300003388-59208cc962cb",
@@ -441,7 +441,7 @@
     },
     {
       "id": "report4",
-      "species": 2,
+      "refSpecies": 2,
       "subSpecies": 11,
       "description": "고양이를 봤어요. 목줄 O",
       "imageUrl": "https://images.unsplash.com/photo-1495360010541-f48722b34f7d",
@@ -459,7 +459,7 @@
     },
     {
       "id": "report5",
-      "species": 1,
+      "refSpecies": 1,
       "petId":"missing6",
       "description": "강아지를 봤어요. 목줄 X",
       "imageUrl": "https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48",
@@ -475,7 +475,7 @@
     },
     {
       "id": "report6",
-      "species": 2,
+      "refSpecies": 2,
       "petId":"missing3",
       "description": "고양이를 봤어요. 가만히 있음",
       "imageUrl": "https://images.unsplash.com/photo-1573865526739-10659fec78a5",
@@ -492,7 +492,7 @@
     },
     {
       "id": "report7",
-      "species": 1,
+      "refSpecies": 1,
       "petId":"missing1",
       "description": "강아지를 봤어요. 가만히 있음",
       "imageUrl": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e",
@@ -509,7 +509,7 @@
     },
     {
       "id": "report8",
-      "species": 2,
+      "refSpecies": 2,
       "subSpecies": 14,
       "description": "고양이를 봤어요. 목줄 O",
       "imageUrl": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13",
@@ -526,7 +526,7 @@
     },
     {
       "id": "report9",
-      "species": 1,
+      "refSpecies": 1,
       "subSpecies": 8,
       "description": "강아지를 봤어요. 가만히 있음",
       "imageUrl": "https://images.unsplash.com/photo-1534351450181-ea9f78427fe8",
@@ -544,7 +544,7 @@
     },
     {
       "id": "report10",
-      "species": 2,
+      "refSpecies": 2,
       "subSpecies": 10,
       "description": "고양이를 봤어요. 목줄 O",
       "imageUrl": "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8",

@@ -40,7 +40,7 @@ export default function Header() {
   // 네비게이션 항목 목록
   const navItems = [
     { to: '/about', label: '소개' },
-    { to: '/pets', label: '전체 현황' },
+    { to: '/missing', label: '전체 현황' },
     { to: '/missing', label: '실종 신고' },
     { to: '/reports', label: '목격 제보' },
   ];
