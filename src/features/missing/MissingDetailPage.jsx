@@ -15,9 +15,9 @@ import useUserStore from '@/store/userStore';
 const MissingDetailPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const user = useUserStore((state) => state.user);
 
-  // console.log("pm id :",id);
+  // console.log("user id :",user);
 
   const { data, isLoading } = useMissingPets();
   const { data: species } = usePetSpecies();
@@ -32,6 +32,7 @@ const MissingDetailPage = () => {
     return <div>Not Found</div>;
   }
   const pet = data[id];
+  // console.log("eptid",pet.id, pet.userId)
 
   // const matchedSpecies = species.find(s => s.id === pet?.refSpecies);
   const matchedSubSpecies = species[( pet.subSpecies)-1];
@@ -40,7 +41,12 @@ const MissingDetailPage = () => {
   const missingBtn = ()=>{
     navigate("/missing");
   };
+  const myPageBtn = ()=>{
+    navigate("/mypage");
+  };
+  const reportBtn = ()=>{
 
+  };
   return (
     <Grid  container spacing={0} sx={{padding:'0 4%', fontFamily:'Gmarket_light'}}>
       <Grid size={12} sx={{ width:'100%', maxHeight:'76vh', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_medium'}}>
@@ -102,12 +108,24 @@ const MissingDetailPage = () => {
 
         </Box>
       </Grid>
-{/* 하단 버튼 */}
-      <Grid id='bottombtn' size={12}sx={{ marginTop:'1vh', display:'flex'}}>
-        <Box sx={{maxHeight:'4vh'}}>
-          제보하기
-        </Box>
-      </Grid>
+      {/* 하단 버튼 */}
+      {user?.id === pet.userId ? ( 
+        <Grid id='bottombtn' size={12} sx={{ marginTop: '1vh', display: 'flex' }}
+        onClick={myPageBtn}
+        >
+          <Box sx={{ maxHeight: '4vh' }}>
+            실종 제보 보기
+          </Box>
+        </Grid>
+      ) : (
+        <Grid id='bottombtn' size={12} sx={{ marginTop: '1vh', display: 'flex' }}
+        onClick={reportBtn}
+        >
+          <Box sx={{ maxHeight: '4vh' }}>
+            제보하기
+          </Box>
+        </Grid>
+      )}
     </Grid> 
   )
 }
