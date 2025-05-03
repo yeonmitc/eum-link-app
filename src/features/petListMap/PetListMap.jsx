@@ -3,16 +3,17 @@ import { LayoutList, Map } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ListView from './components/List/ListView';
-import DesktopFilter from './components/TabAndFilter/DesktopFilter';
-import MobileFilterModal from './components/TabAndFilter/MobileFilterModal';
-import TabMenu from './components/TabAndFilter/TabMenu';
+import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import MapListView from './components/Map/MapListView';
+import DesktopFilter from './components/TabAndFilter/DesktopFilter';
+import MobileFilter from './components/TabAndFilter/MobileFilter';
 
 const PetListMap = ({ type }) => {
   // url : /missing,report?map=true
   const [searchParams, setSearchParams] = useSearchParams();
   const [isHovered, setIsHovered] = useState(false);
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  // const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const isMapView = searchParams.get('map') === 'true'; // 기본값은 false
 
   const [filters, setFilters] = useState({
@@ -23,11 +24,12 @@ const PetListMap = ({ type }) => {
   });
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
     setFilters({
-      refSpecies: '',
-      dateFrom: '',
-      dateTo: '',
-      address: '',
+      refSpecies: params.get('refSpecies') || '',
+      dateFrom: params.get('dateFrom') || '',
+      dateTo: params.get('dateTo') || '',
+      address: params.get('address') || ''
     });
   }, [type]);
 
@@ -67,35 +69,61 @@ const PetListMap = ({ type }) => {
     setSearchParams(newParams);
   };
 
-  const openFilterModal = () => setIsFilterModalOpen(true);
-  const closeFilterModal = () => setIsFilterModalOpen(false);
+  const handleReset = () => {
+    setFilters({
+      refSpecies: "",
+      dateFrom: "",
+      dateTo: "",
+      address: "",
+    });
 
-  if (isPetListLoading) return <div>Loading...</div>;
-  if (isPetListError) return <div>Error: {petError.message}</div>;
+  }
+
+  const toggleMobileFilter = () => setIsMobileFilterOpen(!isMobileFilterOpen);
+  // const openFilterModal = () => setIsFilterModalOpen(true);
+  // const closeFilterModal = () => setIsFilterModalOpen(false);
+
+  if (isPetListLoading) return <LoadingSpinner />;
+  if (isPetListError) return <div className="min-h-[300px] flex justify-center items-center">Error: {petError.message}</div>;
 
   return (
-    <div className="flex w-full flex-col md:!flex-row">
-      <div className="w-full md:basis-1/4">
-        <TabMenu openFilterModal={openFilterModal} />
-      </div>
-      <div className="w-full md:basis-3/4">
+    <div className="flex w-full flex-col p-2 my-3">
+
+      <div className="w-full">
         <div className="hidden md:!block">
           <DesktopFilter
             type={type}
             filters={filters}
             handleFilterChange={handleFilterChange}
             handleSearch={handleSearch}
+            handleReset={handleReset}
           />
+        </div>
+        <div className="md:!hidden flex flex-col justify-center items-center">
+          <button
+            className="w-[95%] p-3 rounded-lg bg-(--primary) text-white"
+            onClick={toggleMobileFilter}
+          >필터</button>
+          <div className={`${isMobileFilterOpen ? "block" : "hidden"} w-full`}>
+            <MobileFilter
+              type={type}
+              filters={filters}
+              toggleMobileFilter={toggleMobileFilter}
+              handleFilterChange={handleFilterChange}
+              handleSearch={handleSearch}
+              handleReset={handleReset}
+            />
+          </div>
         </div>
 
         <div
-          className="relative"
+          className="relative flex justify-center items-center"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           {isHovered && (
             <button
-              className="absolute right-1/2 bottom-[3rem] z-2 flex h-[50px] w-[150px] cursor-pointer items-center justify-center gap-x-2 rounded-sm bg-(--bg) p-2 text-black shadow-lg"
+              className="absolute left-1/2 -translate-x-1/2 top-[5rem] z-2 flex h-[50px] w-[150px] cursor-pointer items-center justify-center gap-x-2 rounded-sm bg-(--bg) p-2 text-black shadow-lg"
               onClick={toggleViewMap}
             >
               {isMapView ? (
@@ -120,7 +148,7 @@ const PetListMap = ({ type }) => {
       </div>
 
       {/* 모바일 필터 모달 */}
-      {isFilterModalOpen && (
+      {/* {isFilterModalOpen && (
         <MobileFilterModal
           type={type}
           filters={filters}
@@ -128,7 +156,7 @@ const PetListMap = ({ type }) => {
           handleSearch={handleSearch}
           closeFilterModal={closeFilterModal}
         />
-      )}
+      )} */}
     </div>
   );
 };
