@@ -4,7 +4,7 @@ import React from 'react';
 
 const MobileFilterModal = ({ type, filters, handleFilterChange, handleSearch, closeFilterModal }) => {
   const {data: speciesList = []} = useSpeciesListQuery();
-  const speciesFilter = speciesList.filter(item => item.refKind == null);
+  const speciesFilter = speciesList.filter(item => item.refKind === "null");
 
   const handleSubmit = (event) => {
     event.preventDefault();

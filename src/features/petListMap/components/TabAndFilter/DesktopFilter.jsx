@@ -5,7 +5,7 @@ import React from 'react';
 const DesktopFilter = ({ type, filters, handleFilterChange, handleSearch }) => {
   const {data: speciesList = []} = useSpeciesListQuery();
 
-  const speciesFilter = speciesList.filter(item => item.refKind == null);
+  const speciesFilter = speciesList.filter(item => item.refKind === "null");
   const handleSubmit = (event) => {
     event.preventDefault();
     handleSearch();
