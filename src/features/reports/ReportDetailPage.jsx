@@ -45,10 +45,15 @@ const ReportDetailPage = () => {
       <Grid size={12} sx={{ width:'100%', display:'flex' ,color:"#fff" ,fontFamily: 'KBO_medium'}}>
         <Box id='postnav' sx={{background:' #436850'}} >목격제보</Box>
         <Box id='postnav' sx={{background:' #5D9471'}}>{repTitle}</Box>
+        <Box id='postnav' sx={{background:' #5D9471', marginLeft:'auto'}}
+         onClick={shareBtn}
+        >
+          공유 하기
+        </Box>
       </Grid>
 
       <Grid container size={12} >
-        <Box id='post' sx={{width:'100%',height: '76vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
+        <Box id='post' sx={{width:'100%',height: '76vh',textAlign:'center',borderRadius:'0 0 20px 20px', padding: '4vh 5vw'}}>
       {/* <EllipsisVertical id='postmenu'/> */}
           {/* 정보카드 */}
           <Grid container size={12}  sx={{width:'100%',height: {xs:'85%',sm:'37vh'}, display:'flex'}} >
@@ -89,14 +94,7 @@ const ReportDetailPage = () => {
 
         </Box>
       </Grid>
-{/* 하단 버튼 */}
-      <Grid id='bottombtn' size={12}sx={{ marginTop:'1vh', display:'flex' ,color:"#fff"}}>
-        <Box sx={{width:'92vw',height: '4vh',background:' #436850',textAlign:'center' , lineHeight:'6vh',borderRadius:'20px'}}
-         onClick={shareBtn}
-        >
-          공유 하기
-        </Box>
-      </Grid>
+
     </Grid> 
   )
 }

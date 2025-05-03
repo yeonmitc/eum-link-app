@@ -26,7 +26,7 @@ const MissingDetailPage = () => {
 
   // console.log("pet",pet)
 
-  const { toggleStatus, isLoading: isUpdatingStatus, error: updateError, successData: updatedPetDataFromServer } = useToggleMissingStatus();
+  const { toggleStatus,  error: updateError } = useToggleMissingStatus();
 
   // 게시글 메뉴
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -85,10 +85,20 @@ const MissingDetailPage = () => {
         <Box id='postnav' sx={{background:' #5D9471'}}>
           {pet?.petName} {pet?.isMissing === true? ( <UserRoundSearch  strokeWidth={2} />) 
           : ( <HeartHandshake  strokeWidth={2}/>) } </Box>
+          {/* 제보 버튼 */}
+          {user?.id === pet.userId ? ( 
+              <Box id='postnav' onClick={myPageBtn} sx={{background:' #5D9471', marginLeft:'auto'}}>
+                실종 제보 보기
+              </Box>
+          ) : (
+              <Box id='postnav' onClick={reportBtn} sx={{background:' #5D9471', marginLeft:'auto'}}>
+                제보하기
+              </Box>
+          )}
       </Grid>
 
       <Grid container size={12} >
-        <Box id='post' sx={{width:'100%',height: '75vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
+        <Box id='post' sx={{width:'100%',height: '75vh',textAlign:'center',borderRadius:'0 0 20px 20px', padding: '4vh 5vw'}}>
         {user?.id === pet.userId ? ( 
           <div>
             <EllipsisVertical id='postmenu' onClick={handleClick} style={{ cursor: 'pointer' }} /> 
@@ -151,24 +161,6 @@ const MissingDetailPage = () => {
 
         </Box>
       </Grid>
-      {/* 하단 버튼 */}
-      {user?.id === pet.userId ? ( 
-        <Grid id='bottombtn' size={12} sx={{ marginTop: '1vh', display: 'flex' }}
-        onClick={myPageBtn}
-        >
-          <Box sx={{ maxHeight: '4vh' }}>
-            실종 제보 보기
-          </Box>
-        </Grid>
-      ) : (
-        <Grid id='bottombtn' size={12} sx={{ marginTop: '1vh', display: 'flex' }}
-        onClick={reportBtn}
-        >
-          <Box sx={{ maxHeight: '4vh' }}>
-            제보하기
-          </Box>
-        </Grid>
-      )}
     </Grid> 
   )
 }
