@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import eumLogo from '../../assets/images/eum-logo.webp';
 import useAuth from '../../hooks/useAuth';
 import useUserStore from '../../store/userStore';
+import RegisterModal from './RegisterModal';
 import SearchBar from './SearchBar';
 // 스타일 추가
 const style = document.createElement('style');
@@ -36,13 +37,14 @@ export default function Header() {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [searchType, setSearchType] = useState('실종');
+  const [showRegister, setShowRegister] = useState(false);
 
   // 네비게이션 항목 목록
   const navItems = [
     { to: '/about', label: '소개' },
-    { to: '/missing', label: '전체 현황' },
-    { to: '/missing1', label: '실종 신고' },
-    { to: '/reports2', label: '목격 제보' },
+    { to: '/pets', label: '전체 현황' },
+    { to: '/missing', label: '실종 신고' },
+    { to: '/reports', label: '목격 제보' },
   ];
 
   // 모바일 메뉴 열기/닫기 토글 및 스크롤 방지
@@ -240,13 +242,16 @@ export default function Header() {
                         로그인
                       </button>
                       <div className="mt-2 text-center">
-                        <Link
-                          to="/register"
+                        <button
+                          type="button"
                           className="text-sm text-[var(--fg)] transition-colors hover:text-[var(--primary)]"
-                          onClick={() => setIsLoginOpen(false)}
+                          onClick={() => {
+                            setIsLoginOpen(false);
+                            setShowRegister(true);
+                          }}
                         >
                           아직 회원이 아니신가요?
-                        </Link>
+                        </button>
                         <button
                           type="button"
                           onClick={() => {
@@ -357,6 +362,7 @@ export default function Header() {
           </div>
         </div>
       )}
+      <RegisterModal show={showRegister} onClose={() => setShowRegister(false)} />
     </>
   );
 }
