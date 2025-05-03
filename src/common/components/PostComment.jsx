@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { Grid ,Box,InputBase, Avatar,Modal } from '@mui/material';
 import { Send,EllipsisVertical } from 'lucide-react';
 import CommentModal from './CommentModal';
+import useUserStore from '@/store/userStore';
 
 const style = {
   position: 'absolute',
@@ -18,6 +19,8 @@ const style = {
 const PostComment = ({ comments,postId,postType  }) => {
   // console.log("comments",comments);
   const [newComment, setNewComment] = useState('');
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+
 
   useEffect(() => {
     // console.log('새 댓글 입력 값 변경됨:', newComment);
@@ -95,13 +98,24 @@ const PostComment = ({ comments,postId,postType  }) => {
 
          </Grid>
             <Grid size={12} height={'5vh'} display={'flex'} padding={'0 10px'}>
+            {isLoggedIn ? (
               <InputBase
                   sx={{ flex: 1, background:'rgb(228, 228, 228)', paddingLeft: 2, borderRadius:'10px' , marginRight:'1vw'}}
                   placeholder="댓글을 입력하세요."
                   inputProps={{ 'aria-label': '' }}
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
+              /> 
+             ):(
+              <InputBase
+                  disabled
+                  sx={{ flex: 1, background:'rgb(228, 228, 228)', paddingLeft: 2, borderRadius:'10px' , marginRight:'1vw'}}
+                  placeholder="로그인이 필요한 기능 입니다."
+                  inputProps={{ 'aria-label': '' }}
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
               />
+              )}
               <Box 
               sx={{ width:'5vh',height:'5vh', background:'#FD9B71', borderRadius:'10px',
               display:'flex',justifyContent:'center',alignItems:'center'}}
