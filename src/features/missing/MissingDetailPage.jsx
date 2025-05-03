@@ -88,16 +88,19 @@ const MissingDetailPage = () => {
 
       <Grid container size={12} >
         <Box id='post' sx={{width:'100%',height: '75vh',textAlign:'center',borderRadius:'0 20px 20px 20px', padding: '4vh 5vw'}}>
-        
-        <EllipsisVertical id='postmenu' onClick={handleClick} style={{ cursor: 'pointer' }} /> {/* 클릭 시 메뉴 열기 */}
-          <Menu
-            anchorEl={anchorEl} // 메뉴의 앵커 엘리먼트
-            open={open} // 앵커가 존재할 때 메뉴 열기
-            onClose={handleClose} // 메뉴 닫기
-          >
-            <MenuItem onClick={deletepost}>게시글 삭제 하기</MenuItem>
-            <MenuItem onClick={IsMissingSwitch}>실종 상태 변경</MenuItem>
-          </Menu>
+        {user?.id === pet.userId ? ( 
+          <div>
+            <EllipsisVertical id='postmenu' onClick={handleClick} style={{ cursor: 'pointer' }} /> 
+            <Menu
+              anchorEl={anchorEl} // 메뉴의 앵커 엘리먼트
+              open={open} // 앵커가 존재할 때 메뉴 열기
+              onClose={handleClose} // 메뉴 닫기
+            >
+              <MenuItem onClick={deletepost}>게시글 삭제 하기</MenuItem>
+              <MenuItem onClick={IsMissingSwitch}>실종 상태 변경</MenuItem>
+            </Menu>
+          </div>
+          ) : ''}
           {/* 정보카드 */}
           <Grid container size={12}  sx={{width:'100%',height:{xs:'85%',sm:'37vh'} , display:'flex'}} >
               {/* 사진 */}
