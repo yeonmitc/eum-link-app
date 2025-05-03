@@ -27,10 +27,6 @@ const MissingModal = ({ showModal, setShowModal }) => {
   // 로그인한 user 정보
   const { user } = useUserStore();
 
-  useEffect(() => {
-    console.log('로그인한 유저 정보 : ', user);
-  }, [user]);
-
   // 서브 모달
   const [subModal, setSubModal] = useState(false);
 
