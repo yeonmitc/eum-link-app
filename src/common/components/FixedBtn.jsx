@@ -5,10 +5,6 @@ import MissingModal from './MissingModal';
 const FixedBtn = () => {
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    console.log('showModal : ', showModal);
-  }, [showModal]);
-
   return (
     <div
       className="absolute right-[1rem] bottom-[2rem] z-10 flex aspect-square w-fit cursor-pointer justify-center rounded-full bg-(--point) p-3 align-middle"
