@@ -1,7 +1,7 @@
 
 const MapView = () => {
   return (
-    <div>MapView</div>
+    <div className="w-full min-h-70">MapView</div>
   )
 }
 
