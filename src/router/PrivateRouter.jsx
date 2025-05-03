@@ -6,8 +6,8 @@ export default function PrivateRoute({ children }) {
   const location = useLocation();
 
   if (!isLoggedIn) {
-    // 로그인하지 않았다면 로그인 페이지로 리디렉션 (현재 경로 기억)
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    // 로그인하지 않았다면 홈페이지
+    return <Navigate to="/" state={{ from: location }} replace />;
   }
 
   return children;
