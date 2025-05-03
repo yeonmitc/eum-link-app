@@ -18,15 +18,15 @@ const MyPage = () => {
   const [myMissingPets, setMyMissingPets] = useState(null); // null: 로딩 중
 
   // 강제 로그인용 useEffect
-  useEffect(() => {
-    if (!isLoggedIn) {
-      login({
-        id: 'user7',
-        username: '테스트',
-        // email: 'park.jiyeon@naver.com',
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     login({
+  //       id: 'user7',
+  //       username: '테스트',
+  //       // email: 'park.jiyeon@naver.com',
+  //     });
+  //   }
+  // }, []);
 
   // 실종글 fetch 후 필터링해서 따로 저장
   const loadMissingPets = async () => {
