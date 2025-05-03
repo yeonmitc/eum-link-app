@@ -1,11 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 
 // 레이아웃
-import AuthLayout from './common/layout/AuthLayout';
 import MainLayout from './common/layout/MainLayout';
 
 // 페이지
-import LoginPage from './features/auth/LoginPage';
 import RegisterPage from './features/auth/RegisterPage';
 import NotFoundPage from './features/common/NotFoundPage';
 import HomePage from './features/home/HomePage';
@@ -18,7 +16,6 @@ import PetListMap from './features/petListMap/PetListMap';
 import ReportDetailPage from './features/reports/ReportDetailPage';
 import ReportFormPage from './features/reports/ReportFormPage';
 
-
 export default function App() {
   return (
     <Routes>
@@ -26,6 +23,7 @@ export default function App() {
       <Route element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         {/* 실종 관련 */}
         <Route path="missing">
           <Route index element={<PetListMap type="missing" />} />
@@ -38,12 +36,6 @@ export default function App() {
           <Route path=":id" element={<ReportDetailPage />} />
         </Route>
         <Route path="myPage" element={<MyPage />} />
-      </Route>
-
-      {/* Auth 레이아웃 라우트 */}
-      <Route element={<AuthLayout />}>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
       </Route>
 
       {/* 404 Not Found */}

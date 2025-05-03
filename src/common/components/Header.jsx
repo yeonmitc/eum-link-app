@@ -1,8 +1,10 @@
 // src/common/components/Header.jsx
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { FiMenu, FiSearch, FiUser, FiX } from 'react-icons/fi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import eumLogo from '../../assets/images/eum-logo.webp';
+import useAuth from '../../hooks/useAuth';
 import useUserStore from '../../store/userStore';
 import SearchBar from './SearchBar';
 // 스타일 추가
@@ -24,16 +26,22 @@ export default function Header() {
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
   const login = useUserStore((state) => state.login);
   const logout = useUserStore((state) => state.logout);
+  const { signIn } = useAuth();
   const [loginForm, setLoginForm] = useState({
-    username: '',
+    email: '',
     password: '',
   });
   const navigate = useNavigate();
+  const location = useLocation();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const [searchType, setSearchType] = useState('실종');
 
   // 네비게이션 항목 목록
   const navItems = [
     { to: '/about', label: '소개' },
     { to: '/pets', label: '전체 현황' },
+    { to: '/missing', label: '실종 신고' },
     { to: '/reports', label: '목격 제보' },
   ];
 
@@ -43,13 +51,19 @@ export default function Header() {
     document.body.style.overflow = !isMobileMenuOpen ? 'hidden' : '';
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // TODO: 실제 로그인 API 연동
-    console.log('Login attempt:', loginForm);
-    login();
-    setIsLoginOpen(false);
-    navigate('/mypage');
+    if (!loginForm.email || !loginForm.password) {
+      toast.error('아이디와 비밀번호를 모두 입력하세요.');
+      return;
+    }
+    // 실제 로그인
+    const user = await signIn(loginForm.email, loginForm.password);
+    if (user) {
+      setIsLoginOpen(false);
+      setLoginForm({ email: '', password: '' });
+      navigate('/mypage');
+    }
   };
 
   const handleLoginChange = (e) => {
@@ -58,6 +72,13 @@ export default function Header() {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleSearch = () => {
+    if (searchValue.trim()) {
+      const base = searchType === '실종' ? '/missing' : '/reports';
+      navigate(`${base}?q=${encodeURIComponent(searchValue.trim())}`);
+    }
   };
 
   return (
@@ -120,8 +141,18 @@ export default function Header() {
             {/* 우측 아이콘들 (검색, 사용자) */}
             <div className="flex shrink-0 items-center space-x-2 pr-1 md:space-x-4">
               <div className="ml-auto hidden items-center gap-2 [@media(min-width:400px)]:flex">
-                <SearchBar isDesktop />
-                <button className="rounded-full p-2 hover:bg-[var(--secondary)]/10">
+                <SearchBar
+                  isDesktop
+                  value={searchValue}
+                  setValue={setSearchValue}
+                  type={searchType}
+                  setType={setSearchType}
+                  onSearch={handleSearch}
+                />
+                <button
+                  className="rounded-full p-2 hover:bg-[var(--secondary)]/10"
+                  onClick={handleSearch}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -151,7 +182,15 @@ export default function Header() {
               <div className="relative">
                 <button
                   className="rounded-full p-2 hover:bg-[var(--secondary)]/10 focus:outline-none"
-                  onClick={() => (isLoggedIn ? navigate('/mypage') : setIsLoginOpen(!isLoginOpen))}
+                  onClick={() => {
+                    if (isLoggedIn && location.pathname === '/mypage') {
+                      setIsLogoutModalOpen(true);
+                    } else if (isLoggedIn) {
+                      navigate('/mypage');
+                    } else {
+                      setIsLoginOpen(!isLoginOpen);
+                    }
+                  }}
                 >
                   <FiUser className="h-5 w-5 text-[var(--fg)]" />
                 </button>
@@ -162,19 +201,19 @@ export default function Header() {
                     <form onSubmit={handleLogin} className="space-y-3">
                       <div>
                         <label
-                          htmlFor="username"
+                          htmlFor="email"
                           className="mb-1 block text-sm font-medium text-[var(--fg)]"
                         >
-                          아이디
+                          이메일
                         </label>
                         <input
                           type="text"
-                          id="username"
-                          name="username"
-                          value={loginForm.username}
+                          id="email"
+                          name="email"
+                          value={loginForm.email}
                           onChange={handleLoginChange}
                           className="w-full rounded-md border border-[var(--border)] px-3 py-2 focus:ring-2 focus:ring-[var(--primary)] focus:outline-none"
-                          placeholder="아이디를 입력하세요"
+                          placeholder="이메일을 입력하세요"
                         />
                       </div>
                       <div>
@@ -230,7 +269,14 @@ export default function Header() {
 
         {/* 모바일에서만 보이는 SearchBar (nav 아래) */}
         <div className="block px-4 pt-2 [@media(min-width:400px)]:hidden">
-          <SearchBar isOpen={isSearchOpen} />
+          <SearchBar
+            isOpen={isSearchOpen}
+            value={searchValue}
+            setValue={setSearchValue}
+            type={searchType}
+            setType={setSearchType}
+            onSearch={handleSearch}
+          />
         </div>
       </header>
 
@@ -280,6 +326,36 @@ export default function Header() {
           style={{ top: '64px' }}
           onClick={toggleMobileMenu}
         />
+      )}
+
+      {/* 로그아웃 모달 */}
+      {isLogoutModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ background: 'rgba(0,0,0,0.3)' }}
+        >
+          <div className="w-80 rounded-lg bg-white p-6 text-center shadow-lg">
+            <div className="mb-4 text-lg font-semibold">로그아웃 하시겠습니까?</div>
+            <div className="mt-6 flex justify-center gap-4">
+              <button
+                className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300"
+                onClick={() => setIsLogoutModalOpen(false)}
+              >
+                취소
+              </button>
+              <button
+                className="rounded bg-[var(--primary)] px-4 py-2 text-white hover:bg-[var(--primary)]/90"
+                onClick={() => {
+                  logout();
+                  setIsLogoutModalOpen(false);
+                  navigate('/');
+                }}
+              >
+                로그아웃
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

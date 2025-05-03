@@ -2,8 +2,8 @@
   "users": [
     {
       "id": "user1",
-      "email": "kim.minho@gmail.com",
-      "password": "password123",
+      "email": "test@test.com",
+      "password": "1234",
       "username": "민호맘",
       "createdAt": "2023-12-01T09:00:00Z"
     },
@@ -381,7 +381,8 @@
       },
       "createdAt": "2024-03-19T15:45:00Z",
       "userId": "user4",
-      "isMissing": true
+      "isMissing": true,
+      "missingId": null
     },
     {
       "id": "report2",
@@ -398,7 +399,8 @@
       },
       "createdAt": "2024-03-19T12:30:00Z",
       "userId": "user4",
-      "isMissing": true
+      "isMissing": true,
+      "missingId": "missing2"
     },
     {
       "id": "report3",
@@ -432,7 +434,8 @@
       },
       "createdAt": "2024-03-18T16:35:00Z",
       "userId": null,
-      "isMissing": true
+      "isMissing": true,
+      "missingId": null
     },
     {
       "id": "report5",
@@ -466,7 +469,8 @@
       },
       "createdAt": "2024-03-18T10:20:00Z",
       "userId": null,
-      "isMissing": true
+      "isMissing": true,
+      "missingId": null
     },
     {
       "id": "report7",
@@ -483,7 +487,8 @@
       },
       "createdAt": "2024-03-17T17:55:00Z",
       "userId": null,
-      "isMissing": true
+      "isMissing": true,
+      "missingId": null
     },
     {
       "id": "report8",
@@ -500,7 +505,8 @@
       },
       "createdAt": "2024-03-17T14:40:00Z",
       "userId": null,
-      "isMissing": true
+      "isMissing": true,
+      "missingId": null
     },
     {
       "id": "report9",
@@ -517,7 +523,8 @@
       },
       "createdAt": "2024-03-17T12:05:00Z",
       "userId": null,
-      "isMissing": true
+      "isMissing": true,
+      "missingId": "missing1"
     },
     {
       "id": "report10",
@@ -533,7 +540,8 @@
         "lng": 127.038351
       },
       "createdAt": "2025-05-02T08:37:55.116Z",
-      "isMissing": true
+      "isMissing": true,
+      "missingId": null
     }
   ]
 }
