@@ -22,7 +22,7 @@ export default function SearchBar({ isOpen, isDesktop, value, setValue, type, se
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="찾고자하는 위치를 검색하세요"
+          placeholder="위치를 검색하세요"
           className="h-10 w-full rounded-full border-2 border-[var(--primary)] bg-[var(--primary-fg)] pr-10 pl-12 text-sm focus:ring-2 focus:ring-[var(--primary)]/20 focus:outline-none"
         />
         <button
@@ -55,7 +55,7 @@ export default function SearchBar({ isOpen, isDesktop, value, setValue, type, se
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="찾고자하는 위치를 검색하세요"
+            placeholder="위치를 검색하세요"
             className="h-10 w-full rounded-full border-2 border-[var(--primary)] bg-[var(--primary-fg)] pr-10 pl-12 text-sm focus:ring-2 focus:ring-[var(--primary)]/20 focus:outline-none"
           />
           <button
