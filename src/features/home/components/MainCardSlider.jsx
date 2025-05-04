@@ -4,6 +4,9 @@ import useUserStore from '@/store/userStore';
 import { useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import mapImage from '../../../assets/images/map.png';
+import markImage from '../../../assets/images/mark.png';
+import missingImage from '../../../assets/images/missing.png';
 import MainCard from './MainCard';
 
 const MainCardSlider = () => {
@@ -39,18 +42,21 @@ const MainCardSlider = () => {
       subtitle: '"내 주변 실종/제보 현황이 궁금하신가요?"',
       description: '현재 위치 기반으로 실종/제보 정보를 확인하세요.',
       handler: handleListClick,
+      image: mapImage,
     },
     {
       title: '목격 제보하기',
       subtitle: '"실종 동물을 발견하셨나요?"',
       description: '당신이 본 그 순간을 알려주세요. 잃어버린 마음을 되찾아 줄 수 있습니다.',
       handler: handleReportClick,
+      image: markImage,
     },
     {
       title: '실종 신고하기',
       subtitle: '"반려동물을 잃어버리셨나요?"',
       description: '지금 바로 실종 신고를 등록하고, 다양한 사람들에게 알려주세요.',
       handler: handleMissingClick,
+      image: missingImage,
     },
   ];
 
@@ -127,7 +133,7 @@ const MainCardSlider = () => {
                 onClick={card.handler}
                 onTouchEnd={card.handler}
               >
-                <MainCard {...card} isActive={index === activeIndex} />
+                <MainCard {...card} isActive={index === activeIndex} image={card.image} />
               </div>
             ))}
           </div>
@@ -145,7 +151,7 @@ const MainCardSlider = () => {
               onClick={card.handler}
               onTouchEnd={card.handler}
             >
-              <MainCard {...card} isActive={currentRatios[index] === 5} />
+              <MainCard {...card} isActive={currentRatios[index] === 5} image={card.image} />
             </div>
           ))}
         </div>

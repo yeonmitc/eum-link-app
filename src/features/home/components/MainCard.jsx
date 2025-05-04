@@ -30,14 +30,14 @@ const CARD_CONFIGS = {
   },
 };
 
-const MainCard = ({ title, subtitle, description, isActive }) => {
+const MainCard = ({ title, subtitle, description, isActive, image }) => {
+  const mapImageName = 'map.png';
+  const isMap = image && image.includes && image.includes(mapImageName);
   const [isHovered, setIsHovered] = useState(false);
-  const config = CARD_CONFIGS['/missing'];
-  if (!config) return null;
 
   return (
     <div
-      className={`block h-full w-full ${config.bgColor} relative cursor-pointer overflow-hidden rounded-2xl transition-all duration-300 hover:opacity-90`}
+      className={`relative block h-full w-full cursor-pointer overflow-hidden rounded-2xl bg-[var(--primary)] transition-all duration-300 hover:opacity-90`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -50,14 +50,13 @@ const MainCard = ({ title, subtitle, description, isActive }) => {
         `}
       </style>
       <div
-        className={`absolute right-6 bottom-6 flex items-center justify-center ${isActive ? config.imageSize.active : config.imageSize.default} transition-all duration-300`}
+        className={`absolute right-6 bottom-6 flex items-center justify-center ${isMap ? 'h-[90px] w-[90px] md:h-[100px] md:w-[100px]' : 'h-[73px] w-[73px] md:h-[73px] md:w-[73px]'} transition-all duration-300`}
       >
         <img
-          src={config.image}
+          src={image}
           alt=""
-          className={`h-full w-full object-contain opacity-90 drop-shadow-[0_4px_8px_rgba(0,0,0,0.25)] transition-all duration-150 ${
-            isHovered ? 'animate-[gentle-bounce_2s_ease-in-out_infinite]' : ''
-          }`}
+          className={`h-full w-full object-contain opacity-90 drop-shadow-[0_4px_8px_rgba(0,0,0,0.25)] transition-all duration-150 ${isActive ? 'scale-[1.2]' : ''} ${isHovered ? 'animate-[gentle-bounce_2s_ease-in-out_infinite]' : ''} `}
+          style={{ transform: isActive ? 'scale(1.2)' : undefined }}
         />
       </div>
 
