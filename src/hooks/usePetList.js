@@ -2,7 +2,7 @@ import api from '@/utils/api';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 
-export const usePetListQuery = ({ type }) => {
+export const usePetListQuery = ({ type, useCurrentLocation, lat, lon }) => {
   const [searchParams] = useSearchParams();
 
   const fetchPetList = ({ type }) => {
@@ -16,21 +16,35 @@ export const usePetListQuery = ({ type }) => {
 
     if (searchParams.has('dateFrom')) {
       if (type === 'missing') queryParams.set('lostDate_gte', searchParams.get('dateFrom'));
-      else queryParams.set('sightedAt_gte', searchParams.get('dateFrom'));
+      else queryParams.set('sightedDate_gte', searchParams.get('dateFrom'));
     }
     if (searchParams.has('dateTo')) {
       if (type === 'missing') queryParams.set('lostDate_lte', searchParams.get('dateTo'));
-      else queryParams.set('sightedAt_lte', searchParams.get('dateTo'));
-    }
-    if (searchParams.has('address')) {
-      const addressValue = searchParams.get('address');
-      const locationField = type === 'missing' ? 'lostLocation' : 'sightedLocation';
-      queryParams.set(`${locationField}.road_address_like`, addressValue);
-      // queryParams.set(`${locationField}.number_address_like`, addressValue);
+      else queryParams.set('sightedDate_lte', searchParams.get('dateTo'));
     }
 
-    if (type === 'missing') queryParams.set('_sort', '-lostDate');
-    else queryParams.set('_sort', '-sightedAt');
+    const locationField = type === 'missing' ? 'lostLocation' : 'sightedLocation';
+    if (searchParams.has('address') && !useCurrentLocation) {
+      const addressValue = searchParams.get('address');
+      queryParams.set(`q`, addressValue); // 도로명, 지번 둘 다 검색
+
+      // queryParams.set(`${locationField}.road_address_like`, addressValue);
+      // queryParams.set(`${locationField}.number_address_like`, addressValue);
+    } else if (useCurrentLocation && lat && lon) {
+      console.log('현재 위치 기반 필터링');
+      const radius = 20;
+      const boundingBox = calculateBoundingBox(lat, lon, radius);
+      // 최소/최대 위도, 경도로 필터링
+      queryParams.set(`${locationField}.lat_gte`, boundingBox.minLat);
+      queryParams.set(`${locationField}.lat_lte`, boundingBox.maxLat);
+      queryParams.set(`${locationField}.lon_gte`, boundingBox.minLon);
+      queryParams.set(`${locationField}.lon_lte`, boundingBox.maxLon);
+    }
+
+    if (type === 'missing') queryParams.set('_sort', 'lostDate');
+    else queryParams.set('_sort', 'sightedDate');
+
+    queryParams.set('_order', 'desc');
 
     url = `${url}?${queryParams.toString()}`;
 
@@ -38,9 +52,35 @@ export const usePetListQuery = ({ type }) => {
   };
 
   return useQuery({
-    queryKey: ['petList', type, Object.fromEntries(searchParams)],
+    queryKey: ['petList', type, Object.fromEntries(searchParams), useCurrentLocation],
     queryFn: () => fetchPetList({ type }),
     select: (result) => result.data,
     staleTime: 3000,
   });
+};
+
+// 위도, 경도, 반경(km)로 bounding box 계산 
+// (근사치 - 지구가 완전한 구가 아니고 위도에 따라 경도 1도당 거리가 달라짐)
+const calculateBoundingBox = (centerLat, centerLon, radiusInKm) => {
+  // 지구 반지름 (km)
+  const earthRadius = 6371;
+
+  // 위도 1도당 거리: 약 111km (지구둘레/360)
+  const latDegreeDistance = 111;
+
+  // 경도 1도당 거리: 위도에 따라 달라짐 (적도에서 약 111km, 극점에서 0km)
+  // cos(위도 * PI/180) 값을 곱해서 계산
+  const lonDegreeDistance = Math.cos(centerLat * Math.PI / 180) * 111;
+
+  // 반경을 위도, 경도 단위로 변환
+  const latChange = radiusInKm / latDegreeDistance;
+  const lonChange = radiusInKm / lonDegreeDistance;
+
+  return {
+    minLat: centerLat - latChange,
+    maxLat: centerLat + latChange,
+    minLon: centerLon - lonChange,
+    maxLon: centerLon + lonChange
+  };
+
 };
