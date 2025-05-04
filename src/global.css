@@ -65,6 +65,10 @@
   * {
     box-sizing: border-box;
   }
+  button,
+  a {
+    cursor: pointer;
+  }
 }
 @layer utilities {
   /* 기본 스크롤바 스타일 */
