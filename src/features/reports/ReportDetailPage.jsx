@@ -82,7 +82,7 @@ const ReportDetailPage = () => {
                     <PostMap lostLocation={pet?.sightedLocation  || {}}/>
                     <Box id='loc' sx={{display:'flex', alignItems:'center',mt:1,marginLeft:'10px'}}>
                       <MapPin  strokeWidth={2.75} color='#436850'  />
-                      <h3 >실종 당시 위치 </h3>{pet?.sightedLocation.number_address}
+                      <h3 >목격 당시 위치 </h3>{pet?.sightedLocation.number_address}
                       </Box>
                   </Card>
               </Grid>
