@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import basicImage from '../../../../assets/images/eum-logo.webp';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
-const MapListView = ({ pets, type, isPetListLoading }) => {
+const MapListView = ({ pets, type, isPetListLoading, useCurrentLocation, lat, lon }) => {
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -16,6 +16,8 @@ const MapListView = ({ pets, type, isPetListLoading }) => {
             type === 'missing'
               ? new window.kakao.maps.LatLng(pets[0].lostLocation.lat, pets[0].lostLocation.lon)
               : new window.kakao.maps.LatLng(pets[0].sightedLocation.lat, pets[0].sightedLocation.lon);
+        } else if (lat && lon) {
+          center = new window.kakao.maps.LatLng(lat, lon);
         } else {
           center = new window.kakao.maps.LatLng(37.5662952, 126.9779451);
         }
@@ -120,6 +122,22 @@ const MapListView = ({ pets, type, isPetListLoading }) => {
 
           }
 
+          if (useCurrentLocation && lat && lon) {
+            var curImageSrc = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1hcC1waW4taWNvbiBsdWNpZGUtbWFwLXBpbiI+PHBhdGggZD0iTTIwIDEwYzAgNC45OTMtNS41MzkgMTAuMTkzLTcuMzk5IDExLjc5OWExIDEgMCAwIDEtMS4yMDIgMEM5LjUzOSAyMC4xOTMgNCAxNC45OTMgNCAxMGE4IDggMCAwIDEgMTYgMCIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTAiIHI9IjMiLz48L3N2Zz4=`;
+            // 마커 이미지 크기
+            var curMarkerSize = new window.kakao.maps.Size(40, 40);
+
+            // 마커 이미지를 생성
+            var curMarkerImage = new window.kakao.maps.MarkerImage(curImageSrc, curMarkerSize);
+            // 마커를 생성
+            var curMarker = new window.kakao.maps.Marker({
+              map: listMap, // 마커를 표시할 지도
+              position: new window.kakao.maps.LatLng(lat, lon), // 마커를 표시할 위치
+              title: "현재 위치", // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시
+              image: curMarkerImage, // 마커 이미지
+              text: "현재 위치",
+            });
+          }
         }
       } else {
         // 아직 로드되지 않았다면 100ms 뒤 재시도
