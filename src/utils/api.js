@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://my-json-server.typicode.com/yeonmitc/eum-db',
+  baseURL: 'https://eum-db.onrender.com/',
   headers: {
     Accept: 'application/json',
   },
