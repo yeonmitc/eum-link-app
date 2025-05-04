@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
-import { Plus } from 'lucide-react';
-import { useSpecies } from '@/hooks/useSpecies';
-import useUserStore from '@/store/userStore';
-import { useReportsPets } from '@/hooks/useReportsPets';
 import { useAddReport } from '@/hooks/useAddReport';
+import { useSpecies } from '@/hooks/useSpecies';
 import { useUploadImg } from '@/hooks/useUploadImg';
+import useUserStore from '@/store/userStore';
+import { Plus, X } from 'lucide-react';
+import { useRef, useState } from 'react';
 import MapView from './MapView';
 
 const ReportModal = ({ showModal, setShowModal, missingId }) => {
@@ -107,7 +105,7 @@ const ReportModal = ({ showModal, setShowModal, missingId }) => {
         // setShowModal(false);
 
         await addReportPet({ data: sendData });
-
+        setShowModal(false);
         // 성공 후 폼 초기화 및 버튼 복구
         btn.textContent = '등록하기';
         btn.disabled = false;
