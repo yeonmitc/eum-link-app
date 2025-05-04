@@ -72,7 +72,7 @@ const ReportDetailPage = () => {
                   <h3 style={{ marginLeft: 'auto'}}>{pet?.lostDate}</h3>
                   </Grid>
                 <Grid container size={12} >
-                  <h3>종</h3>   {matchedSpecies?.name}</Grid>
+                  <h3>품종</h3>   {matchedSpecies?.name}</Grid>
                 <Grid container size={12}>
                   <h3>특징</h3> {pet?.description}</Grid>
               </Grid>
@@ -82,7 +82,7 @@ const ReportDetailPage = () => {
                     <PostMap lostLocation={pet?.sightedLocation  || {}}/>
                     <Box id='loc' sx={{display:'flex', alignItems:'center',mt:1,marginLeft:'10px'}}>
                       <MapPin  strokeWidth={2.75} color='#436850'  />
-                      <h3 >실종 당시 위치 </h3>{pet?.sightedLocation.number_address}
+                      <h3 >목격 당시 위치 </h3>{pet?.sightedLocation.number_address}
                       </Box>
                   </Card>
               </Grid>

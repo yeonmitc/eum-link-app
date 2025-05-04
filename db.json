@@ -611,7 +611,7 @@
     {
       "commentId": "1",
       "postId": 0,
-      "postType": "missing",
+      "postType": "missing1",
       "userId": "user123",
       "userName": "홍길동",
       "content": "이 강아지를 봤어요!",
@@ -620,7 +620,7 @@
     },
     {
       "commentId": "2",
-      "postId": 0,
+      "postId": "missing10",
       "postType": "report",
       "userId": "user456",
       "userName": "김철수",

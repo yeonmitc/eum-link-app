@@ -16,7 +16,7 @@ const useToggleMissingStatus = () => {
     setError(null);
     setSuccessData(null);
 
-    const url = `http://localhost:5000/missingPets/${petToUpdate.id}`;
+    const url = `https://my-json-server.typicode.com/yeonmitc/eum-db/missingPets/${petToUpdate.id}`;
     const newIsMissingStatus = !petToUpdate.isMissing;
 
     try {

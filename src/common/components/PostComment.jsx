@@ -53,7 +53,7 @@ const PostComment = ({ comments,postId,postType  }) => {
     };
   
     try {
-      const response = await fetch('http://localhost:5000/comments', {
+      const response = await fetch('https://my-json-server.typicode.com/yeonmitc/eum-db/comments', {
         method: 'POST', // POST 요청
         headers: {
           'Content-Type': 'application/json', // 본문이 JSON 형식임을 알림
