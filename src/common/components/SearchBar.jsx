@@ -7,7 +7,7 @@ export default function SearchBar({ isOpen, isDesktop, isTablet, value, setValue
 
   if (isDesktop) {
     return (
-      <div className="relative min-w-0 hidden [@media(min-width:501px)]:block">
+      <div className="relative hidden min-w-0 [@media(min-width:500px)]:block">
         <select
           className="absolute top-1/2 left-2 flex h-7 -translate-y-1/2 items-center justify-center rounded-full border-none bg-[color:var(--secondary)]/20 px-2 pr-1 text-xs text-[color:var(--primary)] focus:outline-none"
           style={{ appearance: 'none', backgroundColor: 'rgba(93, 148, 113, 0.2)' }}
@@ -64,7 +64,7 @@ export default function SearchBar({ isOpen, isDesktop, isTablet, value, setValue
   // 모바일
   return (
     <div
-      className={`absolute right-0 left-0 block overflow-hidden bg-white/95 transition-all duration-300 ease-in-out lg:hidden ${
+      className={`absolute right-0 left-0 block overflow-hidden bg-white/95 transition-all duration-300 ease-in-out [@media(min-width:500px)]:hidden ${
         isOpen ? 'h-16 opacity-100' : 'h-0 opacity-0'
       }`}
     >

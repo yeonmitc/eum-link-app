@@ -129,7 +129,7 @@ const PostComment = ({ comments,postId,postType  }) => {
                 aria-describedby="modal-modal-description"
               >
                 <Box sx={style}>
-                   <CommentModal comments={comments || {}} postId={postId} postType={postType}/>
+                   <CommentModal comments={comments || []} postId={postId} postType={postType}/>
                 </Box>
               </Modal>
 
