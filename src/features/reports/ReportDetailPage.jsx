@@ -89,7 +89,7 @@ const ReportDetailPage = () => {
           </Grid>
           {/* 댓글 */}
           <Grid size={12}  sx={{width:'82vw',height:{sx:'',md:'32vh'},paddingBottom:'10px', background:' #fff',borderRadius:'20px',}}>
-            <PostComment comments={comments || []}/>
+            <PostComment comments={comments || []} postId={id} postType={'reports'}/>
           </Grid>
 
         </Box>

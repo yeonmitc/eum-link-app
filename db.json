@@ -620,13 +620,23 @@
     },
     {
       "commentId": "2",
-      "postId": "missing10",
-      "postType": "report",
+      "postId": "reports1",
+      "postType": "reports",
       "userId": "user456",
       "userName": "김철수",
       "content": "어디서 봤는지 알려주세요!",
       "timestamp": "2025-04-30T12:05:00Z",
       "id": "7d82"
+    },
+    {
+      "commentId": "3",
+      "postId": "reports1",
+      "postType": "reports",
+      "userId": "user1",
+      "userName": "민호맘",
+      "content": "어디서 본것 같은데",
+      "timestamp": "2025-04-30T12:05:00Z",
+      "id": "728d"
     }
   ]
 }
