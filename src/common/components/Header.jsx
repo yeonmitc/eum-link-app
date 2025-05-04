@@ -158,25 +158,6 @@ export default function Header() {
                   setType={setSearchType}
                   onSearch={handleSearch}
                 />
-                <button
-                  className="rounded-full p-2 hover:bg-[var(--secondary)]/10"
-                  onClick={handleSearch}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="h-5 w-5 text-[var(--fg)]"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
-                    />
-                  </svg>
-                </button>
               </div>
 
               {/* 모바일/태블릿용 (1023px 이하) 검색 아이콘 */}
