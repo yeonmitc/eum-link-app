@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
-const MapListView = ({ pets, type }) => {
+const MapListView = ({ pets, type, isPetListLoading }) => {
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -12,21 +13,19 @@ const MapListView = ({ pets, type }) => {
         if (pets?.length > 0) {
           center =
             type === 'missing'
-              ? new window.kakao.maps.LatLng(pets[0].lostLocation.lat, pets[0].lostLocation.lng)
-              : new window.kakao.maps.LatLng(
-                pets[0].sightedLocation.lat,
-                pets[0].sightedLocation.lng
-              );
+              ? new window.kakao.maps.LatLng(pets[0].lostLocation.lat, pets[0].lostLocation.lon)
+              : new window.kakao.maps.LatLng(pets[0].sightedLocation.lat, pets[0].sightedLocation.lon);
         } else {
           center = new window.kakao.maps.LatLng(37.5662952, 126.9779451);
         }
 
         const options = {
           center: center,
-          level: 5,
+          level: 3,
           draggable: true,
         };
-        const map = new window.kakao.maps.Map(mapRef.current, options);
+
+        const listMap = new window.kakao.maps.Map(mapRef.current, options);
 
         // 마커 생성
         // 마커를 표시할 위치와 title 객체 배열입니다
@@ -34,13 +33,16 @@ const MapListView = ({ pets, type }) => {
           let positions = [];
 
           pets.map((pet) => {
-            positions.push({
-              title: pet.id,
-              latlng:
-                type === 'missing'
-                  ? new kakao.maps.LatLng(pet.lostLocation.lat, pet.lostLocation.lng)
-                  : new kakao.maps.LatLng(pet.sightedLocation.lat, pet.sightedLocation.lng),
-            });
+            positions.push(
+              type === "missing"
+                ? {
+                  title: pet?.lostLocation?.road_address || pet?.lostLocation?.number_address,
+                  latlng: new window.kakao.maps.LatLng(pet.lostLocation.lat, pet.lostLocation.lon)
+                }
+                : {
+                  title: pet?.sightedLocation?.road_address || pet?.sightedLocation?.number_address,
+                  latlng: new window.kakao.maps.LatLng(pet.sightedLocation.lat, pet.sightedLocation.lon)
+                });
           });
 
           // 마커 이미지의 이미지 주소입니다
@@ -49,14 +51,14 @@ const MapListView = ({ pets, type }) => {
 
           for (let i = 0; i < positions?.length; i++) {
             // 마커 이미지의 이미지 크기 입니다
-            var imageSize = new kakao.maps.Size(24, 35);
+            var imageSize = new window.kakao.maps.Size(24, 35);
 
             // 마커 이미지를 생성합니다
-            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+            var markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize);
 
             // 마커를 생성합니다
-            var marker = new kakao.maps.Marker({
-              map: map, // 마커를 표시할 지도
+            var marker = new window.kakao.maps.Marker({
+              map: listMap, // 마커를 표시할 지도
               position: positions[i].latlng, // 마커를 표시할 위치
               title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
               image: markerImage, // 마커 이미지
@@ -69,7 +71,9 @@ const MapListView = ({ pets, type }) => {
       }
     };
     onLoadKakaoMap();
-  }, []);
+  }, [pets, type]);
+
+  if (isPetListLoading) return <LoadingSpinner />
 
   return (
     <div className="w-full flex-col items-center justify-center">
