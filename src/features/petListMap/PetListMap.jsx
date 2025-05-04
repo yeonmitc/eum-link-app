@@ -12,6 +12,8 @@ const PetListMap = ({ type }) => {
   // url : /missing,report?map=true
   const [searchParams, setSearchParams] = useSearchParams();
   // const [isHovered, setIsHovered] = useState(false);
+  const [listPage, setListPage] = useState(1);
+  const [listLimit, setListLimit] = useState(4);
   const [useCurrentLocation, setUseCurrentLocation] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const isMapView = searchParams.get('map') === 'true'; // 기본값은 false
@@ -43,11 +45,15 @@ const PetListMap = ({ type }) => {
   }, [type]);
 
   const {
-    data: petList,
+    data: petListData,
     isLoading: isPetListLoading,
     isError: isPetListError,
     error: petError,
-  } = usePetListQuery({ type, useCurrentLocation, lat, lon });
+  } = usePetListQuery({ type, useCurrentLocation, lat, lon, listPage, listLimit });
+
+  const petList = petListData?.data || [];
+  const total = petListData?.total || 0;
+  const totalPages = Math.ceil(total / listLimit);
 
   const toggleViewMap = () => {
     const newParams = { ...Object.fromEntries(searchParams) };
@@ -94,6 +100,7 @@ const PetListMap = ({ type }) => {
   }
 
   const handleSearch = () => {
+    setListPage(1);
     const newParams = {};
 
     if (filters.refSpecies) newParams.refSpecies = filters.refSpecies;
@@ -209,14 +216,19 @@ const PetListMap = ({ type }) => {
                 </div>
               )
               : (
-                <div className="px-4 py-2 mb-2">
+                <div className="px-6 py-2 mb-2">
                   {
                     useCurrentLocation ? (<p className="text-md font-medium mb-2">현재 위치 20km 주변에</p>)
                       : ""
                   }
-                  <p className="text-gray-700">
-                    총 <span className="font-medium">{petList?.length || 0}</span>개의 {type === "missing" ? "실종" : "목격"} 정보가 있습니다.
-                    &nbsp;최신 날짜 순서로 정렬됩니다.
+                  <p className="text-gray-700 flex justify-between p-x-2 flex-wrap">
+                    <span>
+                      총 <span className="font-medium">{total || 0}</span>개의 {type === "missing" ? "실종" : "목격"} 정보가 있습니다.
+                      &nbsp;최신 날짜 순서로 정렬됩니다.
+                    </span>
+                    <span className="text-end">
+                      {listLimit * (listPage - 1) + petList.length} / {total}
+                    </span>
                   </p>
                 </div>
               )
@@ -227,6 +239,17 @@ const PetListMap = ({ type }) => {
           ) : (
             <ListView isPetListLoading={isPetListLoading} pets={petList} type={type} />
           )}
+          <div className="flex justify-center gap-2 mt-4">
+            <button
+              disabled={listPage === 1}
+              className={`${listPage === 1 ? "disabled " : ""} disabled:!bg-gray-200 bg-(--bg) bg-gray-100 p-2 rounded-lg cursor-pointer disabled:cursor-default`}
+              onClick={() => setListPage(listPage - 1)}>이전</button>
+            <span className="flex justify-center items-center">{listPage} / {totalPages}</span>
+            <button
+              disabled={listPage === totalPages}
+              className={`${listPage === totalPages ? "disabled " : ""} disabled:!bg-gray-200 bg-(--bg) p-2 rounded-lg cursor-pointer disabled:cursor-default`}
+              onClick={() => setListPage(listPage + 1)}>다음</button>
+          </div>
         </div>
       </div>
     </div>

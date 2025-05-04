@@ -2,7 +2,7 @@ import api from '@/utils/api';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 
-export const usePetListQuery = ({ type, useCurrentLocation, lat, lon }) => {
+export const usePetListQuery = ({ type, useCurrentLocation, lat, lon, listPage = 1, listLimit = 4 }) => {
   const [searchParams] = useSearchParams();
 
   const fetchPetList = ({ type }) => {
@@ -41,6 +41,9 @@ export const usePetListQuery = ({ type, useCurrentLocation, lat, lon }) => {
       queryParams.set(`${locationField}.lon_lte`, boundingBox.maxLon);
     }
 
+    queryParams.set('_page', listPage);
+    queryParams.set('_limit', listLimit);
+
     if (type === 'missing') queryParams.set('_sort', 'lostDate');
     else queryParams.set('_sort', 'sightedDate');
 
@@ -52,9 +55,12 @@ export const usePetListQuery = ({ type, useCurrentLocation, lat, lon }) => {
   };
 
   return useQuery({
-    queryKey: ['petList', type, Object.fromEntries(searchParams), useCurrentLocation],
+    queryKey: ['petList', type, Object.fromEntries(searchParams), useCurrentLocation, listPage, listLimit,],
     queryFn: () => fetchPetList({ type }),
-    select: (result) => result.data,
+    select: (result) => ({
+      data: result.data,
+      total: Number(result.headers['x-total-count']),
+    }),
     staleTime: 3000,
   });
 };
