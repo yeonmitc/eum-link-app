@@ -1,13 +1,4 @@
-export default function SearchBar({
-  isOpen,
-  isDesktop,
-  isTablet,
-  value,
-  setValue,
-  type,
-  setType,
-  onSearch,
-}) {
+export default function SearchBar({ isOpen, isDesktop, isTablet, value, setValue, type, setType, onSearch }) {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       onSearch();
@@ -16,7 +7,7 @@ export default function SearchBar({
 
   if (isDesktop) {
     return (
-      <div className="relative hidden min-w-0 [@media(min-width:501px)]:block">
+      <div className="relative min-w-0 hidden [@media(min-width:501px)]:block">
         <select
           className="absolute top-1/2 left-2 flex h-7 -translate-y-1/2 items-center justify-center rounded-full border-none bg-[color:var(--secondary)]/20 px-2 pr-1 text-xs text-[color:var(--primary)] focus:outline-none"
           style={{ appearance: 'none', backgroundColor: 'rgba(93, 148, 113, 0.2)' }}
@@ -44,7 +35,7 @@ export default function SearchBar({
   }
   if (isTablet) {
     return (
-      <div className="relative hidden min-w-0 [@media(min-width:400px)]:block [@media(min-width:501px)]:hidden">
+      <div className="relative min-w-0 hidden [@media(min-width:400px)]:block [@media(min-width:501px)]:hidden">
         <select
           className="absolute top-1/2 left-2 flex h-7 -translate-y-1/2 items-center justify-center rounded-full border-none bg-[color:var(--secondary)]/20 px-2 pr-1 text-xs text-[color:var(--primary)] focus:outline-none"
           style={{ appearance: 'none', backgroundColor: 'rgba(93, 148, 113, 0.2)' }}
