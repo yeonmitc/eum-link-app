@@ -75,10 +75,10 @@ const MobileFilter = ({ type, filters, handleFilterChange, handleSearch, handleR
             <button
               onClick={handleReset}
               type="button"
-              className="w-full bg-gray-400 p-3 rounded-lg text-white cursor-pointer active:scale-97 active:bg-gray-500">초기화</button>
+              className="w-full bg-gray-400 p-3 rounded-lg text-white cursor-pointer active:scale-97 active:bg-gray-500 transition-all duration-150">초기화</button>
             <button
               type="submit"
-              className="w-full bg-(--primary) p-3 rounded-lg text-white cursor-pointer active:scale-97 active:bg-(--secondary)">적용</button>
+              className="w-full bg-(--primary) p-3 rounded-lg text-white cursor-pointer active:scale-97 active:bg-(--secondary) transition-all duration-150">적용</button>
           </div>
         </form>
       </div>

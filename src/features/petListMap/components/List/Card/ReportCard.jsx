@@ -1,14 +1,17 @@
 import { Cat, Dog, PawPrint } from 'lucide-react';
+import basicImage from '../../../../../assets/images/eum-logo.webp';
 
 const ReportCard = ({ pet, speciesList }) => {
   const species = speciesList?.find((item) => item.id === pet.refSpecies.toString());
+
+  const imageUrl = pet?.imageUrl || basicImage;
 
   return (
     <div className="h-[350px] overflow-hidden rounded-lg shadow-xl md:h-[330px]">
       <div
         className="h-[60%] rounded-lg"
         style={{
-          backgroundImage: `url(${pet?.imageUrl})`,
+          backgroundImage: `url(${imageUrl})`,
           backgroundPosition: 'center 40%',
           backgroundSize: 'cover',
         }}

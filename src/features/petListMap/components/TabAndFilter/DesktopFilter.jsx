@@ -20,7 +20,7 @@ const DesktopFilter = ({ type, filters, handleFilterChange, handleSearch, handle
         <button
           type="button"
           onClick={handleReset}
-          className="absolute -left-8 h-[95%] w-[95px] rounded-full bg-gray-400 shadow-lg p-4 text-white flex justify-end items-center cursor-pointer hover:scale-95 hover:bg-gray-400 active:scale-95 active:bg-gray-500 transition-all duration-150">
+          className="absolute -left-8 h-[95%] w-[95px] rounded-full bg-gray-400 shadow-lg p-4 text-white flex justify-end items-center cursor-pointer hover:translate-x-4 hover:scale-95 hover:bg-gray-400 active:scale-95 active:bg-gray-500 transition-all duration-150">
           초기화
         </button>
 
