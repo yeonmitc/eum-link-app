@@ -92,7 +92,7 @@ export default function Header() {
           <div className="flex h-16 items-center justify-between">
             {/* 모바일 햄버거 메뉴 버튼 */}
             <button
-              className="block rounded-full p-2 hover:bg-[var(--secondary)]/10 [@media(min-width:400px)]:hidden"
+              className="block rounded-full p-2 hover:bg-[var(--secondary)]/10 [@media(min-width:500px)]:hidden"
               onClick={toggleMobileMenu}
               aria-label="메뉴 열기"
             >
@@ -123,7 +123,7 @@ export default function Header() {
               </Link>
 
               {/* 데스크탑용 네비게이션 링크 */}
-              <nav className="hidden flex-shrink-0 flex-nowrap items-center space-x-6 [&>*]:whitespace-nowrap [@media(min-width:400px)]:flex">
+              <nav className="hidden flex-shrink-0 flex-nowrap items-center space-x-6 [&>*]:whitespace-nowrap [@media(min-width:500px)]:block">
                 {navItems.map((item, idx) => (
                   <Link
                     key={item.to}
