@@ -39,42 +39,29 @@ const PetCardSlider = () => {
   const [activeTab, setActiveTab] = useState('missing'); // 'missing' 또는 'report'
   const { data: pets, isLoading: isPetsLoading } = usePetListQuery({
     type: 'missing',
-    refetchInterval: 5000, // 5초마다 데이터 리프레시
+    listLimit: 6,
   });
   const { data: reports, isLoading: isReportsLoading } = usePetListQuery({
     type: 'report',
-    refetchInterval: 5000, // 5초마다 데이터 리프레시
+    listLimit: 6,
   });
   const { data: users, isLoading: isUsersLoading } = useUsers({
     refetchInterval: 5000, // 5초마다 데이터 리프레시
   });
 
+  console.log('pets', pets);
+  console.log('reports', reports);
+  console.log('users', users);
+
   // users 배열을 Map으로 변환
   const userMap = new Map((users || []).map((user) => [user.id, user]));
 
   // 실종 상태인 펫들만 필터링하고 최근 실종일 순으로 정렬
-  const sortedPets = Array.isArray(pets?.data)
-    ? pets.data
-        .filter((pet) => pet.isMissing)
-        .sort((a, b) => {
-          const dateA = new Date(`${a.lostDate}T${a.lostTime}`);
-          const dateB = new Date(`${b.lostDate}T${b.lostTime}`);
-          return dateB - dateA;
-        })
-        .slice(0, 6)
-    : [];
+  const sortedPets = Array.isArray(pets?.data) ? pets.data : [];
 
-  // 실종 상태인 목격 신고만 필터링하고 최근 목격일 순으로 정렬
-  const sortedReports = Array.isArray(reports?.data)
-    ? reports.data
-        .filter((report) => report.isMissing)
-        .sort((a, b) => {
-          const dateA = new Date(`${a.sightedDate || ''}T${a.sightedTime || '00:00'}`);
-          const dateB = new Date(`${b.sightedDate || ''}T${b.sightedTime || '00:00'}`);
-          return dateB - dateA;
-        })
-        .slice(0, 6)
-    : [];
+  // 모든 목격 신고를 정렬/슬라이스 없이 그대로 보여줌 (테스트용)
+  const sortedReports = Array.isArray(reports?.data) ? reports.data : [];
+  console.log('sortedReports', sortedReports);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
