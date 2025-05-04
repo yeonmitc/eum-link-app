@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import './MissingDetailPage.css';
-import { useParams, useNavigate } from 'react-router-dom';
 
-import { Grid, Box, Card, Menu, MenuItem } from '@mui/material';
+import { Box, Card, Grid, Menu, MenuItem } from '@mui/material';
 import {
   EllipsisVertical,
+  HeartHandshake,
   MapPin,
   Mars,
-  Venus,
   UserRoundSearch,
-  HeartHandshake,
+  Venus,
 } from 'lucide-react';
 
 import PostComment from '@/common/components/PostComment';
 import PostMap from '@/common/components/PostMap';
+import ReportModal from '@/common/components/ReportModal';
+import { useComments } from '@/hooks/useComment';
 import { useMissingPets } from '@/hooks/useMissingPets';
 import { usePetSpecies } from '@/hooks/usePetSpecies';
-import { useComments } from '@/hooks/useComment';
-import useUserStore from '@/store/userStore';
 import useToggleMissingStatus from '@/hooks/useToggleMissingStatus';
-import ReportModal from '@/common/components/ReportModal';
+import useUserStore from '@/store/userStore';
+import Loading from '../common/Loading';
+import NotFoundPage from '../common/NotFoundPage';
 
 const MissingDetailPage = () => {
   const navigate = useNavigate();
@@ -44,12 +46,8 @@ const MissingDetailPage = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (!pet || pet.length === 0) {
-    return <div>Not Found</div>;
-  }
+  if (isLoading) return <Loading />;
+  if (!pet || pet.length === 0) return <NotFoundPage />;
 
   const matchedSubSpecies = species[pet.subSpecies - 1];
 

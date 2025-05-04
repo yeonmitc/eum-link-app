@@ -1,20 +1,16 @@
-import SimplyModal from '@/common/components/SimplyModal';
+import MainCardSlider from './components/MainCardSlider';
+import PetCardSlider from './components/PetCardSlider';
 import './HomePage.style.css';
-import { useState } from 'react';
 
 const HomePage = () => {
-  const [subModal, setSubModal] = useState(false);
-
   return (
-    <div className="bg-bg w-full max-w-5xl px-4">
-      HomePage
-      <SimplyModal
-        showModal={subModal}
-        setShowModal={setSubModal}
-        title={'제목'}
-        btn={'확인'}
-        content={'내용'}
-      />
+    <div className="scrollbar h-[calc(100vh-120px)] overflow-x-hidden overflow-y-auto bg-[#F5EEDD]">
+      <div className="mx-auto h-full space-y-8 px-4 py-4 md:pb-0">
+        {/* 카드 슬라이더 섹션 */}
+        <MainCardSlider />
+        {/* 최근 실종 동물 섹션 */}
+        <PetCardSlider />
+      </div>
     </div>
   );
 };

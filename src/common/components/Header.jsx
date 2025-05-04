@@ -82,6 +82,11 @@ export default function Header() {
       } else if (searchType === '목격') {
         navigate(`/reports?address=${encodeURIComponent(searchValue.trim())}&map=true`);
       }
+      // 모바일/태블릿에서만: 검색 후 검색바 숨기고 입력값 초기화
+      if (window.innerWidth < 1024) {
+        setIsSearchOpen(false);
+        setSearchValue('');
+      }
     }
   };
   return (
@@ -92,7 +97,7 @@ export default function Header() {
           <div className="flex h-16 items-center justify-between">
             {/* 모바일 햄버거 메뉴 버튼 */}
             <button
-              className="block rounded-full p-2 hover:bg-[var(--secondary)]/10 [@media(min-width:400px)]:hidden"
+              className="block rounded-full p-2 hover:bg-[var(--secondary)]/10 [@media(min-width:500px)]:hidden"
               onClick={toggleMobileMenu}
               aria-label="메뉴 열기"
             >
@@ -123,13 +128,13 @@ export default function Header() {
               </Link>
 
               {/* 데스크탑용 네비게이션 링크 */}
-              <nav className="hidden flex-shrink-0 flex-nowrap items-center space-x-6 [&>*]:whitespace-nowrap [@media(min-width:400px)]:flex">
+              <nav className="hidden flex-shrink-0 flex-nowrap items-center space-x-6 [&>*]:whitespace-nowrap [@media(min-width:500px)]:block">
                 {navItems.map((item, idx) => (
                   <Link
                     key={item.to}
                     to={item.to}
-                    className={`hover:font-kbo-medium font-kbo-light text-base text-[var(--fg)] transition-all hover:text-[var(--primary)] ${
-                      activeNav === idx ? 'font-kbo-medium text-[var(--primary)]' : ''
+                    className={`hover:font-kbo-medium font-kbo-light text-base text-[var(--fg)] transition-all hover:text-[var(--point)] ${
+                      location.pathname === item.to ? 'font-kbo-medium text-[var(--point)]' : ''
                     }`}
                     onTouchStart={() => setActiveNav(idx)}
                     onTouchEnd={() => setActiveNav(null)}
@@ -143,7 +148,8 @@ export default function Header() {
 
             {/* 우측 아이콘들 (검색, 사용자) */}
             <div className="flex shrink-0 items-center space-x-2 pr-1 md:space-x-4">
-              <div className="ml-auto hidden items-center gap-2 [@media(min-width:400px)]:flex">
+              {/* 데스크탑(800px 이상)만 */}
+              <div className="hidden items-center gap-2 [@media(min-width:800px)]:flex">
                 <SearchBar
                   isDesktop
                   value={searchValue}
@@ -173,9 +179,9 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* 검색 아이콘: 모바일에서만 보임 */}
+              {/* 모바일/태블릿용 (1023px 이하) 검색 아이콘 */}
               <button
-                className="block rounded-full p-2 hover:bg-[var(--secondary)]/10 [@media(min-width:400px)]:hidden"
+                className="block rounded-full p-2 hover:bg-[var(--secondary)]/10 lg:hidden"
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
               >
                 <FiSearch className="h-5 w-5 text-[var(--fg)]" />
@@ -273,8 +279,8 @@ export default function Header() {
           </div>
         </div>
 
-        {/* 모바일에서만 보이는 SearchBar (nav 아래) */}
-        <div className="block px-4 pt-2 [@media(min-width:400px)]:hidden">
+        {/* 모바일/태블릿(1023px 이하)에서만 보이는 SearchBar (nav 아래) */}
+        <div className="block px-4 pt-2 lg:hidden">
           <SearchBar
             isOpen={isSearchOpen}
             value={searchValue}
@@ -299,7 +305,9 @@ export default function Header() {
               key={item.to}
               to={item.to}
               className={`font-kbo-light block border-b border-[var(--border)] py-3 text-xl transition-all ${
-                activeNav === idx ? 'font-kbo-medium text-[var(--primary)]' : 'text-[var(--fg)]'
+                location.pathname === item.to
+                  ? 'font-kbo-medium text-[var(--point)]'
+                  : 'text-[var(--fg)]'
               }`}
               onTouchStart={() => setActiveNav(idx)}
               onTouchEnd={() => setActiveNav(null)}
