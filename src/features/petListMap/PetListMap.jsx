@@ -53,7 +53,7 @@ const PetListMap = ({ type }) => {
 
   const petList = petListData?.data || [];
   const total = petListData?.total || 0;
-  const totalPages = Math.ceil(total / listLimit);
+  const totalPages = Math.max(1, Math.ceil(total / listLimit));
 
   const toggleViewMap = () => {
     const newParams = { ...Object.fromEntries(searchParams) };
@@ -167,7 +167,7 @@ const PetListMap = ({ type }) => {
 
           <div className="flex justify-center items-center gap-x-3 m-2">
             <button
-              className="flex h-[50px] w-[150px] cursor-pointer items-center justify-center gap-x-2 rounded-sm bg-(--bg) p-2 text-black shadow-lg active:scale-97"
+              className="flex h-[50px] w-[150px] cursor-pointer items-center justify-center gap-x-2 rounded-sm bg-(--bg) p-2 text-black shadow-lg hover:scale-98 active:scale-96 active:bg-(--point) transition-all duration-200"
               onClick={toggleViewMap}
             >
               {isMapView ? (
@@ -182,7 +182,7 @@ const PetListMap = ({ type }) => {
               )}
             </button>
             <button
-              className="flex h-[50px] w-[150px] cursor-pointer items-center justify-center gap-x-2 rounded-sm bg-(--bg) p-2 text-black shadow-lg active:scale-97"
+              className="flex h-[50px] w-[150px] cursor-pointer items-center justify-center gap-x-2 rounded-sm bg-(--bg) p-2 text-black shadow-lg hover:scale-98 active:scale-96 active:bg-(--point) transition-all duration-200"
               onClick={toggleUseCurrentLocation}
             >{`현재위치 ${useCurrentLocation ? "끄기" : "켜기"}`}</button>
           </div>
@@ -203,52 +203,53 @@ const PetListMap = ({ type }) => {
               )}
             </button>
           )} */}
+          <div className="flex flex-col justify-center max-w-[1028px] mx-auto">
+            {
+              petList?.length === 0 ?
+                (
+                  <div className="flex flex-col items-center px-4 py-2 m-3">
+                    <h3 className="text-xl font-medium mb-2">데이터가 없습니다</h3>
+                    {useCurrentLocation
+                      ? (<p className="text-gray-500">현재 위치 20km 이내의 {type === "missing" ? "실종" : "목격"} 데이터를 찾을 수 없습니다.</p>)
+                      : (<p className="text-gray-500">해당 조건에 맞는 {type === "missing" ? "실종" : "목격"} 데이터를 찾을 수 없습니다.</p>)
+                    }
+                  </div>
+                )
+                : (
+                  <div className="px-6 py-2 mb-2">
+                    {
+                      useCurrentLocation ? (<p className="text-md font-medium mb-2">현재 위치 20km 주변에</p>)
+                        : ""
+                    }
+                    <p className="text-gray-700 flex justify-between p-x-2 flex-wrap">
+                      <span>
+                        총 <span className="font-medium">{total || 0}</span>개의 {type === "missing" ? "실종" : "목격"} 정보가 있습니다.
+                        &nbsp;최신 날짜 순서로 정렬됩니다.
+                      </span>
+                      <span className="text-end">
+                        {listLimit * (listPage - 1) + petList.length} / {total}
+                      </span>
+                    </p>
+                  </div>
+                )
+            }
 
-          {
-            petList?.length === 0 ?
-              (
-                <div className="flex flex-col items-center px-4 py-2 mb-2">
-                  <h3 className="text-xl font-medium mb-2">데이터가 없습니다</h3>
-                  {useCurrentLocation
-                    ? (<p className="text-gray-500">현재 위치 20km 이내의 {type === "missing" ? "실종" : "목격"} 데이터를 찾을 수 없습니다.</p>)
-                    : (<p className="text-gray-500">해당 조건에 맞는 {type === "missing" ? "실종" : "목격"} 데이터를 찾을 수 없습니다.</p>)
-                  }
-                </div>
-              )
-              : (
-                <div className="px-6 py-2 mb-2">
-                  {
-                    useCurrentLocation ? (<p className="text-md font-medium mb-2">현재 위치 20km 주변에</p>)
-                      : ""
-                  }
-                  <p className="text-gray-700 flex justify-between p-x-2 flex-wrap">
-                    <span>
-                      총 <span className="font-medium">{total || 0}</span>개의 {type === "missing" ? "실종" : "목격"} 정보가 있습니다.
-                      &nbsp;최신 날짜 순서로 정렬됩니다.
-                    </span>
-                    <span className="text-end">
-                      {listLimit * (listPage - 1) + petList.length} / {total}
-                    </span>
-                  </p>
-                </div>
-              )
-          }
-
-          {isMapView ? (
-            <MapListView pets={petList} type={type} />
-          ) : (
-            <ListView isPetListLoading={isPetListLoading} pets={petList} type={type} />
-          )}
-          <div className="flex justify-center gap-2 mt-4">
-            <button
-              disabled={listPage === 1}
-              className={`${listPage === 1 ? "disabled " : ""} disabled:!bg-gray-200 bg-(--bg) bg-gray-100 p-2 rounded-lg cursor-pointer disabled:cursor-default`}
-              onClick={() => setListPage(listPage - 1)}>이전</button>
-            <span className="flex justify-center items-center">{listPage} / {totalPages}</span>
-            <button
-              disabled={listPage === totalPages}
-              className={`${listPage === totalPages ? "disabled " : ""} disabled:!bg-gray-200 bg-(--bg) p-2 rounded-lg cursor-pointer disabled:cursor-default`}
-              onClick={() => setListPage(listPage + 1)}>다음</button>
+            {isMapView ? (
+              <MapListView pets={petList} type={type} />
+            ) : (
+              <ListView isPetListLoading={isPetListLoading} pets={petList} type={type} />
+            )}
+            <div className="flex justify-center gap-2 mt-4">
+              <button
+                disabled={listPage === 1}
+                className={`${listPage === 1 ? "disabled " : ""} disabled:!bg-gray-200 bg-(--bg) bg-gray-100 p-2 rounded-lg cursor-pointer disabled:cursor-default`}
+                onClick={() => setListPage(listPage - 1)}>이전</button>
+              <span className="flex justify-center items-center">{listPage} / {totalPages}</span>
+              <button
+                disabled={listPage === totalPages}
+                className={`${listPage === totalPages ? "disabled " : ""} disabled:!bg-gray-200 bg-(--bg) p-2 rounded-lg cursor-pointer disabled:cursor-default`}
+                onClick={() => setListPage(listPage + 1)}>다음</button>
+            </div>
           </div>
         </div>
       </div>

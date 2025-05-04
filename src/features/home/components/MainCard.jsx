@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import mapImage from '../../../assets/images/map.png';
 import markImage from '../../../assets/images/mark.png';
 import missingImage from '../../../assets/images/missing.png';
@@ -31,15 +30,14 @@ const CARD_CONFIGS = {
   },
 };
 
-const MainCard = ({ title, subtitle, description, to, isActive }) => {
+const MainCard = ({ title, subtitle, description, isActive }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const config = CARD_CONFIGS[to];
+  const config = CARD_CONFIGS['/missing'];
   if (!config) return null;
 
   return (
-    <Link
-      to={to}
-      className={`block h-full w-full ${config.bgColor} relative overflow-hidden rounded-2xl transition-all duration-300 hover:opacity-90`}
+    <div
+      className={`block h-full w-full ${config.bgColor} relative cursor-pointer overflow-hidden rounded-2xl transition-all duration-300 hover:opacity-90`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -78,7 +76,7 @@ const MainCard = ({ title, subtitle, description, to, isActive }) => {
         </p>
         <p className="text-base leading-relaxed text-white/80 md:text-sm">{description}</p>
       </div>
-    </Link>
+    </div>
   );
 };
 

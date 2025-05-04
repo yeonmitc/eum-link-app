@@ -1,4 +1,8 @@
+import MissingModal from '@/common/components/MissingModal';
+import ReportModal from '@/common/components/ReportModal';
+import useUserStore from '@/store/userStore';
 import { useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import MainCard from './MainCard';
 
 const MainCardSlider = () => {
@@ -6,25 +10,34 @@ const MainCardSlider = () => {
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
   const sliderRef = useRef(null);
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [showMissingModal, setShowMissingModal] = useState(false);
+  const { user } = useUserStore();
 
   const cards = [
     {
       title: '실종/제보 리스트 보기',
       subtitle: '"내 주변 실종/제보 현황이 궁금하신가요?"',
       description: '현재 위치 기반으로 실종/제보 정보를 확인하세요.',
-      to: '/missing',
+      onClick: undefined,
     },
     {
       title: '목격 제보하기',
       subtitle: '"실종 동물을 발견하셨나요?"',
       description: '당신이 본 그 순간을 알려주세요. 잃어버린 마음을 되찾아 줄 수 있습니다.',
-      to: '/reports/new',
+      onClick: () => setShowReportModal(true),
     },
     {
       title: '실종 신고하기',
       subtitle: '"반려동물을 잃어버리셨나요?"',
       description: '지금 바로 실종 신고를 등록하고, 다양한 사람들에게 알려주세요.',
-      to: '/missing/new',
+      onClick: () => {
+        if (user) {
+          setShowMissingModal(true);
+        } else {
+          toast.error('로그인 후 이용해주세요');
+        }
+      },
     },
   ];
 
@@ -95,7 +108,7 @@ const MainCardSlider = () => {
           >
             {cards.map((card, index) => (
               <div key={index} className="h-full w-full flex-shrink-0" style={{ minWidth: '100%' }}>
-                <MainCard {...card} isActive={index === activeIndex} />
+                <MainCard {...card} isActive={index === activeIndex} onClick={card.onClick} />
               </div>
             ))}
           </div>
@@ -110,9 +123,9 @@ const MainCardSlider = () => {
               style={{
                 width: `${currentRatios[index] * (100 / 11)}%`,
               }}
-              onClick={() => handleDotClick(index)}
+              onClick={card.onClick}
             >
-              <MainCard {...card} isActive={currentRatios[index] === 5} />
+              <MainCard {...card} isActive={currentRatios[index] === 5} onClick={card.onClick} />
             </div>
           ))}
         </div>
@@ -152,6 +165,14 @@ const MainCardSlider = () => {
           ))}
         </div>
       </div>
+
+      {/* 모달 렌더링 */}
+      {showReportModal && (
+        <ReportModal showModal={showReportModal} setShowModal={setShowReportModal} />
+      )}
+      {showMissingModal && (
+        <MissingModal showModal={showMissingModal} setShowModal={setShowMissingModal} />
+      )}
     </div>
   );
 };
