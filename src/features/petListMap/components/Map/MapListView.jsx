@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import basicImage from '../../../../assets/images/eum-logo.webp';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const MapListView = ({ pets, type, isPetListLoading }) => {
@@ -21,7 +22,7 @@ const MapListView = ({ pets, type, isPetListLoading }) => {
 
         const options = {
           center: center,
-          level: 3,
+          level: 5,
           draggable: true,
         };
 
@@ -33,37 +34,74 @@ const MapListView = ({ pets, type, isPetListLoading }) => {
           let positions = [];
 
           pets.map((pet) => {
+            var contentDate = type === "missing" ? pet?.lostDate : pet?.sightedDate;
+            var content = `
+              <div class="w-40 bg-white rounded-lg shadow-lg overflow-hidden">
+                <img class="rounded-t-lg cursor-pointer" src="${pet?.imageUrl || basicImage}"
+                  onclick=(location.href='/${type === "missing" ? "missing/" + pet?.id : "/reports/" + pet?.id}')
+                />
+                <div class="p-2 flex justify-between items-center">
+                  <p class="text-sm text-gray-500 mt-1">${pet?.refSpecies === 1 ? "강아지" : pet?.refSpecies === 2 ? "고양이" : "기타"}</p>
+                  <p class="text-sm font-medium text-gray-700">${contentDate || "미상"}</p>
+                </div>
+              </div>
+            `;
             positions.push(
               type === "missing"
                 ? {
-                  title: pet?.lostLocation?.road_address || pet?.lostLocation?.number_address,
+                  content: content,
+                  title: pet?.lostLocation?.road_address || pet?.lostLocation?.number_address || "",
                   latlng: new window.kakao.maps.LatLng(pet.lostLocation.lat, pet.lostLocation.lon)
                 }
                 : {
+                  content: content,
                   title: pet?.sightedLocation?.road_address || pet?.sightedLocation?.number_address,
                   latlng: new window.kakao.maps.LatLng(pet.sightedLocation.lat, pet.sightedLocation.lon)
                 });
           });
 
-          // 마커 이미지의 이미지 주소입니다
-          let imageSrc =
-            'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWRvZy1pY29uIGx1Y2lkZS1kb2ciPjxwYXRoIGQ9Ik0xMS4yNSAxNi4yNWgxLjVMMTIgMTd6Ii8+PHBhdGggZD0iTTE2IDE0di41Ii8+PHBhdGggZD0iTTQuNDIgMTEuMjQ3QTEzLjE1MiAxMy4xNTIgMCAwIDAgNCAxNC41NTZDNCAxOC43MjggNy41ODIgMjEgMTIgMjFzOC0yLjI3MiA4LTYuNDQ0YTExLjcwMiAxMS43MDIgMCAwIDAtLjQ5My0zLjMwOSIvPjxwYXRoIGQ9Ik04IDE0di41Ii8+PHBhdGggZD0iTTguNSA4LjVjLS4zODQgMS4wNS0xLjA4MyAyLjAyOC0yLjM0NCAyLjUtMS45MzEuNzIyLTMuNTc2LS4yOTctMy42NTYtMS0uMTEzLS45OTQgMS4xNzctNi41MyA0LTcgMS45MjMtLjMyMSAzLjY1MS44NDUgMy42NTEgMi4yMzVBNy40OTcgNy40OTcgMCAwIDEgMTQgNS4yNzdjMC0xLjM5IDEuODQ0LTIuNTk4IDMuNzY3LTIuMjc3IDIuODIzLjQ3IDQuMTEzIDYuMDA2IDQgNy0uMDguNzAzLTEuNzI1IDEuNzIyLTMuNjU2IDEtMS4yNjEtLjQ3Mi0xLjg1NS0xLjQ1LTIuMjM5LTIuNSIvPjwvc3ZnPg==';
+          // 마커 이미지
+          let imageSrc = 'https://cdn-icons-png.flaticon.com/256/9707/9707706.png';
 
           for (let i = 0; i < positions?.length; i++) {
-            // 마커 이미지의 이미지 크기 입니다
-            var imageSize = new window.kakao.maps.Size(24, 35);
+            // 마커 이미지 크기
+            var imageSize = new window.kakao.maps.Size(75, 70);
 
-            // 마커 이미지를 생성합니다
+            // 마커 이미지를 생성
             var markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize);
 
-            // 마커를 생성합니다
+            // 마커를 생성
             var marker = new window.kakao.maps.Marker({
               map: listMap, // 마커를 표시할 지도
               position: positions[i].latlng, // 마커를 표시할 위치
-              title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+              title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시
               image: markerImage, // 마커 이미지
             });
+
+            var infowindow = new window.kakao.maps.InfoWindow({
+              content: positions[i].content,
+              removable: true,
+              disableAutoPan: true // 지도 자동 이동 방지
+            });
+
+            // 마커 호버 이벤트
+            window.kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(listMap, marker, infowindow));
+            window.kakao.maps.event.addListener(marker, 'click', makeClickListener(listMap, marker, infowindow));
           }
+
+          // 인포윈도우를 표시하는 클로저를 만드는 함수
+          function makeOverListener(map, marker, infowindow) {
+            return function () {
+              infowindow.open(map, marker);
+            };
+          }
+
+          function makeClickListener(map, marker, infowindow) {
+            return function () {
+              infowindow.open(map, marker);
+            };
+          }
+
         }
       } else {
         // 아직 로드되지 않았다면 100ms 뒤 재시도
@@ -76,18 +114,12 @@ const MapListView = ({ pets, type, isPetListLoading }) => {
   if (isPetListLoading) return <LoadingSpinner />
 
   return (
-    <div className="w-full flex-col items-center justify-center">
-      <div className="mb-2 px-4 py-2">
-        <p className="text-gray-700">
-          총 <span className="font-medium">{pets?.length}</span>개의{' '}
-          {type === 'missing' ? '실종' : '목격'} 정보가 있습니다.
-        </p>
-      </div>
+    <div className="w-full flex-col items-center justify-center h-[80%]">
       <div
         ref={mapRef}
         style={{
           width: '100%',
-          minHeight: '400px',
+          height: '60vh',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',

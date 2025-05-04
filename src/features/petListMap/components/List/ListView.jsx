@@ -10,22 +10,22 @@ const ListView = ({ pets, type, isPetListLoading }) => {
 
   if (isPetListLoading) return <LoadingSpinner />
 
-  if (pets.length === 0) {
-    return (
-      <div className="flex flex-col items-center pt-10 h-[50vh] p-4">
-        <h3 className="text-xl font-medium mb-2">데이터가 없습니다</h3>
-        <p className="text-gray-500">해당 조건에 맞는 {type === "missing" ? "실종" : "목격"} 데이터를 찾을 수 없습니다.</p>
-      </div>
-    );
-  }
+  // if (pets.length === 0) {
+  //   return (
+  //     <div className="flex flex-col items-center pt-10 h-[50vh] p-4">
+  //       <h3 className="text-xl font-medium mb-2">데이터가 없습니다</h3>
+  //       <p className="text-gray-500">해당 조건에 맞는 {type === "missing" ? "실종" : "목격"} 데이터를 찾을 수 없습니다.</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="w-full flex flex-col">
-      <div className="px-4 py-2 mb-2">
+      {/* <div className="px-4 py-2 mb-2">
         <p className="text-gray-700">
           총 <span className="font-medium">{pets.length}</span>개의 {type === "missing" ? "실종" : "목격"} 정보가 있습니다.
         </p>
-      </div>
+      </div> */}
       <div className="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 px-4">
         {pets.map((pet) => {
           return (
