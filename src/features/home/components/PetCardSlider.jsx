@@ -37,13 +37,17 @@ const sliderStyles = {
 
 const PetCardSlider = () => {
   const [activeTab, setActiveTab] = useState('missing'); // 'missing' 또는 'report'
-  const { data: pets, isLoading: isPetsLoading } = usePetListQuery({ type: 'missing' });
-  const { data: reports, isLoading: isReportsLoading } = usePetListQuery({ type: 'report' });
-  const { data: users, isLoading: isUsersLoading } = useUsers();
-
-  console.log('pets', pets);
-  console.log('reports', reports);
-  console.log('users', users);
+  const { data: pets, isLoading: isPetsLoading } = usePetListQuery({
+    type: 'missing',
+    refetchInterval: 5000, // 5초마다 데이터 리프레시
+  });
+  const { data: reports, isLoading: isReportsLoading } = usePetListQuery({
+    type: 'report',
+    refetchInterval: 5000, // 5초마다 데이터 리프레시
+  });
+  const { data: users, isLoading: isUsersLoading } = useUsers({
+    refetchInterval: 5000, // 5초마다 데이터 리프레시
+  });
 
   // users 배열을 Map으로 변환
   const userMap = new Map((users || []).map((user) => [user.id, user]));
