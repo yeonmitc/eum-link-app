@@ -101,11 +101,29 @@ const ReportDetailPage = () => {
                 <h2>{repTitle} </h2>
                 <h3 style={{ marginLeft: 'auto' }}>{pet?.lostDate}</h3>
               </Grid>
-              <Grid container size={12}>
-                <h3>종</h3> {matchedSpecies?.name}
+
+              {/* 정보상세 */}
+              <Grid container size={{ xs: 12, sm: 4}} id='d-text' 
+              fontSize={{xs:'smaller',md:'medium'}}
+              sx={{ Width: '95%' ,maxHeight:{xs:'auto',sm:'34vh'}}} >
+                <Grid container size={12} >
+                  <h2>{repTitle} </h2> 
+                  <h3 style={{ marginLeft: 'auto'}}>{pet?.lostDate}</h3>
+                  </Grid>
+                <Grid container size={12} >
+                  <h3>품종</h3>   {matchedSpecies?.name}</Grid>
+                <Grid container size={12}>
+                  <h3>특징</h3> {pet?.description}</Grid>
               </Grid>
-              <Grid container size={12}>
-                <h3>특징</h3> {pet?.description}
+              {/* 지도 */}
+              <Grid size={{ xs: 12, sm: 4}}>
+                  <Card sx={{ width: '100%' ,height:{xs:'15vh',sm:'34vh'}, background:' #fff',borderRadius:'20px',boxShadow:'3px 3px 3px rgb(177, 177, 177)'}}>
+                    <PostMap lostLocation={pet?.sightedLocation  || {}}/>
+                    <Box id='loc' sx={{display:'flex', alignItems:'center',mt:1,marginLeft:'10px'}}>
+                      <MapPin  strokeWidth={2.75} color='#436850'  />
+                      <h3 >목격 당시 위치 </h3>{pet?.sightedLocation.number_address}
+                      </Box>
+                  </Card>
               </Grid>
             </Grid>
             {/* 지도 */}
