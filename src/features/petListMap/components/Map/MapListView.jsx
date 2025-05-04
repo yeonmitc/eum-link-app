@@ -36,16 +36,36 @@ const MapListView = ({ pets, type, isPetListLoading }) => {
           pets.map((pet) => {
             var contentDate = type === "missing" ? pet?.lostDate : pet?.sightedDate;
             var content = `
-              <div class="w-40 bg-white rounded-lg shadow-lg overflow-hidden">
-                <img class="rounded-t-lg cursor-pointer" src="${pet?.imageUrl || basicImage}"
-                  onclick=(location.href='${type === "missing" ? "/missing/" + pet?.id : "/reports/" + pet?.id}')
-                />
-                <div class="p-2 flex justify-between items-center">
-                  <p class="text-sm text-gray-500 mt-1">${pet?.refSpecies === 1 ? "강아지" : pet?.refSpecies === 2 ? "고양이" : "기타"}</p>
-                  <p class="text-sm font-medium text-gray-700">${contentDate || "미상"}</p>
-                </div>
-              </div>
-            `;
+                    <div class="w-60 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                      <div class="bg-(--secondary) text-white font-semibold text-center p-2 flex justify-between">
+                        ${type === "missing" ? "실종" : "목격"} 정보
+                        <button class="cursor-pointer font-medium overlay-close-button" title="닫기">X</button>
+                      </div>
+                      <div class="relative">
+                        <img 
+                          class="w-full h-36 object-cover cursor-pointer"
+                          src="${pet?.imageUrl || basicImage}"
+                          onclick="location.href='${type === "missing" ? "/missing/" + pet?.id : "/reports/" + pet?.id}'"
+                          alt="pet"
+                        />
+                        <span class="absolute top-2 right-2 bg-white/80 text-xs px-2 py-1 rounded shadow">
+                          ${pet?.refSpecies === 1 ? "강아지" : pet?.refSpecies === 2 ? "고양이" : "기타"}
+                        </span>
+                      </div>
+                      <div class="p-3 flex flex-col gap-1">
+                        <div class="flex justify-between items-center">
+                          <span class="text-gray-500 text-sm">날짜</span>
+                          <span class="text-gray-700 text-sm font-medium">${contentDate || "미상"}</span>
+                        </div>
+                      </div>
+                      <div class="px-3 pb-3 flex justify-end">
+                        <button 
+                          class="bg-(--secondary) hover:bg-(--primary) text-white text-xs px-3 py-1 rounded cursor-pointer"
+                          onclick="location.href='${type === "missing" ? "/missing/" + pet?.id : "/reports/" + pet?.id}'"
+                        >상세보기</button>
+                      </div>
+                    </div>
+                  `;
             positions.push(
               type === "missing"
                 ? {
@@ -78,28 +98,26 @@ const MapListView = ({ pets, type, isPetListLoading }) => {
               image: markerImage, // 마커 이미지
             });
 
-            var infowindow = new window.kakao.maps.InfoWindow({
-              content: positions[i].content,
-              removable: true,
-              disableAutoPan: true // 지도 자동 이동 방지
+            const contentDiv = document.createElement("div");
+            contentDiv.innerHTML = positions[i].content;
+
+            const overlay = new window.kakao.maps.CustomOverlay({
+              position: marker.getPosition(),
+              content: contentDiv,
+              yAnchor: 1.3,
             });
 
-            // 마커 호버 이벤트
-            window.kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(listMap, marker, infowindow));
-            window.kakao.maps.event.addListener(marker, 'click', makeClickListener(listMap, marker, infowindow));
-          }
+            contentDiv.querySelector('.overlay-close-button').addEventListener("click", function () {
+              overlay.setMap(null);
+            });
 
-          // 인포윈도우를 표시하는 클로저를 만드는 함수
-          function makeOverListener(map, marker, infowindow) {
-            return function () {
-              infowindow.open(map, marker);
-            };
-          }
+            window.kakao.maps.event.addListener(marker, 'mouseover', function () {
+              overlay.setMap(listMap);
+            });
+            window.kakao.maps.event.addListener(marker, 'click', function () {
+              overlay.setMap(listMap);
+            });
 
-          function makeClickListener(map, marker, infowindow) {
-            return function () {
-              infowindow.open(map, marker);
-            };
           }
 
         }
