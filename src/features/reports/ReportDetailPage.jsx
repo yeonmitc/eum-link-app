@@ -160,7 +160,7 @@ const ReportDetailPage = () => {
               borderRadius: '20px',
             }}
           >
-            <PostComment comments={comments || [] />
+            <PostComment comments={comments || [] } />
           </Grid>
         </Box>
       </Grid>
