@@ -42,7 +42,13 @@ const PetListMap = ({ type }) => {
       dateTo: params.get('dateTo') || '',
       address: params.get('address') || '',
     });
+
+    setListPage(1);
   }, [type]);
+
+  useEffect(() => {
+    setListPage(1);
+  }, [useCurrentLocation]);
 
   const {
     data: petListData,
@@ -235,7 +241,7 @@ const PetListMap = ({ type }) => {
             }
 
             {isMapView ? (
-              <MapListView pets={petList} type={type} />
+              <MapListView pets={petList} type={type} useCurrentLocation={useCurrentLocation} lat={lat} lon={lon} />
             ) : (
               <ListView isPetListLoading={isPetListLoading} pets={petList} type={type} />
             )}
