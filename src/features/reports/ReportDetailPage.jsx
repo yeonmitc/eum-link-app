@@ -10,21 +10,22 @@ import PostMap from '@/common/components/PostMap';
 import { useComments } from '@/hooks/useComment';
 import { usePetSpecies } from '@/hooks/usePetSpecies';
 import { useReportsPets } from '@/hooks/useReportsPets';
+import NotFoundPage from '../common/NotFoundPage';
 
 const ReportDetailPage = () => {
   const { id } = useParams();
     // console.log("pm id :",id);
 
-  
-  const { data : pet, isLoading } = useReportsPets(id);
     const { data: species } = usePetSpecies();
-    const { data: comments } = useComments('report', id); 
+    const { data: comments } = useComments('reports', id); 
+    const { data : pet, isLoading } = useReportsPets(id);
   
     if (isLoading) {
       return <div>Loading...</div>; 
     }
-    if (!pet || pet.length === 0) {    return <div>Not Found</div>;  }
+    if (!pet || pet.length === 0) {    return <NotFoundPage />  }
 
+    
     const matchedSpecies = species[( pet.refSpecies)-1] ;
     const repTitle = pet?.description.length > 15 ? `${pet?.description.slice(0,15)}...`: pet?.description;
   

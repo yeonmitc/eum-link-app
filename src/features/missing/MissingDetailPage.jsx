@@ -29,23 +29,14 @@ const MissingDetailPage = () => {
   const user = useUserStore((state) => state.user);
   // 목격 모달
   const [reportModal, setReportModal] = useState(false);
-
-  const { data: pet, isLoading } = useMissingPets(id);
-  const { data: species } = usePetSpecies();
-  const { data: comments } = useComments('missing', id);
-  // useEffect(() => { }, []);
-
-  const { toggleStatus, error: updateError } = useToggleMissingStatus();
-
-  // 게시글 메뉴
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
+  const { data: species } = usePetSpecies();
+  const { data: comments } = useComments('missing', id);
+  const { data: pet, isLoading } = useMissingPets(id);
+  const { toggleStatus, error: updateError } = useToggleMissingStatus();
+
   if (isLoading) return <Loading />;
   if (!pet || pet.length === 0) return <NotFoundPage />;
 
@@ -60,6 +51,12 @@ const MissingDetailPage = () => {
   // 제보하기 버튼
   const reportBtn = () => {
     setReportModal(true);
+  };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   // 게시글 삭제
