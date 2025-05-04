@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, memo} from 'react'
 import { Grid ,Box,InputBase, Avatar,Modal } from '@mui/material';
 import { Send,EllipsisVertical } from 'lucide-react';
 import CommentModal from './CommentModal';
@@ -16,15 +16,14 @@ const style = {
   p: 4,
 };
 
-const PostComment = ({ comments,postId,postType  }) => {
-  // console.log("comments",comments);
+const PostComment = memo(({ comments,postId,postType  }) => {
   const [newComment, setNewComment] = useState('');
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
 
 
   useEffect(() => {
-    // console.log('새 댓글 입력 값 변경됨:', newComment);
-  }, [newComment]);  
+
+  }, [newComment]);
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
@@ -39,31 +38,29 @@ const PostComment = ({ comments,postId,postType  }) => {
 
 
   const handleCommentSubmit = async () => {
-    if (!newComment.trim()) { // 입력 값이 비어있으면 아무것도 안 함
+    if (!newComment.trim()) {
       alert('댓글을 입력해주세요!');
       return;
     }
     const commentData = {
-      postId: postId, 
-      postType: postType, 
-      userId: 'test1', 
-      userName: '테스트', 
+      postId: postId,
+      postType: postType,
+      userId: 'test1',
+      userName: '테스트',
       content: newComment.trim(),
       timestamp: new Date().toISOString()
     };
-  
+
     try {
       const response = await fetch('https://my-json-server.typicode.com/yeonmitc/eum-db/comments', {
-        method: 'POST', // POST 요청
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // 본문이 JSON 형식임을 알림
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(commentData), // JS 객체를 JSON 문자열로 변환
+        body: JSON.stringify(commentData),
       });
-  
+
       if (response.ok) {
-        // const addedComment = await response.json();
-        // console.log('댓글이 성공적으로 추가되었습니다:', addedComment);
         setNewComment('');
       } else {
         console.error('댓글 추가 실패:', response.status, response.statusText);
@@ -82,19 +79,29 @@ const PostComment = ({ comments,postId,postType  }) => {
   return (
     <>
       <Grid size={12} onClick={handleOpen}
-       height={'5vh'} lineHeight={'5vh'} display={'flex'} justifyContent={'flex-start'} padding={'1vh 2vw'} color={'gray'} 
-       
-       >댓글 ({comments?.length === "0" ? comments?.length : "0"})</Grid>
+       height={'5vh'} lineHeight={'5vh'} display={'flex'} justifyContent={'flex-start'} padding={'1vh 2vw'} color={'gray'}
+
+       >댓글 ({Array.isArray(comments) ? comments.length : 0})</Grid>
          <Grid id='comments' size={12}height={'20vh'} display={{ xs: 'none', sm: 'block' }}>
-         {comments?.map((data) => (
-          <div id='comment' key={data.commentid} >
-            <Avatar variant="rounded">{data.userId}</Avatar>
-            <div className='c-name'>{data.userName}</div>
-            <div className='c-content'>{data.content}</div>
-            <div className='c-time'>{formatDate(data.timestamp)}</div>
-            <EllipsisVertical/>
-          </div>
-          ))}
+         {Array.isArray(comments) && comments.length > 0 ? (
+            comments
+              .filter(data => data != null)
+              .map((data) => (
+               <div id='comment' key={data.commentid} >
+                 <Avatar variant="rounded">{data.userId}</Avatar>
+                 <div className='c-name'>{data.userName}</div>
+                 <div className='c-content'>{data.content}</div>
+                 <div className='c-time'>{data.timestamp ? formatDate(data.timestamp) : '날짜 정보 없음'}</div>
+                 <EllipsisVertical/>
+               </div>
+             ))
+         ) : (
+           Array.isArray(comments) && comments.length === 0 ? (
+             <div style={{ textAlign: 'center', marginTop: '10px' }}>댓글이 없습니다.</div>
+           ) : (
+             <div style={{ textAlign: 'center', marginTop: '10px' }}>댓글 정보를 불러오는 중이거나 문제가 있습니다.</div>
+           )
+         )}
 
          </Grid>
             <Grid size={12} height={'5vh'} display={'flex'} padding={'0 10px'}>
@@ -105,7 +112,7 @@ const PostComment = ({ comments,postId,postType  }) => {
                   inputProps={{ 'aria-label': '' }}
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
-              /> 
+              />
              ):(
               <InputBase
                   disabled
@@ -116,7 +123,7 @@ const PostComment = ({ comments,postId,postType  }) => {
                   onChange={(e) => setNewComment(e.target.value)}
               />
               )}
-              <Box 
+              <Box
               sx={{ width:'5vh',height:'5vh', background:'#FD9B71', borderRadius:'10px',
               display:'flex',justifyContent:'center',alignItems:'center'}}
               onClick={handleCommentSubmit}>
@@ -129,12 +136,13 @@ const PostComment = ({ comments,postId,postType  }) => {
                 aria-describedby="modal-modal-description"
               >
                 <Box sx={style}>
-                   <CommentModal comments={comments || []} postId={postId} postType={postType}/>
+                   <CommentModal comments={Array.isArray(comments) ? comments : []} postId={postId} postType={postType}/>
                 </Box>
               </Modal>
 
       </Grid>
     </>
   )
-}
-export default PostComment
+});
+
+export default PostComment;

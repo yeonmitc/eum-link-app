@@ -3,6 +3,10 @@ import ReportModal from '@/common/components/ReportModal';
 import useUserStore from '@/store/userStore';
 import { useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import mapImage from '../../../assets/images/map.png';
+import markImage from '../../../assets/images/mark.png';
+import missingImage from '../../../assets/images/missing.png';
 import MainCard from './MainCard';
 
 const MainCardSlider = () => {
@@ -13,31 +17,46 @@ const MainCardSlider = () => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showMissingModal, setShowMissingModal] = useState(false);
   const { user } = useUserStore();
+  const navigate = useNavigate();
 
+  // 카드별 핸들러 정의 (중복 실행 방지)
+  const handleListClick = (e) => {
+    e?.preventDefault?.();
+    navigate('/missing');
+  };
+  const handleReportClick = (e) => {
+    e?.preventDefault?.();
+    setShowReportModal(true);
+  };
+  const handleMissingClick = (e) => {
+    e?.preventDefault?.();
+    if (user) {
+      setShowMissingModal(true);
+    } else {
+      toast.error('로그인 후 이용해주세요');
+    }
+  };
   const cards = [
     {
       title: '실종/제보 리스트 보기',
       subtitle: '"내 주변 실종/제보 현황이 궁금하신가요?"',
       description: '현재 위치 기반으로 실종/제보 정보를 확인하세요.',
-      onClick: undefined,
+      handler: handleListClick,
+      image: mapImage,
     },
     {
       title: '목격 제보하기',
       subtitle: '"실종 동물을 발견하셨나요?"',
       description: '당신이 본 그 순간을 알려주세요. 잃어버린 마음을 되찾아 줄 수 있습니다.',
-      onClick: () => setShowReportModal(true),
+      handler: handleReportClick,
+      image: markImage,
     },
     {
       title: '실종 신고하기',
       subtitle: '"반려동물을 잃어버리셨나요?"',
       description: '지금 바로 실종 신고를 등록하고, 다양한 사람들에게 알려주세요.',
-      onClick: () => {
-        if (user) {
-          setShowMissingModal(true);
-        } else {
-          toast.error('로그인 후 이용해주세요');
-        }
-      },
+      handler: handleMissingClick,
+      image: missingImage,
     },
   ];
 
@@ -107,8 +126,14 @@ const MainCardSlider = () => {
             ref={sliderRef}
           >
             {cards.map((card, index) => (
-              <div key={index} className="h-full w-full flex-shrink-0" style={{ minWidth: '100%' }}>
-                <MainCard {...card} isActive={index === activeIndex} onClick={card.onClick} />
+              <div
+                key={index}
+                className="h-full w-full flex-shrink-0"
+                style={{ minWidth: '100%' }}
+                onClick={card.handler}
+                onTouchEnd={card.handler}
+              >
+                <MainCard {...card} isActive={index === activeIndex} image={card.image} />
               </div>
             ))}
           </div>
@@ -123,9 +148,10 @@ const MainCardSlider = () => {
               style={{
                 width: `${currentRatios[index] * (100 / 11)}%`,
               }}
-              onClick={card.onClick}
+              onClick={card.handler}
+              onTouchEnd={card.handler}
             >
-              <MainCard {...card} isActive={currentRatios[index] === 5} onClick={card.onClick} />
+              <MainCard {...card} isActive={currentRatios[index] === 5} image={card.image} />
             </div>
           ))}
         </div>
