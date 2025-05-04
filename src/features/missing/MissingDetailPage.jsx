@@ -193,7 +193,7 @@ const MissingDetailPage = () => {
                 <h3 style={{ marginLeft: 'auto' }}>{pet?.lostDate}</h3>
               </Grid>
               <Grid container size={12}>
-                <h3>종</h3> {matchedSubSpecies?.name}
+                <h3>품종</h3> {matchedSubSpecies?.name}
               </Grid>
               <Grid container size={12}>
                 <h3>성별</h3>{' '}

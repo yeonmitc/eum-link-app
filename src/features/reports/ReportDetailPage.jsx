@@ -72,7 +72,7 @@ const ReportDetailPage = () => {
                   <h3 style={{ marginLeft: 'auto'}}>{pet?.lostDate}</h3>
                   </Grid>
                 <Grid container size={12} >
-                  <h3>종</h3>   {matchedSpecies?.name}</Grid>
+                  <h3>품종</h3>   {matchedSpecies?.name}</Grid>
                 <Grid container size={12}>
                   <h3>특징</h3> {pet?.description}</Grid>
               </Grid>
