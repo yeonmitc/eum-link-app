@@ -29,23 +29,14 @@ const MissingDetailPage = () => {
   const user = useUserStore((state) => state.user);
   // 목격 모달
   const [reportModal, setReportModal] = useState(false);
-
-  const { data: pet, isLoading } = useMissingPets(id);
-  const { data: species } = usePetSpecies();
-  const { data: comments } = useComments('missing', id);
-  // useEffect(() => { }, []);
-
-  const { toggleStatus, error: updateError } = useToggleMissingStatus();
-
-  // 게시글 메뉴
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
+  const { data: species } = usePetSpecies();
+  const { data: comments } = useComments('missing', id);
+  const { data: pet, isLoading } = useMissingPets(id);
+  const { toggleStatus, error: updateError } = useToggleMissingStatus();
+
   if (isLoading) return <Loading />;
   if (!pet || pet.length === 0) return <NotFoundPage />;
 
@@ -60,6 +51,12 @@ const MissingDetailPage = () => {
   // 제보하기 버튼
   const reportBtn = () => {
     setReportModal(true);
+  };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   // 게시글 삭제
@@ -77,6 +74,7 @@ const MissingDetailPage = () => {
       }
       console.log(`댓글 ID ${id} 삭제 성공!`);
       alert('데이터가 성공적으로 삭제되었습니다.');
+      window.location.reload();
     } catch (error) {
       console.error('삭제 중 에러 발생:', error);
       alert('삭제 중 문제가 발생 !! 😭');
@@ -89,6 +87,7 @@ const MissingDetailPage = () => {
     if (result) {
       console.log('상태 변경 성공 및 서버 데이터 수신:', result);
       alert('상태가 성공적으로 변경되었습니다! ✨');
+      window.location.reload();
     } else if (updateError) {
       console.error('상태 변경 중 에러 발생:', updateError);
       alert(`상태 변경 실패: ${updateError}`);

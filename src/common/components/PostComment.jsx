@@ -62,6 +62,8 @@ const PostComment = memo(({ comments,postId,postType  }) => {
 
       if (response.ok) {
         setNewComment('');
+        alert('댓글 추가에 성공!');
+        window.location.reload();
       } else {
         console.error('댓글 추가 실패:', response.status, response.statusText);
         alert('댓글 추가에 실패했습니다.');
