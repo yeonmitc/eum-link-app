@@ -10,6 +10,7 @@ export const useMyMissingPetStore = create((set) => ({
     set({ missingPets: res.data });
   },
 
+  // 실종 상태 업데이트
   updateMissingStatus: async (petId, newStatus) => {
     // 상태 먼저 업데이트
     set((state) => ({
@@ -17,13 +18,10 @@ export const useMyMissingPetStore = create((set) => ({
         pet.id === petId ? { ...pet, isMissing: newStatus } : pet
       ),
     }));
+
     // 서버 반영
-    await fetch(`${import.meta.env.VITE_API_URL}/missingPets/${petId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ isMissing: newStatus }),
+    await api.patch(`/missingPets/${petId}`, {
+      isMissing: newStatus,
     });
   },
 
@@ -33,30 +31,21 @@ export const useMyMissingPetStore = create((set) => ({
       console.log('삭제하려는 missingId:', missingId);
 
       // 1. 실종글 삭제
-      await fetch(`${import.meta.env.VITE_API_URL}/missingPets/${missingId}`, {
-        method: 'DELETE',
-      });
+      await api.delete(`/missingPets/${missingId}`);
 
       // 2. 전체 제보 목록 가져오기
-      const reportRes = await fetch(`${import.meta.env.VITE_API_URL}/reportsPets`);
-      const reports = await reportRes.json();
+      const reportRes = await api.get('/reportsPets');
+      const reports = reportRes.data;
 
       // 3. 관련 제보만 추출 (문자열 비교로 안전하게)
       const relatedReports = reports.filter((r) => String(r.missingId) === String(missingId));
 
       // 4. 관련 제보 삭제 (병렬 처리)
-      await Promise.all(
-        relatedReports.map((r) =>
-          fetch(`${import.meta.env.VITE_API_URL}/reportsPets/${r.id}`, {
-            method: 'DELETE',
-          })
-        )
-      );
+      await Promise.all(relatedReports.map((r) => api.delete(`/reportsPets/${r.id}`)));
 
       // 5. 실종글 상태 최신화
-      const newRes = await fetch(`${import.meta.env.VITE_API_URL}/missingPets`);
-      const newData = await newRes.json();
-      set({ missingPets: newData });
+      const newRes = await api.get('/missingPets');
+      set({ missingPets: newRes.data });
 
       console.log(`실종글(${missingId}) 및 관련 제보 ${relatedReports.length}건 삭제 완료`);
     } catch (err) {
