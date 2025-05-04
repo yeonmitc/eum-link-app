@@ -1,13 +1,12 @@
-import { useSpecies } from '@/hooks/useSpecies';
-import React, { useState, useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
 import { useAddMissing } from '@/hooks/useAddMissing';
-import { Plus } from 'lucide-react';
-import { useUploadImg } from '@/hooks/useUploadImg';
-import SimplyModal from './SimplyModal';
-import MapView from './MapView';
-import useUserStore from '@/store/userStore';
+import { useSpecies } from '@/hooks/useSpecies';
 import { useUpdateMissing } from '@/hooks/useUpdateMissing';
+import { useUploadImg } from '@/hooks/useUploadImg';
+import useUserStore from '@/store/userStore';
+import { Plus, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import MapView from './MapView';
+import SimplyModal from './SimplyModal';
 
 const MissingModal = ({ showModal, setShowModal, initialValues }) => {
   const [refKind, setRefKind] = useState('');
@@ -205,7 +204,7 @@ const MissingModal = ({ showModal, setShowModal, initialValues }) => {
         } else {
           await addMissingPet({ data: sendData });
         }
-
+        setShowModal(false);
         // 성공 후 폼 초기화 및 버튼 복구
         btn.textContent = '등록하기';
         btn.disabled = false;
