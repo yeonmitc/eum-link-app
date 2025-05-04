@@ -55,7 +55,6 @@ const PetListMap = ({ type }) => {
   const total = petListData?.total || 0;
   const totalPages = Math.ceil(total / listLimit);
 
-  console.log(petList);
   const toggleViewMap = () => {
     const newParams = { ...Object.fromEntries(searchParams) };
     newParams.map = isMapView ? 'false' : 'true';
