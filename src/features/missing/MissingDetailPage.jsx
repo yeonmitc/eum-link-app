@@ -96,7 +96,7 @@ const MissingDetailPage = () => {
   };
 
   return (
-    <Grid container spacing={0} sx={{ padding: '0 4%', fontFamily: 'Gmarket_light' }}>
+    <Grid container spacing={0} sx={{ padding: '0 4%', fontFamily: 'Gmarket_light',marginTop:'1vh' }}>
       <Grid
         size={12}
         sx={{
