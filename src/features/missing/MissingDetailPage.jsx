@@ -247,7 +247,7 @@ const MissingDetailPage = () => {
               borderRadius: '20px',
             }}
           >
-            <PostComment comments={comments || {}} postId={id} postType={'missing'} />
+            <PostComment comments={comments || []} postId={id} postType={'missing'} />
           </Grid>
         </Box>
       </Grid>
