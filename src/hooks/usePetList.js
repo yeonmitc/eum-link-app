@@ -1,11 +1,9 @@
-import currentLocation from '@/store/currentLocation';
 import api from '@/utils/api';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 
-export const usePetListQuery = ({ type }) => {
+export const usePetListQuery = ({ type, useCurrentLocation, lat, lon }) => {
   const [searchParams] = useSearchParams();
-  const { lat, lon } = currentLocation();
 
   const fetchPetList = ({ type }) => {
     let url = type === 'missing' ? `/missingPets` : '/reportsPets';
@@ -26,14 +24,14 @@ export const usePetListQuery = ({ type }) => {
     }
 
     const locationField = type === 'missing' ? 'lostLocation' : 'sightedLocation';
-    if (searchParams.has('address')) {
+    if (searchParams.has('address') && !useCurrentLocation) {
       const addressValue = searchParams.get('address');
       queryParams.set(`q`, addressValue); // 도로명, 지번 둘 다 검색
 
       // queryParams.set(`${locationField}.road_address_like`, addressValue);
       // queryParams.set(`${locationField}.number_address_like`, addressValue);
-    } else if (lat && lon) {
-      console.log('위치 기반');
+    } else if (useCurrentLocation && lat && lon) {
+      console.log('현재 위치 기반 필터링');
       const radius = 20;
       const boundingBox = calculateBoundingBox(lat, lon, radius);
       // 최소/최대 위도, 경도로 필터링
@@ -54,7 +52,7 @@ export const usePetListQuery = ({ type }) => {
   };
 
   return useQuery({
-    queryKey: ['petList', type, Object.fromEntries(searchParams)],
+    queryKey: ['petList', type, Object.fromEntries(searchParams), useCurrentLocation],
     queryFn: () => fetchPetList({ type }),
     select: (result) => result.data,
     staleTime: 3000,

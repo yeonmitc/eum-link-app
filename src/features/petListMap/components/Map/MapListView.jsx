@@ -38,7 +38,7 @@ const MapListView = ({ pets, type, isPetListLoading }) => {
             var content = `
               <div class="w-40 bg-white rounded-lg shadow-lg overflow-hidden">
                 <img class="rounded-t-lg cursor-pointer" src="${pet?.imageUrl || basicImage}"
-                  onclick=(location.href='/${type === "missing" ? "missing/" + pet?.id : "/reports/" + pet?.id}')
+                  onclick=(location.href='${type === "missing" ? "/missing/" + pet?.id : "/reports/" + pet?.id}')
                 />
                 <div class="p-2 flex justify-between items-center">
                   <p class="text-sm text-gray-500 mt-1">${pet?.refSpecies === 1 ? "강아지" : pet?.refSpecies === 2 ? "고양이" : "기타"}</p>

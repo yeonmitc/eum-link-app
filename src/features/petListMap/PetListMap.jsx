@@ -15,7 +15,7 @@ const PetListMap = ({ type }) => {
   const [useCurrentLocation, setUseCurrentLocation] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const isMapView = searchParams.get('map') === 'true'; // 기본값은 false
-  const { lat: testLat, lon: testLon, setLocation } = currentLocation();
+  const { lat, lon, setLocation } = currentLocation();
 
   const [filters, setFilters] = useState({
     refSpecies: searchParams.get('refSpecies') || '',
@@ -25,7 +25,9 @@ const PetListMap = ({ type }) => {
   });
 
   useEffect(() => {
-    if (!testLat || !testLon) {
+    if (lat && lon) {
+      setUseCurrentLocation(true);
+    } else {
       getCurrentLocation();
     }
   }, [])
@@ -45,7 +47,7 @@ const PetListMap = ({ type }) => {
     isLoading: isPetListLoading,
     isError: isPetListError,
     error: petError,
-  } = usePetListQuery({ type });
+  } = usePetListQuery({ type, useCurrentLocation, lat, lon });
 
   const toggleViewMap = () => {
     const newParams = { ...Object.fromEntries(searchParams) };
@@ -64,7 +66,6 @@ const PetListMap = ({ type }) => {
 
   // 위치 관련
   function getCurrentLocation() {
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const la = position.coords.latitude;
@@ -72,11 +73,24 @@ const PetListMap = ({ type }) => {
 
         const data = { lat: la, lon: lo };
         setLocation(data);
+        setUseCurrentLocation(true);
       },
       () => {
         alert('위치 정보를 가져올 수 없습니다.');
+        setUseCurrentLocation(false);
       }
     );
+  }
+
+  const toggleUseCurrentLocation = () => {
+    if (useCurrentLocation) setUseCurrentLocation(false);
+    else {
+      if (lat && lon) {
+        setUseCurrentLocation(true);
+      } else {
+        getCurrentLocation()
+      }
+    }
   }
 
   const handleSearch = () => {
@@ -162,8 +176,8 @@ const PetListMap = ({ type }) => {
             </button>
             <button
               className="flex h-[50px] w-[150px] cursor-pointer items-center justify-center gap-x-2 rounded-sm bg-(--bg) p-2 text-black shadow-lg active:scale-97"
-              onClick={toggleViewMap}
-            >현재 위치 끄기</button>
+              onClick={toggleUseCurrentLocation}
+            >{`현재위치 ${useCurrentLocation ? "끄기" : "켜기"}`}</button>
           </div>
           {/* {isHovered && (
             <button
@@ -188,13 +202,21 @@ const PetListMap = ({ type }) => {
               (
                 <div className="flex flex-col items-center px-4 py-2 mb-2">
                   <h3 className="text-xl font-medium mb-2">데이터가 없습니다</h3>
-                  <p className="text-gray-500">해당 조건에 맞는 {type === "missing" ? "실종" : "목격"} 데이터를 찾을 수 없습니다.</p>
+                  {useCurrentLocation
+                    ? (<p className="text-gray-500">현재 위치 20km 이내의 {type === "missing" ? "실종" : "목격"} 데이터를 찾을 수 없습니다.</p>)
+                    : (<p className="text-gray-500">해당 조건에 맞는 {type === "missing" ? "실종" : "목격"} 데이터를 찾을 수 없습니다.</p>)
+                  }
                 </div>
               )
               : (
                 <div className="px-4 py-2 mb-2">
+                  {
+                    useCurrentLocation ? (<p className="text-md font-medium mb-2">현재 위치 20km 주변에</p>)
+                      : ""
+                  }
                   <p className="text-gray-700">
                     총 <span className="font-medium">{petList?.length || 0}</span>개의 {type === "missing" ? "실종" : "목격"} 정보가 있습니다.
+                    &nbsp;최신 날짜 순서로 정렬됩니다.
                   </p>
                 </div>
               )
