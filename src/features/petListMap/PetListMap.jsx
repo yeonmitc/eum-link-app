@@ -127,7 +127,10 @@ const PetListMap = ({ type }) => {
       dateTo: "",
       address: "",
     });
-
+    setListPage(1);
+    setSearchParams({
+      map: isMapView ? 'true' : 'false'
+    });
   }
 
   const toggleMobileFilter = () => setIsMobileFilterOpen(!isMobileFilterOpen);
