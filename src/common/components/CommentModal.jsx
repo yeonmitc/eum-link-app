@@ -38,7 +38,7 @@ const CommentModal = memo(({ comments,postId,postType  }) => {
     };
 
     try {
-      const response = await fetch('https://my-json-server.typicode.com/yeonmitc/eum-db/comments', {
+      const response = await fetch('https://eum-db.onrender.com/comments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -65,7 +65,7 @@ const MissingDetailPage = () => {
   // 게시글 삭제
   async function deletepost() {
     handleClose();
-    const url = `https://my-json-server.typicode.com/yeonmitc/eum-db/missingPets/${pet?.id}`;
+    const url = `https://eum-db.onrender.com/missingPets/${pet?.id}`;
     try {
       const response = await fetch(url, {
         method: 'DELETE',
