@@ -49,8 +49,8 @@ const PetCardSlider = () => {
   const userMap = new Map((users || []).map((user) => [user.id, user]));
 
   // 실종 상태인 펫들만 필터링하고 최근 실종일 순으로 정렬
-  const sortedPets = Array.isArray(pets)
-    ? pets
+  const sortedPets = Array.isArray(pets?.data)
+    ? pets.data
         .filter((pet) => pet.isMissing)
         .sort((a, b) => {
           const dateA = new Date(`${a.lostDate}T${a.lostTime}`);
@@ -61,8 +61,8 @@ const PetCardSlider = () => {
     : [];
 
   // 실종 상태인 목격 신고만 필터링하고 최근 목격일 순으로 정렬
-  const sortedReports = Array.isArray(reports)
-    ? reports
+  const sortedReports = Array.isArray(reports?.data)
+    ? reports.data
         .filter((report) => report.isMissing)
         .sort((a, b) => {
           const dateA = new Date(`${a.sightedDate || ''}T${a.sightedTime || '00:00'}`);
@@ -136,7 +136,7 @@ const PetCardSlider = () => {
               className={`text-xl font-bold transition-all duration-300 md:text-lg ${
                 activeTab === 'missing' ? 'scale-105 text-[var(--primary)]' : 'text-gray-400'
               }`}
-              style={{ fontFamily: 'var(--font-kbo-medium)' }}
+              style={{ fontFamily: 'var(--font-kbo-medium)', cursor: 'pointer' }}
             >
               최근 실종
             </button>
@@ -145,7 +145,7 @@ const PetCardSlider = () => {
               className={`text-xl font-bold transition-all duration-300 md:text-lg ${
                 activeTab === 'report' ? 'scale-105 text-[var(--primary)]' : 'text-gray-400'
               }`}
-              style={{ fontFamily: 'var(--font-kbo-medium)' }}
+              style={{ fontFamily: 'var(--font-kbo-medium)', cursor: 'pointer' }}
             >
               최근 목격
             </button>
@@ -167,7 +167,7 @@ const PetCardSlider = () => {
             className={`text-xl font-bold transition-all duration-300 md:text-lg ${
               activeTab === 'missing' ? 'scale-105 text-[var(--primary)]' : 'text-gray-400'
             }`}
-            style={{ fontFamily: 'var(--font-kbo-medium)' }}
+            style={{ fontFamily: 'var(--font-kbo-medium)', cursor: 'pointer' }}
           >
             최근 실종
           </button>
@@ -176,7 +176,7 @@ const PetCardSlider = () => {
             className={`text-xl font-bold transition-all duration-300 md:text-lg ${
               activeTab === 'report' ? 'scale-105 text-[var(--primary)]' : 'text-gray-400'
             }`}
-            style={{ fontFamily: 'var(--font-kbo-medium)' }}
+            style={{ fontFamily: 'var(--font-kbo-medium)', cursor: 'pointer' }}
           >
             최근 목격
           </button>
@@ -281,7 +281,7 @@ const PetCardSlider = () => {
               </div>
 
               {/* ✅ 데스크탑: 600px 이상에서만 보임 */}
-              <div className="hidden h-[85%] grid-cols-6 gap-4 px-6 md:mx-auto md:max-w-[1200px] [@media(min-width:600px)]:grid">
+              <div className="hidden h-[85%] grid-cols-6 items-center gap-4 px-6 md:mx-auto md:max-w-[1200px] [@media(min-width:600px)]:grid">
                 {currentData.map((item) => {
                   const user = userMap.get(item.userId);
                   return (

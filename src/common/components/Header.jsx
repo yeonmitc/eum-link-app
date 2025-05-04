@@ -1,7 +1,8 @@
 // src/common/components/Header.jsx
+import { User, UserCheck } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { FiMenu, FiSearch, FiUser, FiX } from 'react-icons/fi';
+import { FiMenu, FiSearch, FiX } from 'react-icons/fi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import eumLogo from '../../assets/images/eum-logo.webp';
 import useAuth from '../../hooks/useAuth';
@@ -158,25 +159,6 @@ export default function Header() {
                   setType={setSearchType}
                   onSearch={handleSearch}
                 />
-                <button
-                  className="rounded-full p-2 hover:bg-[var(--secondary)]/10"
-                  onClick={handleSearch}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="h-5 w-5 text-[var(--fg)]"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
-                    />
-                  </svg>
-                </button>
               </div>
 
               {/* 모바일/태블릿용 (1023px 이하) 검색 아이콘 */}
@@ -201,7 +183,11 @@ export default function Header() {
                     }
                   }}
                 >
-                  <FiUser className="h-5 w-5 text-[var(--fg)]" />
+                  {isLoggedIn ? (
+                    <UserCheck className="h-5 w-5" color="#222" />
+                  ) : (
+                    <User className="h-5 w-5" color="#222" />
+                  )}
                 </button>
 
                 {/* 로그인 드롭다운 폼 */}
@@ -258,17 +244,6 @@ export default function Header() {
                           }}
                         >
                           아직 회원이 아니신가요?
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            login();
-                            setIsLoginOpen(false);
-                            navigate('/mypage');
-                          }}
-                          className="ml-2 text-sm text-[var(--fg)] transition-colors hover:text-[var(--primary)]"
-                        >
-                          테스트로그인
                         </button>
                       </div>
                     </form>
