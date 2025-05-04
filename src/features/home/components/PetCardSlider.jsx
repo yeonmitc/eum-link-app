@@ -1,4 +1,4 @@
-import { useMyPetListQuery } from '@/hooks/useMyPetlist';
+import { usePetListQuery } from '@/hooks/usePetList';
 import useUsers from '@/hooks/useUsers';
 import { useState } from 'react';
 import PetCard from './PetCard';
@@ -37,8 +37,8 @@ const sliderStyles = {
 
 const PetCardSlider = () => {
   const [activeTab, setActiveTab] = useState('missing'); // 'missing' 또는 'report'
-  const { data: pets, isLoading: isPetsLoading } = useMyPetListQuery({ type: 'missing' });
-  const { data: reports, isLoading: isReportsLoading } = useMyPetListQuery({ type: 'report' });
+  const { data: pets, isLoading: isPetsLoading } = usePetListQuery({ type: 'missing' });
+  const { data: reports, isLoading: isReportsLoading } = usePetListQuery({ type: 'report' });
   const { data: users, isLoading: isUsersLoading } = useUsers();
 
   console.log('pets', pets);
