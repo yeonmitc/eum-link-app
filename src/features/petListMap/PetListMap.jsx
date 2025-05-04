@@ -3,7 +3,6 @@ import { LayoutList, Map } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ListView from './components/List/ListView';
-import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import MapListView from './components/Map/MapListView';
 import DesktopFilter from './components/TabAndFilter/DesktopFilter';
 import MobileFilter from './components/TabAndFilter/MobileFilter';
@@ -12,7 +11,6 @@ const PetListMap = ({ type }) => {
   // url : /missing,report?map=true
   const [searchParams, setSearchParams] = useSearchParams();
   const [isHovered, setIsHovered] = useState(false);
-  // const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const isMapView = searchParams.get('map') === 'true'; // 기본값은 false
 
@@ -80,10 +78,8 @@ const PetListMap = ({ type }) => {
   }
 
   const toggleMobileFilter = () => setIsMobileFilterOpen(!isMobileFilterOpen);
-  // const openFilterModal = () => setIsFilterModalOpen(true);
-  // const closeFilterModal = () => setIsFilterModalOpen(false);
 
-  if (isPetListLoading) return <LoadingSpinner />;
+  // if (isPetListLoading) return <LoadingSpinner />;
   if (isPetListError) return <div className="min-h-[300px] flex justify-center items-center">Error: {petError.message}</div>;
 
   return (
@@ -142,21 +138,10 @@ const PetListMap = ({ type }) => {
           {isMapView ? (
             <MapListView pets={petList} type={type} />
           ) : (
-            <ListView pets={petList} type={type} />
+            <ListView isPetListLoading={isPetListLoading} pets={petList} type={type} />
           )}
         </div>
       </div>
-
-      {/* 모바일 필터 모달 */}
-      {/* {isFilterModalOpen && (
-        <MobileFilterModal
-          type={type}
-          filters={filters}
-          handleFilterChange={handleFilterChange}
-          handleSearch={handleSearch}
-          closeFilterModal={closeFilterModal}
-        />
-      )} */}
     </div>
   );
 };

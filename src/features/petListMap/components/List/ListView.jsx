@@ -1,11 +1,14 @@
 import { useSpeciesListQuery } from '@/hooks/useSpeciesList';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import MissingCard from './Card/MissingCard';
 import ReportCard from './Card/ReportCard';
 
-const ListView = ({ pets, type }) => {
+const ListView = ({ pets, type, isPetListLoading }) => {
 
   const { data: speciesList = [] } = useSpeciesListQuery();
+
+  if (isPetListLoading) return <LoadingSpinner />
 
   if (pets.length === 0) {
     return (
