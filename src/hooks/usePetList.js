@@ -24,12 +24,11 @@ export const usePetListQuery = ({ type, useCurrentLocation, lat, lon, listPage =
     }
 
     const locationField = type === 'missing' ? 'lostLocation' : 'sightedLocation';
-    if (searchParams.has('address') && !useCurrentLocation) {
+    if (searchParams.has('address')) {
       const addressValue = searchParams.get('address');
-      queryParams.set(`q`, addressValue); // 도로명, 지번 둘 다 검색
 
       // queryParams.set(`${locationField}.road_address_like`, addressValue);
-      // queryParams.set(`${locationField}.number_address_like`, addressValue);
+      queryParams.set(`${locationField}.number_address_like`, addressValue);
     } else if (useCurrentLocation && lat && lon) {
       console.log('현재 위치 기반 필터링');
       const radius = 20;
