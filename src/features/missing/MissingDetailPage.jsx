@@ -32,14 +32,20 @@ const MissingDetailPage = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const { data: species } = usePetSpecies();
-  const { data: comments } = useComments('missing', id);
+  const { data: species, isLoading:sLoad } = usePetSpecies();
+  const { data: comments, isLoading: cLoad } = useComments('missing', id);
   const { data: pet, isLoading } = useMissingPets(id);
   const { toggleStatus, error: updateError } = useToggleMissingStatus();
 
-  if (isLoading) return <Loading />;
-  if (!pet || pet.length === 0) return <NotFoundPage />;
-
+  if (isLoading || cLoad || sLoad) return <Loading />;
+  if (!pet || pet.length === 0){
+    if( !comments || 
+      (Array.isArray(comments) && comments.length === 0) ||
+      !species ||
+      (Array.isArray(species) && species.length === 0)){
+    return <NotFoundPage />;
+    }
+}
   const matchedSubSpecies = species[pet.subSpecies - 1];
 
   const missingBtn = () => {

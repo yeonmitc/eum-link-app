@@ -1,3 +1,4 @@
+import React,{useEffect} from 'react';
 import './ReportDetailPage.css';
 
 import { Box, Card, Grid } from '@mui/material';
@@ -15,21 +16,25 @@ import NotFoundPage from '../common/NotFoundPage';
 const ReportDetailPage = () => {
   const { id } = useParams();
   // console.log("pm id :",id);
-
-  const { data: species } = usePetSpecies();
-  const { data: comments } = useComments('reports', id);
+  
+  const { data: species , isLoading:sLoad } = usePetSpecies();
+  const { data: comments, isLoading: cLoad } = useComments('reports', id);
   const { data: pet, isLoading } = useReportsPets(id);
 
-  if (isLoading) {
+  if (isLoading || cLoad || sLoad) {
     return <Loading />;
   }
   if (!pet || (Array.isArray(pet) && pet.length === 0) || Object.keys(pet).length === 0) {
+    if( !comments || 
+      (Array.isArray(comments) && comments.length === 0) ||
+      !species ||
+      (Array.isArray(species) && species.length === 0)){
     return <NotFoundPage />;
+  }
   }
 
   const matchedSpecies = species[pet.refSpecies - 1];
-  const repTitle =
-    pet?.description.length > 15 ? `${pet?.description.slice(0, 15)}...` : pet?.description;
+  const repTitle = pet?.description.length > 15 ? `${pet?.description.slice(0, 15)}...` : pet?.description;
 
   // console.log("refSpecies",species);
 
